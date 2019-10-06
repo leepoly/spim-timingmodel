@@ -113,7 +113,7 @@ LEXCFLAGS += -O $(CXXFLAGS)
 
 
 OBJS = spim.o spim-utils.o run.o mem.o inst.o data.o sym-tbl.o parser_yacc.o lex.yy.o \
-       syscall.o display-utils.o string-stream.o
+       syscall.o display-utils.o string-stream.o statistics.o
 
 
 spim:   $(OBJS)
@@ -251,6 +251,7 @@ mem.o: $(CPU_DIR)/inst.h
 mem.o: $(CPU_DIR)/reg.h
 mem.o: $(CPU_DIR)/mem.h
 run.o: $(CPU_DIR)/spim.h
+run.o: $(CPU_DIR)/statistics.h
 run.o: $(CPU_DIR)/string-stream.h
 run.o: $(CPU_DIR)/spim-utils.h
 run.o: $(CPU_DIR)/inst.h
@@ -321,3 +322,4 @@ parser_yacc.o: $(CPU_DIR)/sym-tbl.h
 parser_yacc.o: $(CPU_DIR)/data.h
 parser_yacc.o: $(CPU_DIR)/scanner.h
 parser_yacc.o: $(CPU_DIR)/parser.h
+statistics.o: $(CPU_DIR)/inst.h

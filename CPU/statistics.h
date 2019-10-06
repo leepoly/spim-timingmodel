@@ -6,11 +6,14 @@
 */
 
 #include <iostream>
+#include <cstdlib>
 #include <queue>
 #include "inst.h"
+using namespace std;
+
 
 extern queue<instruction> inst_history_window;
-extern unsigned int estimated_time = 0;
+extern unsigned int estimated_time;
 
 extern void hw_enq(instruction inst); 
 extern int get_latency_singlecyclecore (instruction * );

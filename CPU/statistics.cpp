@@ -7,9 +7,9 @@
 
 #include "statistics.h"
 #include "parser_yacc.h"
-#include <queue>
 
 queue<instruction> inst_history_window;
+unsigned int estimated_time = 0;
 
 void hw_enq(instruction inst) {
     if (inst_history_window.size() == MAX_WINDOW) {
@@ -24,12 +24,13 @@ int get_latency_singlecyclecore(instruction * inst) {
     if (opcode_is_branch(inst->opcode)) return 3; // if inst is a conditional branch: FE -> DE -> EXE
     if (opcode_is_jump(inst->opcode)) return 2; // if inst is a conditional branch: FE -> DE
     if (inst->opcode == Y_NOP_POP) return 2; // if inst is a NOP: FE -> DE
+    return 5; // FE -> DE -> EXE -> MEM -> WB
 }
 
 int get_latency_pipelinecore_nobypass(instruction * inst) {
     //Latency of an inst on nobypass 5-stage core = BaseCycle(inst) + control_stall(tail) + raw_stall(inst, queue)
     // if inst is a LD/ST, basecycle is 100 (random would be better), otherwise 1
     // if tail inst is a conditional branch, this stall penalty would be 2, for a unconditional branch, stall would be 1, otherwise no stall
-
+  return -1;
 
 }

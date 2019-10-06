@@ -190,6 +190,7 @@ static int running_in_delay_slot = 0;
 bool
 run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 {
+  display = true;
   instruction *inst;
   static reg_word *delayed_load_addr1 = NULL, delayed_load_value1;
   static reg_word *delayed_load_addr2 = NULL, delayed_load_value2;

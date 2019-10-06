@@ -140,7 +140,7 @@ initialize_world (char* exception_file_names, bool print_message)
   initialize_scanner (stdin);
   delete_all_breakpoints ();
 
-  estimated_time = 0;
+  // estimated_time = 0;
 }
 
 

@@ -33,7 +33,9 @@
 
 /* Represenation of the expression that produce a value for an instruction's
    immediate field.  Immediates have the form: label +/- offset. */
-
+#pragma once
+#include "spim.h"
+#include "string-stream.h"
 typedef struct immexpr
 {
   int offset;			/* Offset from symbol */
