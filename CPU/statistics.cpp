@@ -96,10 +96,10 @@ void update_latency_pipelinestall(instruction * inst) {
 
 void print_stats() {
     cout << "statistics of instructions" << endl;
-    cout << "branch inst\t\t#" << num_inst_br << "\testimated cycle" << estimated_cycle_br << endl;
-    cout << "memory inst\t\t#" << num_inst_mem << "\testimated cycle" << estimated_cycle_mem << endl;
-    cout << "register inst\t\t#" << num_inst_reg << "\testimated cycle" << estimated_cycle_reg << endl;
-    cout << "total\t\t#" << num_inst_br+num_inst_mem+num_inst_reg << "\testimated cycle" << estimated_cycle_br+estimated_cycle_mem+estimated_cycle_reg << endl << endl;
+    cout << "branch inst\t\t#" << num_inst_br << "\testimated cycle\t" << estimated_cycle_br << endl;
+    cout << "memory inst\t\t#" << num_inst_mem << "\testimated cycle\t" << estimated_cycle_mem << endl;
+    cout << "register inst\t\t#" << num_inst_reg << "\testimated cycle\t" << estimated_cycle_reg << endl;
+    cout << "total\t\t\t#" << num_inst_br+num_inst_mem+num_inst_reg << "\testimated cycle\t" << estimated_cycle_br+estimated_cycle_mem+estimated_cycle_reg << endl << endl;
 }
 
 void reset_stats() {

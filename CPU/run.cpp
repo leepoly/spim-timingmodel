@@ -1637,7 +1637,7 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 	    }
 
 	  hw_enq(*inst);
-	  estimated_time += get_latency_singlecyclecore(inst);
+	  update_latency_multicyclecore(inst);
 
 	  /* After instruction executes: */
 	  PC += BYTES_PER_WORD;
