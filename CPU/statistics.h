@@ -13,10 +13,18 @@ using namespace std;
 
 
 extern queue<instruction> inst_history_window;
-extern unsigned int estimated_time;
+extern unsigned int estimated_cycle_br;
+extern unsigned int estimated_cycle_mem;
+extern unsigned int estimated_cycle_reg;
+extern unsigned int num_inst_br;
+extern unsigned int num_inst_mem;
+extern unsigned int num_inst_reg;
 
 extern void hw_enq(instruction inst); 
-extern int get_latency_singlecyclecore (instruction * );
+extern void update_latency_multicyclecore (instruction * );
+extern void update_latency_pipelinestall (instruction *);
+extern void reset_stats();
+extern void print_stats();
 
 const unsigned int MAX_WINDOW = 5; // enough for 5-stage core
 const unsigned int CYCLE_MEM_ACCESS = 100;

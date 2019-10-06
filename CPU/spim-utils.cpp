@@ -140,7 +140,7 @@ initialize_world (char* exception_file_names, bool print_message)
   initialize_scanner (stdin);
   delete_all_breakpoints ();
 
-  // estimated_time = 0;
+  reset_stats();
 }
 
 
@@ -362,7 +362,7 @@ run_program (mem_addr pc, int steps, bool display, bool cont_bkpt, bool* continu
   exception_occurred = 0;
   *continuable = run_spim (pc, steps, display);
 
-  std::cout << "estimated cycle:" << estimated_time << std::endl;
+  print_stats();
 
   if (exception_occurred && CP0_ExCode == ExcCode_Bp)
   {
