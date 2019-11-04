@@ -101,7 +101,7 @@ MEM_SIZES = -DTEXT_SIZE=65536 -DDATA_SIZE=131072 -DK_TEXT_SIZE=65536
 DEFINES = $(MEM_SIZES) -DDEFAULT_EXCEPTION_HANDLER="\"$(EXCEPTION_DIR)/exceptions.s\""
 
 CXX = g++
-CXXFLAGS += -I. -I$(CPU_DIR) $(DEFINES) -O -g -Wall -pedantic -Wextra -Wunused -Wno-write-strings -x c++
+CXXFLAGS += -I. -I$(CPU_DIR) $(DEFINES) -O0 -g -Wall -std=c++11 -pedantic -Wextra -Wunused -Wno-write-strings -x c++
 YCFLAGS +=
 LDFLAGS += -lm
 CSH = bash
@@ -261,6 +261,7 @@ run.o: $(CPU_DIR)/sym-tbl.h
 run.o: parser_yacc.h
 run.o: $(CPU_DIR)/syscall.h
 run.o: $(CPU_DIR)/run.h
+run.o: $(CPU_DIR)/timingmodel.h
 spim-utils.o: $(CPU_DIR)/spim.h
 spim-utils.o: $(CPU_DIR)/string-stream.h
 spim-utils.o: $(CPU_DIR)/spim-utils.h

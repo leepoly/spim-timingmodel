@@ -63,6 +63,7 @@
 #include "run.h"
 
 #include "statistics.h"
+#include "timingmodel.h"
 
 bool force_break = false;	/* For the execution env. to force an execution break */
 
@@ -197,6 +198,14 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
   int step, step_size, next_step;
 
   PC = initial_PC;
+
+  /* enable timing event queue */
+  TimingCore spimt_core;
+  spimt_core.sched->enq(new FetchingEvent(PC, spimt_core.fetcher));
+  while (!spimt_core.sched->isEmpty()) {
+	  spimt_core.sched->deq();
+  }
+
   if (!bare_machine && mapped_io)
     next_step = IO_INTERVAL;
   else
@@ -1640,6 +1649,7 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 	  update_latency_multicyclecore(inst);
 
 	  /* After instruction executes: */
+	  // if (!is_step), TODO: modify
 	  PC += BYTES_PER_WORD;
 
 	  if (exception_occurred)

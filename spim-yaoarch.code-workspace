@@ -6,7 +6,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"queue": "cpp"
+			"queue": "cpp",
+			"typeinfo": "cpp"
 		}
 	}
 }
