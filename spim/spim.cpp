@@ -119,6 +119,9 @@ bool mapped_io;			/* => activate memory-mapped IO */
 int pipe_out;
 int spim_return_value;		/* Value returned when spim exits */
 
+lab_state lab1 = unrelated;
+FILE * lab1_inputfile = nullptr;
+FILE * lab1_outputfile = nullptr;
 
 /* Local variables: */
 
@@ -134,8 +137,6 @@ static int program_argc;
 static char** program_argv;
 static bool dump_user_segments = false;
 static bool dump_all_segments = false;
-
-
 
 int
 main (int argc, char **argv)
@@ -284,6 +285,15 @@ main (int argc, char **argv)
         { dump_user_segments = true; }
       else if (streq (argv [i], "-full_dump"))
         { dump_all_segments = true; }
+      else if (streq (argv [i], "-lab1-dev"))
+        { lab1 = develop; }
+      else if (streq (argv [i], "-lab1-rel") && (i + 2 < argc))
+        { lab1 = release;
+          lab1_inputfile = fopen(argv[i + 1], "r");
+          lab1_outputfile = fopen(argv[i + 2], "w+");
+          printf("redirect to input:%s output:%s \n", argv[i + 1], argv[i + 2]);
+          i = i + 2;
+        }
       else
 	{
 	  error ("\nUnknown argument: %s (ignored)\n", argv[i]);
@@ -355,6 +365,10 @@ main (int argc, char **argv)
        }
     }
 
+  if (lab1 == release) {
+      fclose(lab1_inputfile);
+      fclose(lab1_outputfile);
+  }
   return (spim_return_value);
 }
 
@@ -1040,7 +1054,11 @@ write_output (port fp, char *fmt, ...)
   int restore_console_to_program = 0;
 
   va_start (args, fmt);
-  f = fp.f;
+  if (lab1 == release) {
+      f = lab1_outputfile;
+  } else {
+      f = fp.f;
+  }
 
   if (console_state_saved)
     {
@@ -1092,8 +1110,14 @@ read_input (char *str, int str_size, bool isNum)
   while (1 < str_size)		/* Reserve space for null */
     {
       char buf[1];
-      if (read ((int) console_in.i, buf, 1) <= 0) /* Not in raw mode! */
-        break;
+      if (lab1 == release) {
+          if (fread (buf, 1, 1, lab1_inputfile) <= 0) /* Not in raw mode! */
+            break;
+      }
+      else {
+          if (read ((int) console_in.i, buf, 1) <= 0) /* Not in raw mode! */
+            break;
+      }
 
       *ptr ++ = buf[0];
       str_size -= 1;
