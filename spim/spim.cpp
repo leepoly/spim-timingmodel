@@ -1076,7 +1076,7 @@ write_output (port fp, char *fmt, ...)
 /* Simulate the semantics of fgets (not gets) on Unix file. */
 
 void
-read_input (char *str, int str_size)
+read_input (char *str, int str_size, bool isNum)
 {
   char *ptr;
   int restore_console_to_program = 0;
@@ -1099,7 +1099,9 @@ read_input (char *str, int str_size)
       str_size -= 1;
 
       if (buf[0] == '\n')
-	break;
+	        break;
+      if (isNum && buf[0] == ' ') // when read a number, <space> also splits.
+          break;
     }
 
   if (0 < str_size)

@@ -150,8 +150,9 @@ public:
 
         event.comp->availableCycle = MAX(event.currentCycle, event.comp->availableCycle) + c_executor_latency;
         event.currentCycle = event.comp->availableCycle;
+        event.executeCycles = event.executeCycles + c_fetch_latency;
 
-        std::cout << "at cycle: " << event.currentCycle << " inst finished with executed for " << event.executeCycles << std::endl;
+        std::cout << "at cycle: " << event.currentCycle << " inst finished with executed for " << event.executeCycles << "cycles." << std::endl;
     }
 
 FetchingEvent::FetchingEvent(mem_addr _pc_addr, TimingComponent * _comp) {
