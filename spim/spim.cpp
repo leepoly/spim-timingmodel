@@ -273,11 +273,11 @@ main (int argc, char **argv)
 
 	  if (!assembly_file_loaded)
 	    {
-          initialize_world (load_exception_handler ? exception_file_name : NULL, true);
+          initialize_world (load_exception_handler ? exception_file_name : NULL, false);
           initialize_run_stack (program_argc, program_argv);
 	    }
 	  assembly_file_loaded = read_assembly_file (argv[++i]) || assembly_file_loaded;
-	  break;
+	//   break;
 	}
       else if (streq (argv [i], "-assemble"))
 	{ assemble = true; }
@@ -285,6 +285,8 @@ main (int argc, char **argv)
         { dump_user_segments = true; }
       else if (streq (argv [i], "-full_dump"))
         { dump_all_segments = true; }
+      else if (streq (argv [i], "-lab1-dbg"))
+        { lab1 = debug; }
       else if (streq (argv [i], "-lab1-dev"))
         { lab1 = develop; }
       else if (streq (argv [i], "-lab1-rel") && (i + 2 < argc))
@@ -324,7 +326,7 @@ main (int argc, char **argv)
 
   if (!assembly_file_loaded)
     {
-      initialize_world (load_exception_handler ? exception_file_name : NULL, true);
+      initialize_world (load_exception_handler ? exception_file_name : NULL, false);
       initialize_run_stack (program_argc, program_argv);
       top_level ();
     }
@@ -359,7 +361,7 @@ main (int argc, char **argv)
                  write_output (message_out, "\n");
                  free (undefs);
                }
-             run_program (find_symbol_address (DEFAULT_RUN_LOCATION), DEFAULT_RUN_STEPS, false, false, &continuable);
+            run_program (find_symbol_address (DEFAULT_RUN_LOCATION), DEFAULT_RUN_STEPS, false, false, &continuable);
            }
          console_to_spim ();
        }
@@ -598,7 +600,7 @@ parse_spim_command (bool redo)
 
     case REINITIALIZE_CMD:
       flush_to_newline ();
-      initialize_world (load_exception_handler ? exception_file_name : NULL, true);
+      initialize_world (load_exception_handler ? exception_file_name : NULL, false);
       initialize_run_stack (program_argc, program_argv);
       write_startup_message ();
       prev_cmd = NOP_CMD;
