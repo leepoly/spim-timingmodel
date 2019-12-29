@@ -53,7 +53,14 @@ void update_latency_pipelinestall(instruction * inst) {
     // if tail inst is a conditional branch, this stall penalty would be 2, for a unconditional branch, stall would be 1, otherwise no stall
     queue<instruction> tmp_queue(inst_history_window);
     int cnt = 5;
-    int basecycle = opcode_is_load_store(inst->opcode)? CYCLE_MEM_ACCESS : 1;
+    int basecycle = 1;
+    if (opcode_is_load_store(inst->opcode))
+        basecycle = CYCLE_MEM_ACCESS;
+    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP)
+        basecycle = CYCLE_MULTI;
+    else if (inst->opcode == Y_DIV_OP || inst->opcode == Y_DIVU_OP)
+        basecycle = CYCLE_DIV;
+
     int raw_stall = 0;
     int control_stall = 0;
     while (cnt > 0 && tmp_queue.size() > 0) {
@@ -81,15 +88,15 @@ void update_latency_pipelinestall(instruction * inst) {
         num_inst_mem ++;
     }
     else if (opcode_is_branch(inst->opcode)) {
-        estimated_cycle_br += inst_cycle; 
+        estimated_cycle_br += inst_cycle;
         num_inst_br ++;
     }
     else if (opcode_is_jump(inst->opcode)) {
-        estimated_cycle_br += inst_cycle; 
+        estimated_cycle_br += inst_cycle;
         num_inst_br ++;
     }
     else {
-        estimated_cycle_reg += inst_cycle; 
+        estimated_cycle_reg += inst_cycle;
         num_inst_reg ++;
     }
 }

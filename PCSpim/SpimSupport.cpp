@@ -164,6 +164,8 @@ void read_input(char *str, int str_size)
         // Read just one line.
         if (ch == '\n')
             break;
+        if (isNum && ch == ' ') // when read a number, <space> also splits.
+            break;
     }
 
     if (0 < str_size)

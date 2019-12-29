@@ -50,6 +50,7 @@
 
 typedef int int32;
 typedef unsigned int  uint32;
+typedef unsigned long uint64;
 typedef union {int i; void* p;} intptr_union;
 
 
@@ -87,6 +88,7 @@ typedef union {int i; void* p;} intptr_union;
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #define QSORT_FUNC int(*)(const void *, const void *)
 
 
@@ -97,7 +99,6 @@ typedef union {int i; void* p;} intptr_union;
 /* Type of a memory address.  Must be a 32-bit quantity to match MIPS.  */
 
 typedef uint32 /*@alt int @*/ mem_addr;
-
 
 #define BYTES_PER_WORD 4	/* On the MIPS processor */
 
@@ -231,7 +232,7 @@ void error (char *fmt, ...);
 void fatal_error (char *fmt, ...);
 char get_console_char ();
 void put_console_char (char c);
-void read_input (char *str, int n);
+void read_input (char *str, int n, bool isNum = false);
 void run_error (char *fmt, ...);
 void write_output (port, char *fmt, ...);
 
@@ -258,3 +259,17 @@ extern mem_addr initial_stack_limit;
 extern int initial_k_text_size;
 extern int initial_k_data_size;
 extern mem_addr initial_k_data_limit;
+
+enum lab_state {
+    debug, // In debug mode, each instruction will be dumped and paused (step mode). Operate spim as a CLI debugger!
+    develop, // In develop mode, SPIM dump each instruction and final instruction states to the screen. You can test small-size case.
+    release, // In release mode, SPIM redirect screen IO to file IO from additional argument. You can process real pixelfile and save it to a new file.
+    unrelated
+};
+extern lab_state lab1;
+// const unsigned int CHAR_BUF_SIZE = 128;
+// char lab1_inputfilename[CHAR_BUF_SIZE];
+// char lab1_outputfilename[CHAR_BUF_SIZE];
+extern FILE * lab1_inputfile;
+extern FILE * lab1_outputfile;
+

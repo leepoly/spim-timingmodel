@@ -150,9 +150,9 @@ public:
 
         event.comp->availableCycle = MAX(event.currentCycle, event.comp->availableCycle) + c_executor_latency;
         event.currentCycle = event.comp->availableCycle;
-        event.executeCycles = event.executeCycles + c_fetch_latency;
+        event.executeCycles = event.executeCycles + c_executor_latency;
 
-        std::cout << "at cycle: " << event.currentCycle << " inst finished with executed for " << event.executeCycles << "cycles." << std::endl;
+        // std::cout << "at cycle: " << event.currentCycle << " inst finished with executed for " << event.executeCycles << "cycles." << std::endl;
     }
 
 FetchingEvent::FetchingEvent(mem_addr _pc_addr, TimingComponent * _comp) {
@@ -177,14 +177,14 @@ public:
     std::priority_queue<TimingEvent *> queue;
 
     void enq(TimingEvent * event) {
-        info("at cycle:%lu enqueue (%s)", event->currentCycle, typeid(*event).name());
+        // info("at cycle:%lu enqueue (%s)", event->currentCycle, typeid(*event).name());
         queue.push(event);
     }
      
     void deq() {
         if (isEmpty()) return;
         TimingEvent * event = queue.top();
-        info("at cycle:%lu dequeue (%s)", event->currentCycle, typeid(*event).name());
+        // info("at cycle:%lu dequeue (%s)", event->currentCycle, typeid(*event).name());
         queue.pop();
         TimingEvent * out_event = nullptr;
         event->issue(*event, out_event); // issue this event to corresponding component and do their task

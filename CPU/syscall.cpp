@@ -143,7 +143,7 @@ do_syscall ()
       {
 	static char str [256];
 
-	read_input (str, 256);
+	read_input (str, 256, true);
 	R[REG_RES] = atol (str);
 	break;
       }
@@ -293,6 +293,7 @@ handle_exception ()
     case ExcCode_DBE:
       if (!quiet)
 	error ("  Bad address in data/stack read: 0x%08x\n", CP0_BadVAddr);
+      exit(-1);
       break;
 
     case ExcCode_Sys:

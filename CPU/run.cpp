@@ -191,7 +191,12 @@ static int running_in_delay_slot = 0;
 bool
 run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 {
-  display = true;
+  static int cnt = 0;
+  if (lab1 == develop || lab1 == debug)
+    display = true;
+  else
+    display = false;
+
   instruction *inst;
   static reg_word *delayed_load_addr1 = NULL, delayed_load_value1;
   static reg_word *delayed_load_addr2 = NULL, delayed_load_value2;
@@ -201,10 +206,7 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 
   /* enable timing event queue */
   TimingCore spimt_core;
-  spimt_core.sched->enq(new FetchingEvent(PC, spimt_core.fetcher));
-  while (!spimt_core.sched->isEmpty()) {
-	  spimt_core.sched->deq();
-  }
+
 
   if (!bare_machine && mapped_io)
     next_step = IO_INTERVAL;
@@ -218,6 +220,9 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
        steps_to_run > 0;
        steps_to_run -= step_size, step_size = MIN (next_step, steps_to_run))
     {
+
+
+
       if (!bare_machine && mapped_io)
 	/* Every IO_INTERVAL steps, check if memory-mapped IO registers
 	   have changed. */
@@ -289,6 +294,10 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 	      return false;
 	    }
 
+	  	// spimt_core.sched->enq(new FetchingEvent(PC, spimt_core.fetcher));
+		// while (!spimt_core.sched->isEmpty()) {
+		// 	spimt_core.sched->deq();
+		// }
 	  if (display)
 	    print_inst (PC);
 
@@ -297,7 +306,10 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 #endif
 
 	  DO_DELAYED_UPDATE ();
-
+        if (cnt == 9363) {
+            printf("pause\n");
+        }
+  	  // printf("cnt:%d\n", cnt++);
 	  switch (OPCODE (inst))
 	    {
 	    case Y_ADD_OP:
