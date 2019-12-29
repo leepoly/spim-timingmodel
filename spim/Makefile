@@ -64,7 +64,7 @@ DOC_DIR = ../Documentation
 
 
 # Full path for the parent directory of all installed files:
-PREFIX = /root/spim/spimsimulator
+PREFIX = $(LAB1)/../spim-timingmodel
 
 # Full path for the directory that will hold the executable files:
 BIN_DIR = $(PREFIX)/bin
