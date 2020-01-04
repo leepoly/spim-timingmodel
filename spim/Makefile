@@ -62,7 +62,9 @@ TEST_DIR = ../Tests
 DOC_DIR = ../Documentation
 
 
-
+ifndef LAB1
+$(error LAB1 path not set. Please read lab1-handout)
+endif
 # Full path for the parent directory of all installed files:
 PREFIX = $(LAB1)/../spim-timingmodel
 

@@ -293,7 +293,7 @@ main (int argc, char **argv)
         { lab1 = release;
           lab1_inputfile = fopen(argv[i + 1], "r");
           lab1_outputfile = fopen(argv[i + 2], "w+");
-          printf("redirect to input:%s output:%s \n", argv[i + 1], argv[i + 2]);
+          printf("redirect from input: %s to output: %s \n", argv[i + 1], argv[i + 2]);
           i = i + 2;
         }
       else
