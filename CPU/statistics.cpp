@@ -69,7 +69,7 @@ void update_latency_pipeline(instruction * inst, TimingModel & tm, bool raw_bypa
     while (cnt > 0 && tmp_queue.size() > 0) {
         instruction cur_inst = tmp_queue.front();
         if (cnt < 5) {
-            if (RT(&cur_inst) == RS(inst) || RT(&cur_inst) == RD(inst)) {
+            if (RD(&cur_inst) == RS(inst) || RD(&cur_inst) == RT(inst)) {
                 raw_stall = 5 - cnt; // stalled due to data read-after-write
             }
         }
