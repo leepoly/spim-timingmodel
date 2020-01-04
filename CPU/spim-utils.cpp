@@ -362,7 +362,12 @@ run_program (mem_addr pc, int steps, bool display, bool cont_bkpt, bool* continu
   exception_occurred = 0;
   *continuable = run_spim (pc, steps, display);
 
-  print_stats();
+  printf("Under multicycle non-pipelined core:\n");
+  print_stats(multicycle_tm);
+  printf("Under multicycle pipelined core:\n");
+  print_stats(pipeline_tm);
+  printf("Under multicycle pipelined core with read-after-write bypassing:\n");
+  print_stats(pipelinebypass_tm);
 
   if (exception_occurred && CP0_ExCode == ExcCode_Bp)
   {
