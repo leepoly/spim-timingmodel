@@ -264,9 +264,13 @@ enum lab_state {
     debug, // In debug mode, each instruction will be dumped and paused (step mode). Operate spim as a CLI debugger!
     develop, // In develop mode, SPIM dump each instruction and final instruction states to the screen. You can test small-size case.
     release, // In release mode, SPIM redirect screen IO to file IO from additional argument. You can process real pixelfile and save it to a new file.
+    gen_gold_trace,
     unrelated
 };
 extern lab_state lab1;
+extern lab_state lab2;
+extern mem_addr lab2_nextpc;
+extern bool lab2_continuable;
 // const unsigned int CHAR_BUF_SIZE = 128;
 // char lab1_inputfilename[CHAR_BUF_SIZE];
 // char lab1_outputfilename[CHAR_BUF_SIZE];

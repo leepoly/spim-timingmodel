@@ -115,7 +115,8 @@ LEXCFLAGS += -O $(CXXFLAGS)
 
 
 OBJS = spim.o spim-utils.o run.o mem.o inst.o data.o sym-tbl.o parser_yacc.o lex.yy.o \
-       syscall.o display-utils.o string-stream.o statistics.o
+       syscall.o display-utils.o string-stream.o statistics.o \
+	   next_pc_gen.o scheduler.o timing_decoder.o timing_executor.o timing_lsu.o timing_rob.o timingmodel.o timing_register.o
 
 
 spim:   $(OBJS)
@@ -326,3 +327,27 @@ parser_yacc.o: $(CPU_DIR)/data.h
 parser_yacc.o: $(CPU_DIR)/scanner.h
 parser_yacc.o: $(CPU_DIR)/parser.h
 statistics.o: $(CPU_DIR)/inst.h
+
+LAB_HEADERS = $(CPU_DIR)/timing_rob.cpp $(CPU_DIR)/timing_rob.h \
+ $(CPU_DIR)/timingmodel.h $(CPU_DIR)/spim.h $(CPU_DIR)/inst.h $(CPU_DIR)/string-stream.h \
+ $(CPU_DIR)/reg.h $(CPU_DIR)/mem.h $(CPU_DIR)/run.h $(CPU_DIR)/timing_core.h \
+ $(CPU_DIR)/timing_fetcher.h $(CPU_DIR)/timing_decoder.h parser_yacc.h \
+ $(CPU_DIR)/timing_executor.h $(CPU_DIR)/timing_register.h $(CPU_DIR)/next_pc_gen.h \
+ $(CPU_DIR)/timing_lsu.h $(CPU_DIR)/scheduler.h $(CPU_DIR)/alu.h $(CPU_DIR)/lab2_def.h
+timing_executor.o: $(LAB_HEADERS)
+timing_decoder.o: $(LAB_HEADERS)
+timing_rob.o : $(LAB_HEADERS)
+timing_lsu.o: $(LAB_HEADERS)
+scheduler.o: $(LAB_HEADERS)
+next_pc_gen.o: $(LAB_HEADERS)
+timingmodel.o: $(LAB_HEADERS)
+timing_register.o: $(LAB_HEADERS)
+
+# %.o : %.cpp
+# 	@g++ -MD -c -o $@ $<
+# 	@cp $*.d $*.P; \
+# 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+# 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
+# 	rm -f $*.d
+
+# -include *.P
