@@ -362,12 +362,15 @@ run_program (mem_addr pc, int steps, bool display, bool cont_bkpt, bool* continu
   exception_occurred = 0;
   *continuable = run_spim (pc, steps, display);
 
-//   printf("Under multicycle non-pipelined core:\n");
-//   print_stats(multicycle_tm);
-  printf("Under multicycle pipelined core:\n");
-  print_stats(pipeline_tm);
-//   printf("Under multicycle pipelined core with read-after-write bypassing:\n");
-//   print_stats(pipelinebypass_tm);
+    if (lab1 == develop || lab1 == release) {
+        // Due to the adjustment of our lab1 content, we are not going to test our program under multiple simple timing models. Check them out if you are interested in.
+        //   printf("Under multicycle non-pipelined core:\n");
+        //   print_stats(multicycle_tm);
+        printf("Under multicycle pipelined core:\n");
+        print_stats(pipeline_tm);
+        //   printf("Under multicycle pipelined core with read-after-write bypassing:\n");
+        //   print_stats(pipelinebypass_tm);
+    }
 
   if (exception_occurred && CP0_ExCode == ExcCode_Bp)
   {
