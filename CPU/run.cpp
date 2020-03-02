@@ -1657,10 +1657,13 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 	      break;
 	    }
 
-	  hw_enq(*inst);
-	  update_latency_multicyclecore(inst, multicycle_tm);
-      update_latency_pipeline(inst, pipeline_tm, false);
-      update_latency_pipeline(inst, pipelinebypass_tm, true);
+
+	  if (lab1 == develop || lab1 == release) {
+        hw_enq(*inst);
+        // update_latency_multicyclecore(inst, multicycle_tm);
+        update_latency_pipeline(inst, pipeline_tm, false);
+        // update_latency_pipeline(inst, pipelinebypass_tm, true);
+      }
 
 	  /* After instruction executes: */
 	  PC += BYTES_PER_WORD;
