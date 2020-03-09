@@ -114,7 +114,13 @@ void print_stats(TimingModel tm) {
 }
 
 void reset_stats() {
-    memset(&multicycle_tm, 0, sizeof(multicycle_tm));
-    memset(&pipeline_tm, 0, sizeof(pipeline_tm));
-    memset(&pipelinebypass_tm, 0, sizeof(pipelinebypass_tm));
+    pipeline_tm.estimated_cycle_br = 0;
+    pipeline_tm.estimated_cycle_mem = 0;
+    pipeline_tm.estimated_cycle_reg = 0;
+    pipeline_tm.num_inst_br = 0;
+    pipeline_tm.num_inst_mem = 0;
+    pipeline_tm.num_inst_reg = 0;
+    // memset(&multicycle_tm, 0, sizeof(multicycle_tm));
+    // memset(&pipeline_tm, 0, sizeof(pipeline_tm));
+    // memset(&pipelinebypass_tm, 0, sizeof(pipelinebypass_tm));
 }

@@ -14,12 +14,12 @@ using namespace std;
 
 extern queue<instruction> inst_history_window;
 struct TimingModel{
-    unsigned int estimated_cycle_br;
-    unsigned int estimated_cycle_mem;
-    unsigned int estimated_cycle_reg;
-    unsigned int num_inst_br;
-    unsigned int num_inst_mem;
-    unsigned int num_inst_reg;
+    unsigned long long estimated_cycle_br;
+    unsigned long long estimated_cycle_mem;
+    unsigned long long estimated_cycle_reg;
+    unsigned long long num_inst_br;
+    unsigned long long num_inst_mem;
+    unsigned long long num_inst_reg;
 };
 extern TimingModel multicycle_tm, pipeline_tm, pipelinebypass_tm;
 
