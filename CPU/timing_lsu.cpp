@@ -1,6 +1,6 @@
+#include "assert.h"
 #include "timing_lsu.h"
 #include "timing_core.h"
-#include "assert.h"
 
 void TimingLSU::Issue(TimingEvent * event) {
     reg_word val_rs = 0x0, val_rt = 0x0;
@@ -14,22 +14,22 @@ void TimingLSU::Issue(TimingEvent * event) {
             break;
     }
 
-    if (event->inst_is_Load) {
-        availableCycle = MAX(event->currentCycle, availableCycle) + c_memory_access_latency;
-        event->currentCycle = availableCycle;
-        event->executeCycles += c_memory_access_latency;
+    if (event->inst_is_load) {
+        available_cycle = MAX(event->current_cycle, available_cycle) + c_memory_access_latency;
+        event->current_cycle = available_cycle;
+        event->execute_cycles += c_memory_access_latency;
     } else {
-        availableCycle = MAX(event->currentCycle, availableCycle) + 1;
-        event->currentCycle = availableCycle;
-        event->executeCycles += 1; // still count 1 cycle although no actual memory request
+        // this stage still count 1 cycle even when no memory request
+        available_cycle = MAX(event->current_cycle, available_cycle) + 1;
+        event->current_cycle = available_cycle;
+        event->execute_cycles += 1;
     }
 
     assert(event->state == TES_WaitLSU);
     event->state = TES_WaitROB;
 }
 
-TimingLSU::TimingLSU(TimingComponent * _parent)
-{
-    availableCycle = 0;
+TimingLSU::TimingLSU(TimingComponent * _parent) {
+    available_cycle = 0;
     core = dynamic_cast<TimingCore *>(_parent);
 }

@@ -14,7 +14,7 @@ public:
 
     void enq(TimingEvent *event)
     {
-        // info("at cycle:%lu enqueue (%s)", event->currentCycle, typeid(*event).name());
+        // info("at cycle:%lu enqueue (%s)", event->current_cycle, typeid(*event).name());
         if (event_vec->size() == 0) {
             event_vec->push_front(event);
             return;

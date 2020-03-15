@@ -31,7 +31,7 @@ void Scheduler::deq() {
         *min_event_id = tmp;
     }
 
-    printf("%lu: addr: %x state:%x scycle:%d\n", event->currentCycle, event->pc_addr, event->state, event->startCycle);
+    printf("%lu: addr: %x state:%x scycle:%d\n", event->current_cycle, event->pc_addr, event->state, event->start_cycle);
     // printSched();
 
     switch (event->state) {

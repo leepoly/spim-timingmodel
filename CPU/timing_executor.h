@@ -5,9 +5,8 @@
 
 class TimingCore;
 
-class TimingExecutor : public TimingComponent
-{
-public:
+class TimingExecutor : public TimingComponent {
+  public:
     TimingCore * core;
     TimingExecutor(TimingComponent * _parent);
 

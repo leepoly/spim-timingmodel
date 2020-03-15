@@ -31,12 +31,10 @@
 
 class TimingCore;
 
-class TimingDecoder : public TimingComponent
-{
-public:
+class TimingDecoder : public TimingComponent {
+  public:
     TimingCore * core = nullptr;
     TimingDecoder(TimingComponent * _parent);
-
     void Issue(TimingEvent * event);
 };
 

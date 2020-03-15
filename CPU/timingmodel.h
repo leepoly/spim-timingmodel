@@ -1,94 +1,88 @@
+/*  Yao-arch Lab 2
+    Author: Yiwei Li (liyw19@tsinghua.edu.cn)
+    Based on spim, a MIPS functional emulator.
+    We apply a timing CPU core onto MIPS to record accurate cycle statistics.
+
+*/
 #ifndef TIMINGMODEL_H
 #define TIMINGMODEL_H
-
-#include "lab2_def.h"
-#include "inst.h"
-#include "reg.h"
-#include "mem.h"
 
 #include <queue>
 #include <typeinfo>
 #include <iostream>
 
+#include "inst.h"
+#include "reg.h"
+#include "mem.h"
+
+#include "lab2_def.h"
+
 class TimingEvent
 {
-public:
-    // TODO: we need split this into different kind of timingevents
+  public:
+    // We should really split this into different subclasses of timingevents (TimingFetchingEvent, TimingDecodingEvent, ...) for better understandability.
+    // It is NOT required this year but if you are interested you can have a try.
+    TimingEvent()
+    {
+        current_cycle = execute_cycles = start_cycle = 0;
+        state = TES_Invalid;
+        inst_is_I_type = inst_is_J_type = inst_is_R_type = inst_is_load = inst_is_syscall = false;
+        imm_is_zero_extend = imm_is_sign_extend = imm_is_32b = false;
+        opcode = 0;
+        reg_wb_id = 0;
+        inst = nullptr;
+    }
     // During all events
-    ncycle_t currentCycle;
-    ncycle_t executeCycles;
-    ncycle_t startCycle;
+    ncycle_t current_cycle;
+    ncycle_t execute_cycles;
+    ncycle_t start_cycle;
     TimingEventState state;
-    bool stalled;
 
-    // in FE and DE stage
+    // During IF and ID stage
     mem_addr pc_addr;
     instruction *inst;
 
-    // in DE and EXE stage
+    // During ID and EXE stage
     bool imm_is_zero_extend;
     bool imm_is_sign_extend;
     bool imm_is_32b;
     reg_word extended_imm;
-    bool sa_used; // In R-type, use sa (r[rd] = r[rt] op sa) instead of reg (r[rd] = r[rt] op r[rs])
     int alu_op;
 
-    // in DE, EXE and COMMIT stage
+    // During ID, EXE and COMMIT stage
     unsigned char rd, rs, rt, shamt;
     short imm;
     mem_addr target;
     bool inst_is_I_type;
     bool inst_is_J_type;
     bool inst_is_R_type;
-    bool inst_is_Load;
-    bool inst_is_Syscall;
+    bool inst_is_load;
+    bool inst_is_syscall;
     short opcode;
     unsigned char reg_wb_id = 0;
     reg_word reg_wb_val;
-
-    // in EXE and COMMIT stage
-
-    // in LSU and COMMIT stage
-
-    TimingEvent()
-    {
-        currentCycle = 0;
-        executeCycles = 0;
-        startCycle = 0;
-        state = TES_Invalid;
-
-        inst_is_I_type = inst_is_J_type = inst_is_R_type = inst_is_Load = inst_is_Syscall = false;
-        imm_is_zero_extend = imm_is_sign_extend = imm_is_32b = false;
-
-        opcode = 0;
-        inst = nullptr;
-    }
-
 };
 
+// You can implement your RAW confliction check here. Return true if the two instructions are conflicted.
 bool confliction_check(TimingEvent* old_inst, TimingEvent* new_inst);
 
-class Comp_TimingEvent
-{
-public:
+class Comp_TimingEvent {
+  public:
     bool operator () (TimingEvent* &a, TimingEvent* &b) const
     {
-        // true: pq chooses b. b is less than a
-        return a->currentCycle > b->currentCycle;
+        // Return true if the current cycle of b is lower than a.
+        // You can put your RAW confliction detection code here, to avoid reading stale registers.
+        return a->current_cycle > b->current_cycle;
     }
 };
 
-class TimingComponent
-{
-public:
-    ncycle_t availableCycle;
-    TimingComponent *parent = nullptr;
-
-    TimingComponent()
-    {
-        availableCycle = -1;
+class TimingComponent {
+  public:
+    TimingComponent() {
+        available_cycle = -1;
     }
-
+    ncycle_t available_cycle;
+    TimingComponent *parent = nullptr;
     virtual void Issue(TimingEvent * event) = 0;
 };
 

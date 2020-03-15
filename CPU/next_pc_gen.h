@@ -5,8 +5,8 @@
 
 class TimingCore;
 
-class NextPCGen : public TimingComponent // although NextPCGen is a combinational logic
-{
+// Although NextPCGen is a combinational logic we still use TimingComponent as our base class.
+class NextPCGen : public TimingComponent {
 public:
     TimingCore * core = nullptr;
     NextPCGen(TimingComponent * _parent);

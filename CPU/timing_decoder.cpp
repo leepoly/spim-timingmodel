@@ -1,10 +1,9 @@
-#include "timing_decoder.h"
-#include "timing_core.h"
 #include "assert.h"
 #include "syscall.h"
+#include "timing_decoder.h"
+#include "timing_core.h"
 
-void TimingDecoder::Issue(TimingEvent *event)
-{
+void TimingDecoder::Issue(TimingEvent *event) {
     event->opcode = OPCODE(event->inst);
     event->rs = RS(event->inst);
     event->rd = RD(event->inst);
@@ -15,9 +14,7 @@ void TimingDecoder::Issue(TimingEvent *event)
     event->inst_is_I_type = false;
     event->inst_is_J_type = false;
     event->inst_is_R_type = false;
-    event->inst_is_Load = false;
-
-    bool stalled = false;
+    event->inst_is_load = false;
 
     switch (event->opcode) {
         case Y_JAL_OP:
@@ -34,41 +31,40 @@ void TimingDecoder::Issue(TimingEvent *event)
             event->alu_op = ALUOP_ADD;
             break;
         case Y_LW_OP:
-            event->inst_is_Load = true;
+            event->inst_is_load = true;
             break;
         case Y_SYSCALL_OP:
-            event->inst_is_Syscall = true;
+            event->inst_is_syscall = true;
             break;
     }
 
+    bool spim_continuable = true;
     if (event->inst_is_I_type) {
         event->reg_wb_id = event->rt;
-    } else if (event->inst_is_R_type) {
-
-    } else if (event->inst_is_Load) {
+    } else if (event->inst_is_load) {
         event->reg_wb_id = event->rt;
-    } else if (event->inst_is_Syscall) {
+    } else if (event->inst_is_syscall) {
         reg_word val_rs = 0x0;
         core->regfile->Load(REG_RES, val_rs);
         if (val_rs == EXIT_SYSCALL) {
-            core->spim_continuable = false;
+            // We reset this variable to prevent PC fetching after last instruction.
+            spim_continuable = false;
         }
     }
 
     assert(event->state == TES_WaitDecoder);
-    availableCycle = MAX(event->currentCycle, availableCycle) + c_decode_latency;
+    available_cycle = MAX(event->current_cycle, available_cycle) + c_decode_latency;
     event->state = TES_WaitExecutor;
 
-    // fetch next pc
-    if (core->spim_continuable)
+    // This fetches the next pc
+    if (spim_continuable)
         core->next_pc_gen->GenerateNextPC(event);
 
-    event->executeCycles += c_decode_latency;
-    event->currentCycle = availableCycle;
+    event->execute_cycles += c_decode_latency;
+    event->current_cycle = available_cycle;
 }
 
-TimingDecoder::TimingDecoder(TimingComponent * _parent)
-{
-    availableCycle = 0;
+TimingDecoder::TimingDecoder(TimingComponent * _parent) {
+    available_cycle = 0;
     core = dynamic_cast<TimingCore *>(_parent);
 }

@@ -12,21 +12,17 @@
 #include "scheduler.h"
 #include "alu.h"
 
-class TimingCore : public TimingComponent
-{
-public:
+class TimingCore : public TimingComponent {
+  public:
     TimingFetcher *fetcher = nullptr;
     TimingDecoder *decoder = nullptr;
     TimingExecutor *executor = nullptr;
-    TimingRegister *regfile = nullptr;
-    NextPCGen *next_pc_gen = nullptr;
     TimingLSU *lsu = nullptr;
     TimingROB *rob = nullptr;
+    NextPCGen *next_pc_gen = nullptr;
+    TimingRegister *regfile = nullptr;
     ALU *alu = nullptr;
-
     Scheduler *sched = nullptr;
-
-    bool spim_continuable = true; // continuability reported by spim
 
     TimingCore()
     {
@@ -42,8 +38,6 @@ public:
 
         ncycle_t dummy;
         regfile->Reset(dummy);
-
-        spim_continuable = true;
     }
 
     void Issue(TimingEvent * event) {}

@@ -116,7 +116,7 @@ LEXCFLAGS += -O $(CXXFLAGS)
 
 OBJS = spim.o spim-utils.o run.o mem.o inst.o data.o sym-tbl.o parser_yacc.o lex.yy.o \
        syscall.o display-utils.o string-stream.o statistics.o \
-	   next_pc_gen.o scheduler.o timing_decoder.o timing_executor.o timing_lsu.o timing_rob.o timingmodel.o timing_register.o
+	   next_pc_gen.o scheduler.o timing_decoder.o timing_executor.o timing_lsu.o timing_rob.o timingmodel.o
 
 
 spim:   $(OBJS)
@@ -341,7 +341,6 @@ timing_lsu.o: $(LAB_HEADERS)
 scheduler.o: $(LAB_HEADERS)
 next_pc_gen.o: $(LAB_HEADERS)
 timingmodel.o: $(LAB_HEADERS)
-timing_register.o: $(LAB_HEADERS)
 
 # %.o : %.cpp
 # 	@g++ -MD -c -o $@ $<

@@ -4,9 +4,9 @@
 void NextPCGen::GenerateInitialEvent(mem_addr initial_PC) {
     TimingEvent * event = new TimingEvent();
     event->state = TES_WaitFetcher;
-    event->currentCycle = 0;
-    event->executeCycles = 0;
-    event->startCycle = 0;
+    event->current_cycle = 0;
+    event->execute_cycles = 0;
+    event->start_cycle = 0;
     event->pc_addr = initial_PC;
     core->sched->enq(event);
 
@@ -26,19 +26,19 @@ void NextPCGen::GenerateNextPC(TimingEvent * event) {
     }
     if (next_pc == 0x0) {
         printf("Unsupported Jump or Branch opcode!\n");
+        assert(false);
     }
 
     TimingEvent * new_event = new TimingEvent();
     new_event->state = TES_WaitFetcher;
-    new_event->currentCycle = event->currentCycle;
-    new_event->executeCycles = 0;
-    new_event->startCycle = event->currentCycle;
+    new_event->current_cycle = event->current_cycle;
+    new_event->execute_cycles = 0;
+    new_event->start_cycle = event->current_cycle;
     new_event->pc_addr = next_pc;
     core->sched->enq(new_event);
 }
 
-NextPCGen::NextPCGen(TimingComponent * _parent)
-{
-    availableCycle = 0;
+NextPCGen::NextPCGen(TimingComponent * _parent) {
+    available_cycle = 0;
     core = dynamic_cast<TimingCore *>(_parent);
 }

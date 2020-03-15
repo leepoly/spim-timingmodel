@@ -1,27 +1,25 @@
 #ifndef TIMING_FETCHER_H
 #define TIMING_FETCHER_H
 
+#include "assert.h"
 #include "timingmodel.h"
 
-class TimingFetcher : public TimingComponent
-{
-public:
-    void Issue(TimingEvent * event)
-    {
+class TimingFetcher : public TimingComponent {
+  public:
+    void Issue(TimingEvent* event) {
         event->inst = read_mem_inst(event->pc_addr);
-        // now we don't consider inst access latency, i.e., a ideal I-cache
+        // Currently we don't consider the long latency from instruction fetching (i.e., an ideal I-cache).
 
-        availableCycle = MAX(event->currentCycle, availableCycle) + c_fetch_latency;
-        event->currentCycle = availableCycle;
-        event->executeCycles += c_fetch_latency;
+        available_cycle = MAX(event->current_cycle, available_cycle) + c_fetch_latency;
+        event->current_cycle = available_cycle;
+        event->execute_cycles += c_fetch_latency;
 
-        // assert(event->state == TES_WaitFetcher);
+        assert(event->state == TES_WaitFetcher);
         event->state = TES_WaitDecoder;
     }
 
-    TimingFetcher(TimingComponent * _parent)
-    {
-        availableCycle = 0;
+    TimingFetcher(TimingComponent * _parent) {
+        available_cycle = 0;
     }
 };
 
