@@ -269,11 +269,7 @@ enum lab_state {
 };
 extern lab_state lab1;
 extern lab_state lab2;
-extern mem_addr lab2_nextpc;
-extern bool lab2_continuable;
-// const unsigned int CHAR_BUF_SIZE = 128;
-// char lab1_inputfilename[CHAR_BUF_SIZE];
-// char lab1_outputfilename[CHAR_BUF_SIZE];
-extern FILE * lab1_inputfile;
-extern FILE * lab1_outputfile;
+extern FILE * redirect_inputfile;
+extern FILE * redirect_outputfile;
+extern bool redirect_mode;
 

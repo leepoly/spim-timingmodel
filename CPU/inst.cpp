@@ -659,7 +659,8 @@ void
 print_inst (mem_addr addr)
 {
   char* inst_str = inst_to_string (addr);
-  write_output (message_out, inst_str);
+//   write_output (message_out, inst_str);
+  printf ("%s", inst_str);
   free (inst_str);
 }
 

@@ -3,8 +3,8 @@
 #include "assert.h"
 
 void Scheduler::printSched() {
-    printf("size:%d ", event_vec->size());
-    for (int i = 0; i < event_vec->size(); i++) {
+    printf("size:%lu ", event_vec->size());
+    for (unsigned int i = 0; i < event_vec->size(); i++) {
         printf(", 0x%x %x", event_vec->at(i)->pc_addr, event_vec->at(i)->state);
     }
     printf("\n");
@@ -31,7 +31,7 @@ void Scheduler::deq() {
         *min_event_id = tmp;
     }
 
-    printf("%lu: addr: %x state:%x scycle:%d\n", event->current_cycle, event->pc_addr, event->state, event->start_cycle);
+    // printf("%lu: addr: %x state:%x scycle:%d\n", event->current_cycle, event->pc_addr, event->state, event->start_cycle);
     // printSched();
 
     switch (event->state) {

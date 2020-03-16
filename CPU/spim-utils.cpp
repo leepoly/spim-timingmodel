@@ -372,12 +372,12 @@ bool run_program(mem_addr pc, int steps, bool display, bool cont_bkpt, bool *con
     *continuable = run_spim(pc, steps, display);
 
     if (lab1 != unrelated) {
-        printf("Under multicycle non-pipelined core:\n");
-        print_stats(multicycle_tm);
+        // printf("Under multicycle non-pipelined core:\n");
+        // print_stats(multicycle_tm);
         printf("Under multicycle pipelined core:\n");
         print_stats(pipeline_tm);
-        printf("Under multicycle pipelined core with read-after-write bypassing:\n");
-        print_stats(pipelinebypass_tm);
+        // printf("Under multicycle pipelined core with read-after-write bypassing:\n");
+        // print_stats(pipelinebypass_tm);
     }
 
     if (exception_occurred && CP0_ExCode == ExcCode_Bp)

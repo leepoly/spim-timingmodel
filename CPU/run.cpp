@@ -227,7 +227,6 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
         {
             if (force_break)
             {
-                lab2_continuable = true;
                 return true;
             }
 
@@ -265,13 +264,11 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
             else if (inst == NULL)
             {
                 run_error("Attempt to execute non-instruction at 0x%08x\n", PC);
-                lab2_continuable = false;
                 return false;
             }
             else if (EXPR(inst) != NULL && EXPR(inst)->symbol != NULL && EXPR(inst)->symbol->addr == 0)
             {
                 run_error("Instruction references undefined symbol at 0x%08x\n  %s", PC, inst_to_string(PC));
-                lab2_continuable = false;
                 return false;
             }
 
@@ -1096,7 +1093,6 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
 
             case Y_SYSCALL_OP:
                 if (!do_syscall()) {
-                    lab2_continuable = false;
                     return false;
                 }
                 break;
@@ -1641,8 +1637,6 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
             /* After instruction executes: */
             PC += BYTES_PER_WORD;
 
-            lab2_nextpc = PC;
-
             // printf("PC has changed to %x\n", PC);
 
             if (exception_occurred)
@@ -1653,7 +1647,6 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
     }     /* End: for ( ; steps_to_run > 0 ... */
 
     /* Executed enought steps, return, but are able to continue. */
-    lab2_continuable = true;
     return true;
 }
 

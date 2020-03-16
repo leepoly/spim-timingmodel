@@ -116,10 +116,9 @@ int spim_return_value; /* Value returned when spim exits */
 
 lab_state lab1 = unrelated;
 lab_state lab2 = unrelated;
-FILE *lab1_inputfile = nullptr;
-FILE *lab1_outputfile = nullptr;
-mem_addr lab2_nextpc = 0;
-bool lab2_continuable = true;
+bool redirect_mode = false; // redirect input and output to files
+FILE *redirect_inputfile = nullptr;
+FILE *redirect_outputfile = nullptr;
 
 /* Local variables: */
 
@@ -307,19 +306,16 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-lab2-gen")) {
             lab2 = gen_gold_trace;
         }
-        else if (streq(argv[i], "-lab1-dbg"))
-        {
-            lab1 = debug;
-        }
-        else if (streq(argv[i], "-lab1-dev"))
+        else if (streq(argv[i], "-lab1-dev") || streq(argv[i], "-lab1"))
         {
             lab1 = develop;
         }
-        else if (streq(argv[i], "-lab1-rel") && (i + 2 < argc))
+        else if (streq(argv[i], "-redirect") && (i + 2 < argc))
         {
-            lab1 = release;
-            lab1_inputfile = fopen(argv[i + 1], "r");
-            lab1_outputfile = fopen(argv[i + 2], "w+");
+            // lab1 = release;
+            redirect_mode = true;
+            redirect_inputfile = fopen(argv[i + 1], "r");
+            redirect_outputfile = fopen(argv[i + 2], "w+");
             printf("redirect from input: %s to output: %s \n", argv[i + 1], argv[i + 2]);
             i = i + 2;
         }
@@ -393,10 +389,10 @@ int main(int argc, char **argv)
         }
     }
 
-    if (lab1 == release)
+    if (redirect_mode)
     {
-        fclose(lab1_inputfile);
-        fclose(lab1_outputfile);
+        fclose(redirect_inputfile);
+        fclose(redirect_outputfile);
     }
     return (spim_return_value);
 }
@@ -1078,9 +1074,9 @@ void write_output(port fp, char *fmt, ...)
     int restore_console_to_program = 0;
 
     va_start(args, fmt);
-    if (lab1 == release)
+    if (redirect_mode)
     {
-        f = lab1_outputfile;
+        f = redirect_outputfile;
     }
     else
     {
@@ -1135,9 +1131,9 @@ void read_input(char *str, int str_size, bool isNum)
     while (1 < str_size) /* Reserve space for null */
     {
         char buf[1];
-        if (lab1 == release)
+        if (redirect_mode)
         {
-            if (fread(buf, 1, 1, lab1_inputfile) <= 0) /* Not in raw mode! */
+            if (fread(buf, 1, 1, redirect_inputfile) <= 0) /* Not in raw mode! */
                 break;
         }
         else

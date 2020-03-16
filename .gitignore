@@ -1,0 +1,6 @@
+bin
+share
+spim/*.o
+spim/parser_yacc.*
+spim/spim
+spim/lex.yy.cpp
