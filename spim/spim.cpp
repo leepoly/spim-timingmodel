@@ -135,6 +135,8 @@ static char **program_argv;
 static bool dump_user_segments = false;
 static bool dump_all_segments = false;
 
+bool start_from_main_symbol = false;  // default entry point is __start, this switches to start from main
+
 int main(int argc, char **argv)
 {
     int i;
@@ -306,6 +308,10 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-lab2-gen")) {
             lab2 = gen_gold_trace;
         }
+        else if (streq(argv[i], "-skipstart")) {
+            printf("Environment setup skipped. Now the entry point is main()\n");
+            start_from_main_symbol = true;
+        }
         else if (streq(argv[i], "-lab1-dev") || streq(argv[i], "-lab1"))
         {
             lab1 = develop;
@@ -383,7 +389,11 @@ int main(int argc, char **argv)
                     write_output(message_out, "\n");
                     free(undefs);
                 }
-                run_program(find_symbol_address(DEFAULT_RUN_LOCATION), DEFAULT_RUN_STEPS, false, false, &continuable);
+                if (start_from_main_symbol) {
+                    run_program(find_symbol_address("main"), DEFAULT_RUN_STEPS, false, false, &continuable);
+                } else {
+                    run_program(find_symbol_address(DEFAULT_RUN_LOCATION), DEFAULT_RUN_STEPS, false, false, &continuable);
+                }
             }
             console_to_spim();
         }
@@ -539,7 +549,16 @@ parse_spim_command(bool redo)
         mem_addr addr;
 
         steps = (redo ? steps : get_opt_int());
-        addr = PC == 0 ? starting_address() : PC;
+        if (PC == 0) {
+            if (start_from_main_symbol) {
+                addr = find_symbol_address("main");
+            } else {
+                addr = find_symbol_address(DEFAULT_RUN_LOCATION);
+            }
+        } else {
+            addr = PC;
+        }
+        // addr = PC == 0 ? starting_address() : PC;
 
         if (steps == 0)
             steps = 1;

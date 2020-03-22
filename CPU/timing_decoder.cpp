@@ -38,6 +38,7 @@ void TimingDecoder::Issue(TimingEvent *event) {
             break;
     }
 
+    // printf("\tdecoding addr:%p inst:%s\n", event->pc_addr, inst_to_string(event->pc_addr));
     bool spim_continuable = true;
     if (event->inst_is_I_type) {
         event->reg_wb_id = event->rt;
