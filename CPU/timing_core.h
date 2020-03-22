@@ -37,7 +37,7 @@ class TimingCore : public TimingComponent {
         alu = new ALU();
 
         ncycle_t dummy;
-        regfile->Reset(dummy);
+        regfile->Reset(dummy);  // although register resetting needs 32 writes, for now we do not consider the reseting overhead.
     }
 
     void Issue(TimingEvent * event) {}
