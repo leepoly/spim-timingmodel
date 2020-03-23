@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-typedef uint64_t ncycle_t;
+typedef unsigned long long ncycle_t;
 
 const ncycle_t c_fetch_latency = 1;
 const ncycle_t c_decode_latency = 1;
