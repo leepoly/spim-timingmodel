@@ -34,11 +34,11 @@ void TimingROB::Issue(TimingEvent * event) {
 
     // check the consistency of PC and regfile
     if (old_pc != event->pc_addr) {
-        printf("\tError pc: 0x%x should be 0x%x\n", event->pc_addr, PC);
+        printf("\tError pc: %p should be %p\n", event->pc_addr, PC);
         assert(false);
     }
     if (core->regfile->CheckCorrectness() == 0)
-        printf("\taddr: %x ROB correct\n", event->pc_addr);
+        printf("\taddr: %p ROB correct\n", event->pc_addr);
 }
 
 TimingROB::TimingROB(TimingComponent * _parent)

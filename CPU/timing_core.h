@@ -1,6 +1,9 @@
 #ifndef TIMING_CORE_H
 #define TIMING_CORE_H
 
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
+
 #include "timingmodel.h"
 #include "timing_fetcher.h"
 #include "timing_decoder.h"
