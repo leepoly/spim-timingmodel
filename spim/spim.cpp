@@ -136,6 +136,7 @@ static bool dump_user_segments = false;
 static bool dump_all_segments = false;
 
 bool start_from_main_symbol = false;  // default entry point is __start, this switches to start from main
+bool display_instruction = false;  // print execution traces
 
 int main(int argc, char **argv)
 {
@@ -311,6 +312,10 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-skipstart")) {
             printf("Environment setup skipped. Now the entry point is main()\n");
             start_from_main_symbol = true;
+        }
+        else if (streq(argv[i], "-display")) {
+            printf("Now print every instruction\n");
+            display_instruction = true;
         }
         else if (streq(argv[i], "-lab1-dev") || streq(argv[i], "-lab1"))
         {

@@ -180,6 +180,8 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
         display = true;
     if (lab2 == gen_gold_trace)
         display = true;
+    if (display_instruction)
+        display = true;
 
     instruction *inst;
     static reg_word *delayed_load_addr1 = NULL, delayed_load_value1;

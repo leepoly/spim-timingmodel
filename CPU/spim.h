@@ -272,4 +272,5 @@ extern lab_state lab2;
 extern FILE * redirect_inputfile;
 extern FILE * redirect_outputfile;
 extern bool redirect_mode;
+extern bool display_instruction;
 
