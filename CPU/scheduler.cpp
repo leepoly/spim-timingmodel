@@ -37,7 +37,6 @@ void Scheduler::deq() {
             enq(event);
             break;
         case TES_WaitDecoder:
-            // printf("\tDecode %s\n", event->inst->source_line);
             core->decoder->Issue(event);
             enq(event);
             break;

@@ -1,6 +1,5 @@
 #include "timing_rob.h"
-
-#include "assert.h"
+#include "log.h"
 #include "syscall.h"
 #include "run.h"
 #include "timing_core.h"
@@ -35,12 +34,8 @@ void TimingROB::Issue(TimingEvent * event) {
     event->state = TES_Committed;
 
     // check the consistency of PC and regfile
-    if (old_pc != event->pc_addr) {
-        printf("\tError pc: %p should be %p\n", event->pc_addr, PC);
-        assert(false);
-    }
-    if (core->regfile->CheckCorrectness() == 0)
-        printf("\taddr: %p ROB correct\n", event->pc_addr);
+    assert_msg_ifnot(old_pc == event->pc_addr, "\tpc: %p should be %p", event->pc_addr, PC);
+    assert_msg_ifnot(core->regfile->CheckCorrectness() == 0, "instruction %s is incorrect", inst_to_string(event->pc_addr));
 }
 
 TimingROB::TimingROB(TimingComponent * _parent)

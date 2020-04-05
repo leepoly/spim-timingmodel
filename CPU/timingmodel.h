@@ -48,16 +48,14 @@ class TimingEvent
     // EX -> MEM stage
     reg_word alu_result;
 
-    // ID -> MEM stage
+    // ID -> EX -> MEM stage
     int MemToReg = -1;
     bool MemRead = false;
     bool MemWrite = false;
 
-    // ID -> WB stage
+    // ID -> EX -> MEM -> WB stage
     bool RegWrite = false;
     bool inst_is_syscall;  // Set if it is a syscall
-
-    // ID -> WB stage
     unsigned char reg_wb_id = 0;  // Which register does this instruction goes to write back.
 
     // MEM -> WB stage

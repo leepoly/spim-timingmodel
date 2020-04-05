@@ -10,7 +10,7 @@ void TimingLSU::Issue(TimingEvent * event) {
                     read_mem_word(event->alu_result),
                     0xffffffff);
     }
-    assert(event->MemToReg != -1);
+    // assert_msg_ifnot(event->MemToReg != -1, "instruction %s has not been fully implemented", inst_to_string(event->pc_addr));
     if (event->MemToReg == 0x0)
         event->reg_wb_data = event->alu_result;
     else if (event->MemToReg == 0x1)
