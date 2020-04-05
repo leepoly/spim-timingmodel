@@ -48,7 +48,7 @@ void TimingDecoder::Issue(TimingEvent *event) {
             RegDst = 0x0;
             event->ALUOp = ALUOP_ADD;
             break;
-        // Implement more instructions
+        // Implement more instructions here
         case Y_SYSCALL_OP:
             event->inst_is_syscall = true;
             break;
@@ -58,7 +58,7 @@ void TimingDecoder::Issue(TimingEvent *event) {
     bool keep_fetch_nextpc = true;
     core->regfile->Load(rs, event->alu_src_1);
 
-    // assert(ALUSrc != -1);
+    assert(ALUSrc != -1);
     if (ALUSrc == 0x0)
         core->regfile->Load(rt, event->alu_src_2);
     else if (ALUSrc == 0x1)
@@ -66,7 +66,7 @@ void TimingDecoder::Issue(TimingEvent *event) {
     else if (ALUSrc == 0x2)
         event->alu_src_2 = event->pc_addr + BYTES_PER_WORD;
 
-    // assert(RegDst != -1);
+    assert(RegDst != -1);
     if (RegDst == 0x0)
         event->reg_wb_id = rt;
     else if (RegDst == 0x1)

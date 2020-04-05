@@ -13,9 +13,6 @@ void Scheduler::printSched() {
 void Scheduler::deq() {
     if (is_empty())
         return;
-    // TimingEvent *event = queue.top();
-    // queue.pop();
-    // printf("size:%d\n", event_vec->size());
     TimingEvent *event = event_vec->front();
     event_vec->pop_front();
 

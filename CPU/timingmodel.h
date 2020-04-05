@@ -55,8 +55,6 @@ class TimingEvent
 
     // ID -> WB stage
     bool RegWrite = false;
-
-    // Go to MIPS green card for the meanings of some following fields.
     bool inst_is_syscall;  // Set if it is a syscall
 
     // ID -> WB stage
