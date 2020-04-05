@@ -11,9 +11,7 @@ void TimingROB::Issue(TimingEvent * event) {
     run_spim(event->pc_addr, 1, true /* display */);
 
     // handle reg-related inst
-    if (!event->inst_is_syscall) {
-        core->regfile->Store(event->reg_wb_id, event->reg_wb_val);
-    } else {
+    if (event->inst_is_syscall) {
         // handle syscall
         reg_word v0_val;
         core->regfile->Load(0x2, v0_val);
@@ -22,6 +20,10 @@ void TimingROB::Issue(TimingEvent * event) {
         } else if (v0_val == READ_INT_SYSCALL) {
             // read integer: copy results from R[REG_RES] to our corresponding reg
             core->regfile->Store(REG_RES, R[REG_RES]);
+        }
+    } else {
+        if (event->RegWrite) {
+            core->regfile->Store(event->reg_wb_id, event->reg_wb_data);
         }
     }
 

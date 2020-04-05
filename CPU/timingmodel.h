@@ -26,9 +26,7 @@ class TimingEvent
     {
         current_cycle = execute_cycles = start_cycle = 0;
         state = TES_Invalid;
-        inst_is_I_type = inst_is_J_type = inst_is_R_type = inst_is_load = inst_is_syscall = false;
-        imm_is_zero_extend = imm_is_sign_extend = imm_is_32b = false;
-        opcode = 0;
+        inst_is_syscall = false;
         reg_wb_id = 0;
         inst = nullptr;
     }
@@ -38,30 +36,34 @@ class TimingEvent
     ncycle_t start_cycle;  // The cycle when the event is created by NextPCGen.
     TimingEventState state;  // State of the event. see enums in lab2_def.h
 
-    // During IF and ID stage
+    // IF -> ID stage
     mem_addr pc_addr;  // PC address of this instruction
     instruction *inst;  // Point to the instruction. see the structure in inst.h
 
-    // During ID and EXE stage
-    bool imm_is_zero_extend;  // If this is I-type, set if immediate is zero-extended.
-    bool imm_is_sign_extend;  // If this is I-type, set if immediate is signed-extended.
-    bool imm_is_32b;  // This is not a formal setting. I create it for storing PC in JAL.
-    reg_word extended_imm;  // If imm_is_32b is true, this stores the 32-bit long immediate.
-    int alu_op;  // Op for controlling ALU.
+    // ID -> EX stage
+    reg_word alu_src_1;
+    reg_word alu_src_2;
+    int ALUOp;  // Op for controlling ALU.
 
-    // During ID, EXE and COMMIT stage
+    // EX -> MEM stage
+    reg_word alu_result;
+
+    // ID -> MEM stage
+    int MemToReg = -1;
+    bool MemRead = false;
+    bool MemWrite = false;
+
+    // ID -> WB stage
+    bool RegWrite = false;
+
     // Go to MIPS green card for the meanings of some following fields.
-    unsigned char rd, rs, rt, shamt;
-    short imm;
-    mem_addr target;
-    bool inst_is_I_type;
-    bool inst_is_J_type;
-    bool inst_is_R_type;
-    bool inst_is_load;  // Set if it is a load instruction
     bool inst_is_syscall;  // Set if it is a syscall
-    short opcode;
+
+    // ID -> WB stage
     unsigned char reg_wb_id = 0;  // Which register does this instruction goes to write back.
-    reg_word reg_wb_val;  // This stores the value to be written back to register.
+
+    // MEM -> WB stage
+    reg_word reg_wb_data;  // This stores the value to be written back to register.
 };
 
 // You can implement your RAW confliction check here. Return true if the two instructions are conflicted.

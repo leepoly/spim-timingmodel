@@ -13,7 +13,7 @@ public:
 
     void GenerateInitialEvent(mem_addr initial_PC);
 
-    void GenerateNextPC(TimingEvent * event);
+    void GenerateNextPC(mem_addr pc_addr, reg_word extended_imm, mem_addr target, bool branch, bool jump, ncycle_t current_cycle);
 
     void Issue(TimingEvent * event) {}
 };

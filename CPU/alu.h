@@ -3,19 +3,20 @@
 
 #include "reg.h"
 
-enum ALUOPs {
+enum ALUOp {
+    // You should append more ALUOp, and realize your different ALU operations.
     ALUOP_ADD
 };
 
 class ALU
 {
 public:
-    reg_word Execute(reg_word a, reg_word b, int alu_op) {
-        switch (alu_op) {
+    reg_word Execute(reg_word a, reg_word b, int ALUOp) {
+        switch (ALUOp) {
             case ALUOP_ADD:
                 return a + b;
             default:
-                return 0;
+                return 0x0;
         }
     }
 };

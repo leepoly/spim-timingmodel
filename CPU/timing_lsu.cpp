@@ -3,18 +3,20 @@
 #include "timing_core.h"
 
 void TimingLSU::Issue(TimingEvent * event) {
-    reg_word val_rs = 0x0, val_rt = 0x0;
-    core->regfile->Load(event->rs, val_rs);
-    core->regfile->Load(event->rt, val_rt);
-    switch (event->opcode) {
-        case Y_LW_OP:
-            LOAD_INST(&event->reg_wb_val,
-                        read_mem_word(val_rs + event->imm),
-                        0xffffffff);
-            break;
+    mem_word memory_read_data = 0x0;
+    if (event->MemRead) {
+        // The following is only correct for LW. You may add more control signals for implementing LHU, LBU, ...
+        LOAD_INST(&memory_read_data,
+                    read_mem_word(event->alu_result),
+                    0xffffffff);
     }
+    // assert(event->MemToReg != -1);
+    if (event->MemToReg == 0x0)
+        event->reg_wb_data = event->alu_result;
+    else if (event->MemToReg == 0x1)
+        event->reg_wb_data = memory_read_data;
 
-    if (event->inst_is_load) {
+    if (event->MemRead || event->MemWrite) {
         available_cycle = MAX(event->current_cycle, available_cycle) + c_memory_access_latency;
         event->current_cycle = available_cycle;
         event->execute_cycles += c_memory_access_latency;

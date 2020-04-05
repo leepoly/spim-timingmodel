@@ -3,15 +3,7 @@
 #include "timing_core.h"
 
 void TimingExecutor::Issue(TimingEvent * event) {
-    reg_word a = 0x0, b = 0x0;
-    if (event->inst_is_I_type) {
-        core->regfile->Load(event->rs, a);
-        if (event->imm_is_32b)
-            b = event->extended_imm;
-        else if (event->imm_is_sign_extend)
-            b = (short)event->imm;
-    }
-    event->reg_wb_val = core->alu->Execute(a, b, event->alu_op);
+    event->alu_result = core->alu->Execute(event->alu_src_1, event->alu_src_2, event->ALUOp);
 
     available_cycle = MAX(event->current_cycle, available_cycle) + c_executor_latency;
     event->current_cycle = available_cycle;

@@ -13,27 +13,25 @@ void NextPCGen::GenerateInitialEvent(mem_addr initial_PC) {
     PC = initial_PC;
 }
 
-void NextPCGen::GenerateNextPC(TimingEvent * event) {
-    mem_addr next_pc = 0x0;
-    reg_word val_rs = 0x0, val_rt = 0x0;
-    reg_word imm_extend = SIGN_EX(event->imm);
-    switch (event->opcode) {
-        case Y_JAL_OP:
-            JUMP_INST_GENPC(((event->pc_addr & 0xf0000000) | event->target << 2), next_pc);
-            break;
-        default:
-            next_pc = event->pc_addr + BYTES_PER_WORD;
-    }
-    if (next_pc == 0x0) {
+void NextPCGen::GenerateNextPC(mem_addr pc_addr, reg_word extended_imm, mem_addr target, bool branch, bool jump, ncycle_t current_cycle) {
+    mem_addr next_pc = -1;
+    if (branch)
+        next_pc = pc_addr + BYTES_PER_WORD + (extended_imm << 2);
+    else
+        next_pc = pc_addr + BYTES_PER_WORD;
+    if (jump)
+        next_pc = (pc_addr & 0xf0000000) | (target << 2);  // PC[31:28] || Instruction[25:0] || 00
+
+    if (next_pc == -1) {
         printf("Unsupported Jump or Branch opcode!\n");
         assert(false);
     }
 
     TimingEvent * new_event = new TimingEvent();
     new_event->state = TES_WaitFetcher;
-    new_event->current_cycle = event->current_cycle;
+    new_event->current_cycle = current_cycle;
     new_event->execute_cycles = 0;
-    new_event->start_cycle = event->current_cycle;
+    new_event->start_cycle = current_cycle;
     new_event->pc_addr = next_pc;
     core->sched->enq(new_event);
 }

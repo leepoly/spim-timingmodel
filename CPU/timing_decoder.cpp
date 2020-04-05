@@ -4,52 +4,82 @@
 #include "timing_core.h"
 
 void TimingDecoder::Issue(TimingEvent *event) {
-    event->opcode = OPCODE(event->inst);
-    event->rs = RS(event->inst);
-    event->rd = RD(event->inst);
-    event->rt = RT(event->inst);
-    event->imm = IMM(event->inst);
-    event->target = TARGET(event->inst);
+    short opcode = OPCODE(event->inst);
+    unsigned char rs = RS(event->inst);
+    unsigned char rd = RD(event->inst);
+    unsigned char rt = RT(event->inst);
+    short imm = IMM(event->inst);
+    mem_addr target = TARGET(event->inst);
 
-    event->inst_is_I_type = false;
-    event->inst_is_J_type = false;
-    event->inst_is_R_type = false;
-    event->inst_is_load = false;
+    // Here are local control signals. You should specify in your code what their values mean, as I did.
+    // ALUSrc: -1 -> invalid, 0/1 -> following lecture slides, 2 -> alu_src_b = PC+4, for JAL
+    int ALUSrc = -1;
+    // RegDst: -1 -> invalid, 0/1 -> following lecture slides, 2-> wb_id = $ra, for JAL
+    int RegDst = -1;
+    // Branch follows lecture slides
+    bool Branch = false;
+    // Jump follows lecture slides
+    bool Jump = false;
 
-    switch (event->opcode) {
+    switch (opcode) {
         case Y_JAL_OP:
-            event->inst_is_I_type = true; // trick: we treat JAL as an I-type inst. We put instr_idx [25..0] into an extended 'imm' field and pass it to ALU.
-            event->rt = 31;
-            event->rs = 0;
-            event->extended_imm = event->pc_addr + BYTES_PER_WORD;
-            event->imm_is_32b = true;
-            event->alu_op = ALUOP_ADD;
+            rs = 0;  // trick: we force rs to 0. This leads ALU to calculate (0 + (PC+4))
+            event->MemRead = false;
+            event->MemToReg = 0x0;
+            event->RegWrite = true;
+            ALUSrc = 0x2;  // Look! We just extended and defined our own control signal different from professor's material. This is the fascinating point of processor design: everyone has their own design.
+            RegDst = 0x2;
+            event->ALUOp = ALUOP_ADD;
+            Jump = true;
             break;
         case Y_ADDIU_OP:
-            event->inst_is_I_type = true;
-            event->imm_is_sign_extend = true;
-            event->alu_op = ALUOP_ADD;
+            event->MemRead = false;
+            event->MemToReg = 0x0;
+            event->RegWrite = true;
+            ALUSrc = 0x1;
+            RegDst = 0x0;
+            event->ALUOp = ALUOP_ADD;
             break;
         case Y_LW_OP:
-            event->inst_is_load = true;
+            event->MemRead = true;
+            event->MemToReg = 0x1;
+            event->RegWrite = true;
+            ALUSrc = 0x1;
+            RegDst = 0x0;
+            event->ALUOp = ALUOP_ADD;
             break;
+        // Implement more instructions
         case Y_SYSCALL_OP:
             event->inst_is_syscall = true;
             break;
     }
 
     // printf("\tdecoding addr:%p inst:%s\n", event->pc_addr, inst_to_string(event->pc_addr));
-    bool spim_continuable = true;
-    if (event->inst_is_I_type) {
-        event->reg_wb_id = event->rt;
-    } else if (event->inst_is_load) {
-        event->reg_wb_id = event->rt;
-    } else if (event->inst_is_syscall) {
+    bool keep_fetch_nextpc = true;
+    core->regfile->Load(rs, event->alu_src_1);
+
+    // assert(ALUSrc != -1);
+    if (ALUSrc == 0x0)
+        core->regfile->Load(rt, event->alu_src_2);
+    else if (ALUSrc == 0x1)
+        event->alu_src_2 = (short)imm;
+    else if (ALUSrc == 0x2)
+        event->alu_src_2 = event->pc_addr + BYTES_PER_WORD;
+
+    // assert(RegDst != -1);
+    if (RegDst == 0x0)
+        event->reg_wb_id = rt;
+    else if (RegDst == 0x1)
+        event->reg_wb_id = rd;
+    else if (RegDst == 0x2)
+        event->reg_wb_id = 31;  // $ra
+
+    if (event->inst_is_syscall) {
         reg_word val_rs = 0x0;
         core->regfile->Load(REG_RES, val_rs);
         if (val_rs == EXIT_SYSCALL) {
             // We reset this variable to prevent PC fetching after last instruction.
-            spim_continuable = false;
+            keep_fetch_nextpc = false;
         }
     }
 
@@ -58,8 +88,8 @@ void TimingDecoder::Issue(TimingEvent *event) {
     event->state = TES_WaitExecutor;
 
     // This fetches the next pc
-    if (spim_continuable)
-        core->next_pc_gen->GenerateNextPC(event);
+    if (keep_fetch_nextpc)
+        core->next_pc_gen->GenerateNextPC(event->pc_addr, imm, target, Branch, Jump, event->current_cycle);
 
     event->execute_cycles += c_decode_latency;
     event->current_cycle = available_cycle;
