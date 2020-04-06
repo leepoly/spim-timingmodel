@@ -305,9 +305,11 @@ int main(int argc, char **argv)
         }
         else if (streq(argv[i], "-lab2")) {
             lab2 = develop;
+            delayed_branches = true;
         }
         else if (streq(argv[i], "-lab2-gen")) {
             lab2 = gen_gold_trace;
+            delayed_branches = true;
         }
         else if (streq(argv[i], "-skipstart")) {
             printf("Environment setup skipped. Now the entry point is main()\n");
