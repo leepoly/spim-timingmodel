@@ -72,7 +72,7 @@ void TimingDecoder::Issue(TimingEvent *event) {
     else if (ALUSrc == 0x1)
         event->alu_src_2 = (short)imm;
     else if (ALUSrc == 0x2)
-        event->alu_src_2 = event->pc_addr + 2 * BYTES_PER_WORD;
+        event->alu_src_2 = event->pc_addr + BYTES_PER_WORD;  // This is a jal with **no delayed branches**.
 
     // assert_msg_ifnot((RegDst != -1), "instruction %s has not been fully implemented", inst_to_string(event->pc_addr));
     if (RegDst == 0x0)
