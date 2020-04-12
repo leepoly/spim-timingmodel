@@ -36,7 +36,7 @@ void update_latency_multicyclecore(instruction * inst, TimingModel & tm) {
         tm.estimated_cycle_reg += 2; // if inst is a NOP: FE -> DE
         tm.num_inst_reg ++;
     }
-    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP) {
+    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP || inst->opcode == Y_MUL_OP) {
         tm.estimated_cycle_reg += CYCLE_MULTI; // if inst is a multiplication, more cycle for complex execution
         tm.num_inst_reg ++;
     }
@@ -59,7 +59,7 @@ void update_latency_pipeline(instruction * inst, TimingModel & tm, bool raw_bypa
     int basecycle = 1;
     if (opcode_is_load_store(inst->opcode))
         basecycle = CYCLE_MEM_ACCESS;
-    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP)
+    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP || inst->opcode == Y_MUL_OP)
         basecycle = CYCLE_MULTI;
     else if (inst->opcode == Y_DIV_OP || inst->opcode == Y_DIVU_OP)
         basecycle = CYCLE_DIV;
@@ -68,9 +68,9 @@ void update_latency_pipeline(instruction * inst, TimingModel & tm, bool raw_bypa
     int control_stall = 0;
     while (cnt > 0 && tmp_queue.size() > 0) {
         instruction cur_inst = tmp_queue.front();
-        if (cnt < 5) {
-            if (RD(&cur_inst) == RS(inst) || RD(&cur_inst) == RT(inst)) {
-                raw_stall = 5 - cnt; // stalled due to data read-after-write
+        if (cnt < 3) {
+            if ((RD(&cur_inst) == RS(inst) && RS(inst) > 0) || (RD(&cur_inst) == RT(inst) && RT(inst) > 0)) {
+                raw_stall = 3 - cnt; // stalled due to data read-after-write
             }
         }
 
