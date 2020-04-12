@@ -36,7 +36,7 @@ void update_latency_multicyclecore(instruction * inst, TimingModel & tm) {
         tm.estimated_cycle_reg += 2; // if inst is a NOP: FE -> DE
         tm.num_inst_reg ++;
     }
-    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP) {
+    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP || inst->opcode == Y_MUL_OP) {
         tm.estimated_cycle_reg += CYCLE_MULTI; // if inst is a multiplication, more cycle for complex execution
         tm.num_inst_reg ++;
     }
@@ -59,7 +59,7 @@ void update_latency_pipeline(instruction * inst, TimingModel & tm, bool raw_bypa
     int basecycle = 1;
     if (opcode_is_load_store(inst->opcode))
         basecycle = CYCLE_MEM_ACCESS;
-    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP)
+    else if (inst->opcode == Y_MULT_OP || inst->opcode == Y_MULTU_OP || inst->opcode == Y_MUL_OP)
         basecycle = CYCLE_MULTI;
     else if (inst->opcode == Y_DIV_OP || inst->opcode == Y_DIVU_OP)
         basecycle = CYCLE_DIV;
