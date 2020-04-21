@@ -176,12 +176,16 @@ static int running_in_delay_slot = 0;
 
 bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
 {
-    if (lab1 == develop || lab1 == debug)
-        display = true;
-    if (lab2 == gen_gold_trace)
-        display = true;
+    // if (lab1 == develop || lab1 == debug)
+    //     display = true;
+    // if (lab2 == gen_gold_trace)
+    //     display = true;
+    // if (lab1 == perftest)
+    //     display = false;
     if (display_instruction)
         display = true;
+    else // add this
+        display = false; // add this
 
     instruction *inst;
     static reg_word *delayed_load_addr1 = NULL, delayed_load_value1;
@@ -1621,7 +1625,7 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display)
                 break;
             }
 
-            if (lab1 == develop || lab1 == debug) {
+            if (lab1 == develop || lab1 == debug || lab1 == perftest) {
                 hw_enq(*inst);
                 update_latency_multicyclecore(inst, multicycle_tm);
                 update_latency_pipeline(inst, pipeline_tm, false);

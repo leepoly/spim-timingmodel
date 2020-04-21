@@ -28,7 +28,7 @@ class TimingRegister : public TimingComponent {
     void Reset(ncycle_t& cycle) {
         for (int i = 0; i < R_LENGTH; i++) {
             reg[i] = R[i];
-            reg_used[i] = false;
+            reg_used[i] = false; // add this
         }
     }
 

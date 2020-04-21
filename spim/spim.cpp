@@ -116,6 +116,7 @@ int spim_return_value; /* Value returned when spim exits */
 
 lab_state lab1 = unrelated;
 lab_state lab2 = unrelated;
+char *emulate_filename;
 bool redirect_mode = false; // redirect input and output to files
 FILE *redirect_inputfile = nullptr;
 FILE *redirect_outputfile = nullptr;
@@ -282,6 +283,7 @@ int main(int argc, char **argv)
         {
             program_argc = argc - (i + 1);
             program_argv = &argv[i + 1]; /* Everything following is argv */
+            emulate_filename = argv[i + 1];
 
             if (!assembly_file_loaded)
             {
@@ -322,6 +324,10 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-lab1-dev") || streq(argv[i], "-lab1"))
         {
             lab1 = develop;
+        }
+        else if (streq(argv[i], "-lab1-test"))
+        {
+            lab1 = perftest;
         }
         else if (streq(argv[i], "-redirect") && (i + 2 < argc))
         {

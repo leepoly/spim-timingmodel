@@ -371,13 +371,16 @@ bool run_program(mem_addr pc, int steps, bool display, bool cont_bkpt, bool *con
     exception_occurred = 0;
     *continuable = run_spim(pc, steps, display);
 
-    if (lab1 != unrelated) {
+    if (lab1 == develop) {
         // printf("Under multicycle non-pipelined core:\n");
         // print_stats(multicycle_tm);
         printf("Under multicycle pipelined core:\n");
         print_stats(pipeline_tm);
         // printf("Under multicycle pipelined core with read-after-write bypassing:\n");
         // print_stats(pipelinebypass_tm);
+    } else if (lab1 == perftest) {
+        TimingModel &tm = pipeline_tm;
+        printf("%s %lu %lu\n", emulate_filename, tm.num_inst_br + tm.num_inst_mem + tm.num_inst_reg, tm.estimated_cycle_br + tm.estimated_cycle_mem + tm.estimated_cycle_reg);
     }
 
     if (exception_occurred && CP0_ExCode == ExcCode_Bp)

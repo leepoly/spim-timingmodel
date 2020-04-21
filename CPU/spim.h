@@ -265,6 +265,7 @@ enum lab_state {
     develop, // In develop mode, SPIM dump each instruction and final instruction states to the screen. You can test small-size case.
     release, // In release mode, SPIM redirect screen IO to file IO from additional argument. You can process real pixelfile and save it to a new file.
     gen_gold_trace,
+    perftest, // In testing mode, SPIM outputs final instruction and cycles. This mode is used by TA only.
     unrelated
 };
 extern lab_state lab1;
@@ -273,4 +274,5 @@ extern FILE * redirect_inputfile;
 extern FILE * redirect_outputfile;
 extern bool redirect_mode;
 extern bool display_instruction;
+extern char *emulate_filename;
 
