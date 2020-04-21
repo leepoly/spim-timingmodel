@@ -327,7 +327,8 @@ bool lab2_run_program(mem_addr initial_pc) {
     exception_occurred = 0;
 
     /* enable timing event queue */
-    TimingCore * spimt_core = new TimingCore();
+    bool cache_enabled = (lab3 == develop);
+    TimingCore * spimt_core = new TimingCore(cache_enabled);
     spimt_core->next_pc_gen->GenerateInitialEvent(initial_pc);
     printf("initial PC:%x\n", initial_pc);
     // Keep running timing core until no timing events
@@ -353,7 +354,7 @@ bool lab2_run_program(mem_addr initial_pc) {
 
 bool run_program(mem_addr pc, int steps, bool display, bool cont_bkpt, bool *continuable)
 {
-    if (lab2 == develop) {
+    if (lab2 == develop || lab3 == develop) {
         return lab2_run_program(pc);
     }
     if (cont_bkpt && inst_is_breakpoint(pc))

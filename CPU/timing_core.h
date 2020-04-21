@@ -14,6 +14,8 @@
 #include "timing_rob.h"
 #include "scheduler.h"
 #include "alu.h"
+#include "timing_cache.h"
+#include "timing_mem.h"
 
 class TimingCore : public TimingComponent {
   public:
@@ -26,8 +28,11 @@ class TimingCore : public TimingComponent {
     TimingRegister *regfile = nullptr;
     ALU *alu = nullptr;
     Scheduler *sched = nullptr;
+    MemoryHierarchy::TimingCache *cache = nullptr;
+    MemoryHierarchy::Memory *mem = nullptr;
+    bool cache_enabled = false;
 
-    TimingCore()
+    TimingCore(bool cache_enabled_)
     {
         fetcher = new TimingFetcher(this);
         decoder = new TimingDecoder(this);
@@ -38,6 +43,12 @@ class TimingCore : public TimingComponent {
         regfile = new TimingRegister(this);
         sched = new Scheduler(this);
         alu = new ALU();
+        if (cache_enabled_) {
+            this->cache_enabled = cache_enabled_;
+            cache = new MemoryHierarchy::TimingCache(this);
+            mem = new MemoryHierarchy::Memory();
+            cache->SetMemory(mem);
+        }
 
         ncycle_t dummy;
         regfile->Reset(dummy);  // although register resetting needs 32 writes, for now we do not consider the reseting overhead.

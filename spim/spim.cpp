@@ -116,6 +116,7 @@ int spim_return_value; /* Value returned when spim exits */
 
 lab_state lab1 = unrelated;
 lab_state lab2 = unrelated;
+lab_state lab3 = unrelated;
 char *emulate_filename;
 bool redirect_mode = false; // redirect input and output to files
 FILE *redirect_inputfile = nullptr;
@@ -312,6 +313,9 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-lab2-gen")) {
             lab2 = gen_gold_trace;
             // delayed_branches = true;  // uncomment this if you decide to support delayed branches.
+        }
+        else if (streq(argv[i], "-lab3")) {
+            lab3 = develop;
         }
         else if (streq(argv[i], "-skipstart")) {
             printf("Environment setup skipped. Now the entry point is main()\n");

@@ -270,6 +270,7 @@ enum lab_state {
 };
 extern lab_state lab1;
 extern lab_state lab2;
+extern lab_state lab3;
 extern FILE * redirect_inputfile;
 extern FILE * redirect_outputfile;
 extern bool redirect_mode;
