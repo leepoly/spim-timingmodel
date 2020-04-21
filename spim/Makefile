@@ -62,11 +62,11 @@ TEST_DIR = ../Tests
 DOC_DIR = ../Documentation
 
 
-ifndef LAB2
-$(error LAB2 path not set. Please read lab2-handout)
+ifndef LAB3
+$(error LAB3 path not set. Please read lab3-handout)
 endif
 # Full path for the parent directory of all installed files:
-PREFIX = $(LAB2)/../spim-timingmodel
+PREFIX = $(LAB3)/../spim-timingmodel
 
 # Full path for the directory that will hold the executable files:
 BIN_DIR = $(PREFIX)/bin

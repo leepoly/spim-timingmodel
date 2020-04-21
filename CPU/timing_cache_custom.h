@@ -14,7 +14,7 @@ struct CacheTagEntry {
     bool valid[c_asso_num];
     bool dirty[c_asso_num];
     short fifo_ptr = 0;
-    mem_addr tag[c_asso_num];  // TODO: use bit-level field
+    mem_addr tag[c_asso_num];
 };
 
 // define more constants
@@ -30,6 +30,7 @@ private:
     void MergeBlock(char* blk, reg_word wdata, int offset, int store_data_size);
     bool EvictCacheline(mem_addr addr, bool is_write, mem_addr PC, int &offset);
     bool UpdateMetadata(mem_addr addr, bool is_write, mem_addr PC, int offset);
+    // void Addr2IdxWay(mem_addr addr, int &index, int &way);
 public:
     void Access(mem_addr addr, bool is_write, reg_word &wrdata, mem_addr PC, int store_data_size);
     void ResetTagArray();

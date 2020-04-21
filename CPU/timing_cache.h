@@ -1,11 +1,14 @@
+/*  Yao-arch Lab 3
+    Author: Yiwei Li (liyw19@tsinghua.edu.cn)
+    Based on spim, a MIPS functional emulator.
+    In lab 3, we insert a timing cache to optimize data access path.
+*/
+
 #ifndef TIMING_CACHE_H
 #define TIMING_CACHE_H
 
-/* SPIM-T lab3
-liyiwei: liyw19@mais.tsinghua.edu.cn
-*/
-
-// DO NOT MODIFY
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
 
 #include "assert.h"
 #include "timingmodel.h"
@@ -23,8 +26,8 @@ class CacheController;
 
 class TimingCache : public TimingComponent {
 public:
-    static const ncycle_t c_data_array_latency = 25;
-    static const ncycle_t c_tag_array_latency = 25;
+    static const ncycle_t c_data_array_latency = 2;
+    static const ncycle_t c_tag_array_latency = 2;
 
     MemoryHierarchy::TimingArray* data_array = nullptr;
     MemoryHierarchy::TimingArray* tag_array = nullptr;

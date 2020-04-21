@@ -1,29 +1,26 @@
 #include "timing_cache_custom.h"
 namespace MemoryHierarchy {
 
-// void CacheController::Offset2IdxWay(int offset, int &index, int &way) {
-//     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
-//     int way = (offset / c_cache_line_size) % c_asso_num;
-
-// }
-
 // For simplicity we use a FIFO replacement policy
 bool CacheController::EvictCacheline(mem_addr addr, bool is_write, mem_addr PC, int &offset) {
-    // return false; // debug
+    return false; // TODO: this refuses to allocate any cacheline.
     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
     char buf[c_tag_entry_size];
+    printf("Evict read tag array.\n");
     cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
-    // CacheTagEntry *entry = (CacheTagEntry *) ((char *)tag_array + idx * sizeof(CacheTagEntry));
     CacheTagEntry *entry = (CacheTagEntry *)buf;
     entry->fifo_ptr = (entry->fifo_ptr + 1) % c_asso_num;
     offset = (idx * c_asso_num + entry->fifo_ptr) * c_cache_line_size;
     if (entry->valid[entry->fifo_ptr] && entry->dirty[entry->fifo_ptr]) {
         // write back
         char data_buf[c_cache_line_size];
+        printf("writeback read data array.\n");
         cache->data_array->Get(offset, data_buf);
+        printf("store to remote memory\n");
         cache->WriteMemoryData(entry->tag[entry->fifo_ptr], data_buf);
     }
     entry->valid[entry->fifo_ptr] = false;
+    printf("Evict write tag array.\n");
     cache->tag_array->Set(idx * sizeof(CacheTagEntry), buf);
     printf("evict.\n");
     return true;
@@ -33,13 +30,14 @@ bool CacheController::EvictCacheline(mem_addr addr, bool is_write, mem_addr PC, 
 bool CacheController::UpdateMetadata(mem_addr addr, bool is_write, mem_addr PC, int offset) {
     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
     char buf[c_tag_entry_size];
+    printf("UpdateMeta read tag array.\n");
     cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
-    // CacheTagEntry *entry = (CacheTagEntry *) ((char *)tag_array + idx * sizeof(CacheTagEntry));
     CacheTagEntry *entry = (CacheTagEntry *)buf;
     int way = (offset / c_cache_line_size) % c_asso_num;
     entry->valid[way] = true;
     entry->dirty[way] = entry->dirty[way] | is_write;
     entry->tag[way] = addr >> c_addr_offset_bit << c_addr_offset_bit;
+    printf("UpdateMeta write tag array.\n");
     cache->tag_array->Set(idx * sizeof(CacheTagEntry), buf);
     printf("UpdateMeta tagptr:%lx idx:%x, way:%x, tag:%x V:%x D:%x\n", idx * sizeof(CacheTagEntry), idx, way, entry->tag[way], entry->valid[way], entry->dirty[way]);
     offset = (idx * c_asso_num + entry->fifo_ptr) * c_cache_line_size;
@@ -50,6 +48,7 @@ void CacheController::AccessTagArray(mem_addr addr, mem_addr PC, bool &is_hit, c
     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
     mem_addr line_addr = addr >> c_addr_offset_bit << c_addr_offset_bit;
     char buf[c_tag_entry_size];
+    printf("AccessTag read tag array.\n");
     cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
     // CacheTagEntry *entry = (CacheTagEntry *) ((char *)tag_array + idx * sizeof(CacheTagEntry));
     CacheTagEntry *entry = (CacheTagEntry *)buf;
@@ -63,6 +62,7 @@ void CacheController::AccessTagArray(mem_addr addr, mem_addr PC, bool &is_hit, c
             is_hit = true;
             hit_offset = (idx * c_asso_num + way) * c_cache_line_size;
             // memcpy(&data, data_array + hit_offset, c_cache_line_size);
+            printf("AccessTag data hit read data array.\n");
             cache->data_array->Get(hit_offset, data);
             break;
         }
@@ -75,10 +75,10 @@ void CacheController::ResetTagArray() {
     for (int idx = 0; idx < c_cache_set_num; ++idx) {
         cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
         entry = (CacheTagEntry *)buf;
-        // entry = (CacheTagEntry *) ((char *)tag_array + idx * sizeof(CacheTagEntry));
         // printf("reset set%d: %p\n", idx, entry);
         for (int way = 0; way < c_asso_num; ++way)
             entry->valid[way] = false;
+        cache->tag_array->Set(idx * sizeof(CacheTagEntry), buf);
     }
 }
 
@@ -94,15 +94,15 @@ void CacheController::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem
     int hit_offset;  // the offset of the hit cacheline
     AccessTagArray(addr, PC, is_hit, data_blk, hit_offset);
     if (is_hit) {
-        printf("hit, ptr:%x\n", hit_offset);
+        printf("hit, dataptr:%x\n", hit_offset);
         if (!is_write) {
             // Put one word from hit cacheline to wrdata
             memcpy(&wrdata, (char *)(&data_blk) + (addr & c_addr_cache_line_mask), sizeof(reg_word));
         } else {
             // Merge wdata (one word) with hit cacheline and write to data_array
             MergeBlock((char *)data_blk, wrdata, addr & c_addr_cache_line_mask, store_data_size);
+            printf("hit&write write data arr\n");
             cache->data_array->Set(hit_offset, data_blk);
-            // memcpy(data_array + hit_offset, &data_blk, c_cache_line_size);
         }
         UpdateMetadata(addr, is_write, PC, hit_offset);
     } else {
@@ -111,6 +111,7 @@ void CacheController::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem
         bool eviction_accepted = EvictCacheline(addr, is_write, PC, evict_line_offset);
         printf("miss, evict ptr:%x\n", evict_line_offset);
         // fetch this cacheline from outer memory
+        printf("fetch remote data\n");
         cache->FetchMemoryData(addr, (char *)&data_blk);
         if (is_write) {
             MergeBlock((char *)data_blk, wrdata, addr & c_addr_cache_line_mask, store_data_size);
@@ -118,8 +119,8 @@ void CacheController::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem
         if (eviction_accepted) {
             assert(evict_line_offset >= 0 && evict_line_offset < (c_cache_capacity - c_cache_line_size));
             // if the cache approves to evict, write fetched data_blk to the victim location
+            printf("write to victim write data arr\n");
             cache->data_array->Set(evict_line_offset, data_blk);
-            // memcpy(data_array + evict_line_offset, &data_blk, c_cache_line_size);
             UpdateMetadata(addr, is_write, PC, evict_line_offset);
         } else {
             if (is_write) {

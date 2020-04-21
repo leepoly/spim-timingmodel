@@ -4,6 +4,11 @@
 #include "log.h"
 
 void TimingDecoder::Issue(TimingEvent *event) {
+    if (event->inst == 0x0) {
+        printf("null instruction detected. Fetching & Decoding terminated.\n");
+        event->state = TES_Committed;
+        return;
+    }
     short opcode = OPCODE(event->inst);
     unsigned char rs = RS(event->inst);
     unsigned char rd = RD(event->inst);

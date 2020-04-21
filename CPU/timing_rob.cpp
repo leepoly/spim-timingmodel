@@ -8,7 +8,6 @@ void TimingROB::Issue(TimingEvent * event) {
     // simulate spim at the same time, for comparison
     mem_addr old_pc = PC;
     run_spim(event->pc_addr, 1, true /* display */);
-
     // handle reg-related inst
     if (event->inst_is_syscall) {
         // handle syscall
