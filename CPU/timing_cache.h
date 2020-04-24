@@ -7,9 +7,6 @@
 #ifndef TIMING_CACHE_H
 #define TIMING_CACHE_H
 
-// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
-// This file will be overwritten after uploaded.
-
 #include "assert.h"
 #include "timingmodel.h"
 #include "timing_mem.h"
@@ -32,8 +29,6 @@ public:
     MemoryHierarchy::TimingArray* data_array = nullptr;
     MemoryHierarchy::TimingArray* tag_array = nullptr;
 public:
-    void Issue(TimingEvent * event) {}
-
     // Access: input memory address, is_write, the PC causes this access, current cycle of this PC.
     //      wrdata: when (!is_write), it outputs the extracted read data. When (is_write), it is an input consisting of wdata
     //      store_data_size: SW -> 4B; SH -> 2B; SB -> 1B, memory load does not use it
@@ -48,16 +43,23 @@ public:
     }
 
     int FetchMemoryData(mem_addr addr, char *data);
-
     int WriteMemoryData(mem_addr addr, char *data);
-
     TimingCache(TimingComponent * _parent);
+    void DisplayStats();
+    void Issue(TimingEvent * event) {}
 
 private:
     TimingComponent *core;
     Memory *memory;
     CacheController *ctrler = nullptr;
 
+    unsigned int s_served_read_access = 0x0;
+    unsigned int s_served_write_access = 0x0;
+    unsigned int s_miss_write_access = 0x0;
+    unsigned int s_miss_read_access = 0x0;
+    ncycle_t s_miss_cycles = 0x0;
+    ncycle_t s_total_cycles = 0x0;
+    ncycle_t s_background_cycles = 0x0;
 };
 
 }

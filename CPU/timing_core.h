@@ -32,6 +32,9 @@ class TimingCore : public TimingComponent {
     MemoryHierarchy::Memory *mem = nullptr;
     bool cache_enabled = false;
 
+    ncycle_t s_total_cycle = 0x0;
+    unsigned int s_total_inst = 0x0;
+
     TimingCore(bool cache_enabled_)
     {
         fetcher = new TimingFetcher(this);
@@ -52,6 +55,12 @@ class TimingCore : public TimingComponent {
 
         ncycle_t dummy;
         regfile->Reset(dummy);  // although register resetting needs 32 writes, for now we do not consider the reseting overhead.
+    }
+
+    void DisplayStats() {
+        printf("---statistics from TimingCore---\n");
+        printf("\t Total cycles used: %d\n", s_total_cycle);
+        printf("\t Total instruction numbers: %d\n", s_total_inst);
     }
 
     void Issue(TimingEvent * event) {}

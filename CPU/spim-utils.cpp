@@ -335,6 +335,8 @@ bool lab2_run_program(mem_addr initial_pc) {
     while (!spimt_core->sched->is_empty()) {
         spimt_core->sched->deq();
     }
+    spimt_core->DisplayStats();
+    if (cache_enabled) spimt_core->cache->DisplayStats();
 
     if (exception_occurred && CP0_ExCode == ExcCode_Bp)
     {

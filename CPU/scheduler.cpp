@@ -53,6 +53,8 @@ void Scheduler::deq() {
             enq(event);
             break;
         case TES_Committed:
+            core->s_total_inst++;
+            core->s_total_cycle = MAX(core->s_total_cycle, event->current_cycle);
             delete event;
             break;
         default:
