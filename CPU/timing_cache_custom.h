@@ -38,7 +38,7 @@ public:
     void Access(mem_addr addr, bool is_write, reg_word &wrdata, mem_addr PC, int store_data_size);
     void Reset();
     // Process off the critical operation. Now you can solve somethind not urgent, e.g., writing cacheline back to memory. This still increments available_cycle but may not influence current instruction.
-    void ProcessOffCritical(mem_addr addr, bool is_write, mem_addr PC) {}
+    void ProcessOffCritical(mem_addr addr, bool is_write, mem_addr PC);
     void DisplayStats();
     CacheController(MemoryHierarchy::TimingCache *cache_);
     // do not change the above methods. TimingCache will call with their exact names.

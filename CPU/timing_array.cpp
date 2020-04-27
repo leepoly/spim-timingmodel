@@ -1,7 +1,9 @@
 #include "timing_cache.h"
-namespace MemoryHierarchy {
 
-// fixed part
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
+
+namespace MemoryHierarchy {
 
 int TimingArray::Get(unsigned int data_ptr, char output_data[]) {
     // printf("Read data Latency increase %x cycles\n", read_access_cycle);

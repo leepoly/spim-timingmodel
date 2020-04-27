@@ -13,6 +13,7 @@ const ncycle_t c_decode_latency = 1;
 const ncycle_t c_executor_latency = 1;
 const ncycle_t c_reg_write_latency = 1;
 const ncycle_t c_memory_access_latency = 150;
+const ncycle_t c_cpu_start_cycle = 1000;
 
 enum TimingEventState
 {

@@ -4,9 +4,9 @@
 void NextPCGen::GenerateInitialEvent(mem_addr initial_PC) {
     TimingEvent * event = new TimingEvent();
     event->state = TES_WaitFetcher;
-    event->current_cycle = 1000; // set first 1000 cycles to reset necessary components: cache, regfile.
+    event->current_cycle = c_cpu_start_cycle; // set first c_cpu_start_cycle cycles to reset necessary components: cache, regfile.
     event->execute_cycles = 0;
-    event->start_cycle = 0;
+    event->start_cycle = c_cpu_start_cycle;
     event->pc_addr = initial_PC;
     core->sched->enq(event);
 

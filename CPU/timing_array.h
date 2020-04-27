@@ -1,7 +1,8 @@
 #ifndef TIMING_ARRAY_H
 #define TIMING_ARRAY_H
 
-// DO NOT MODIFY
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
 
 #include "assert.h"
 #include "timing_cache.h"

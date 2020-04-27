@@ -37,27 +37,24 @@ void TimingCache::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem_add
 }
 
 int TimingCache::WriteMemoryData(mem_addr addr, char *data) {
-    AddAccessLatency(c_memory_access_latency);
-    addr = (addr >> c_addr_offset_bit) << c_addr_offset_bit;
     int cache_block_transaction_num = c_cache_line_size / sizeof(reg_word);
+    AddAccessLatency(c_memory_access_latency + (cache_block_transaction_num - 1) * 1);  // ack latency + transfer latency. Assume the bus carries 4B per cycle and ack with first packet saves one transaction number.
+    addr = (addr >> c_addr_offset_bit) << c_addr_offset_bit;
     reg_word tmp;
     for (int i = 0; i < cache_block_transaction_num; ++i) {
         memcpy(&tmp, data + i * sizeof(reg_word), sizeof(reg_word));
-        // printf("\twrite mem addr:%lx val:%x\n", addr + i * sizeof(reg_word), tmp);
         memory->set_mem_word(addr + i * sizeof(reg_word), tmp);
     }
     return 0;
 }
 
 int TimingCache::FetchMemoryData(mem_addr addr, char *data) {
-    AddAccessLatency(c_memory_access_latency);
-    addr = (addr >> c_addr_offset_bit) << c_addr_offset_bit;
-    // printf("fetch block:%x\n", addr);
     int cache_block_transaction_num = c_cache_line_size / sizeof(reg_word);
+    AddAccessLatency(c_memory_access_latency + (cache_block_transaction_num - 1) * 1);  // ack latency + transfer latency. Assume the bus carries 4B per cycle and ack with first packet saves one transaction number.
+    addr = (addr >> c_addr_offset_bit) << c_addr_offset_bit;
     reg_word tmp;
     for (int i = 0; i < cache_block_transaction_num; ++i) {
         tmp = memory->read_mem_word(addr + i * sizeof(reg_word));
-        // printf("\tfetch addr:%lx %x\n", addr + i * sizeof(reg_word), tmp);
         memcpy(data + i * sizeof(reg_word), &tmp, sizeof(reg_word));
     }
     return 0;

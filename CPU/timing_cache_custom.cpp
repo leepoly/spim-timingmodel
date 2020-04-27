@@ -131,6 +131,8 @@ void CacheController::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem
 // Display your own stats
 void CacheController::DisplayStats() {}
 
+void CacheController::ProcessOffCritical(mem_addr addr, bool is_write, mem_addr PC) {}
+
 // Initilization. Set a default block access granularity. Reset tag array.
 CacheController::CacheController(MemoryHierarchy::TimingCache *cache_) {
     cache = cache_;
