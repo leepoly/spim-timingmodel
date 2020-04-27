@@ -5,7 +5,7 @@
 
 void TimingDecoder::Issue(TimingEvent *event) {
     if (event->inst == 0x0) {
-        printf("null instruction detected. Fetching & Decoding terminated.\n");
+        printf("[warning] null instruction detected. Fetching & Decoding terminated.\n");
         event->state = TES_Committed;
         return;
     }

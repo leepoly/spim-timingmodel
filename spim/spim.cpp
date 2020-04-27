@@ -121,6 +121,7 @@ char *emulate_filename;
 bool redirect_mode = false; // redirect input and output to files
 FILE *redirect_inputfile = nullptr;
 FILE *redirect_outputfile = nullptr;
+unsigned int iterations = 1;
 
 /* Local variables: */
 
@@ -332,6 +333,12 @@ int main(int argc, char **argv)
         else if (streq(argv[i], "-lab1-test"))
         {
             lab1 = perftest;
+        }
+        else if (streq(argv[i], "-iterations") && (i + 2 < argc))
+        {
+            iterations = atoi(argv[++i]);
+            printf("program iterations: %d \n", iterations);
+            printf("This option is disabled to simplify lab 3 merging task. If you do have this requirement, contact TA via piazza.\n");
         }
         else if (streq(argv[i], "-redirect") && (i + 2 < argc))
         {

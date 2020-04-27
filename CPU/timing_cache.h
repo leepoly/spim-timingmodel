@@ -4,6 +4,9 @@
     In lab 3, we insert a timing cache to optimize data access path.
 */
 
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
+
 #ifndef TIMING_CACHE_H
 #define TIMING_CACHE_H
 
@@ -42,8 +45,13 @@ public:
         available_cycle += lat;
     }
 
+    ncycle_t GetAvaiableCycle() {
+        return available_cycle;
+    }
+
     int FetchMemoryData(mem_addr addr, char *data);
     int WriteMemoryData(mem_addr addr, char *data);
+    void Reset();
     TimingCache(TimingComponent * _parent);
     void DisplayStats();
     void Issue(TimingEvent * event) {}

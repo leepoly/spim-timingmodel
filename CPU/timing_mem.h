@@ -20,7 +20,9 @@ public:
     mem_word bad_mem_read(mem_addr addr, int mask);
     void bad_mem_write(mem_addr addr, mem_word value, int mask);
     void expand_stack(int addl_bytes);
+    void Reset();
     Memory();
+    ~Memory();
 private:
     instruction **text_seg;
     mem_addr text_top;
@@ -40,6 +42,11 @@ private:
     mem_addr k_data_top;
     int32 data_size_limit, stack_size_limit, k_data_size_limit;
 
+    int mem_text_seg_size = 0x0;
+    int mem_data_seg_size = 0x0;
+    int mem_stack_seg_size = 0x0;
+    int mem_k_data_seg_size = 0x0;
+    int mem_k_text_seg_size = 0x0;
 };
 
 }

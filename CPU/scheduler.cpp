@@ -54,6 +54,7 @@ void Scheduler::deq() {
             break;
         case TES_Committed:
             core->s_total_inst++;
+            printf("inst pc:%x cycle:%d\n", event->pc_addr, event->current_cycle);
             core->s_total_cycle = MAX(core->s_total_cycle, event->current_cycle);
             delete event;
             break;

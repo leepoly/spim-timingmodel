@@ -39,16 +39,13 @@ bool CacheController::EvictCacheline(mem_addr addr, bool is_write, mem_addr PC, 
 bool CacheController::UpdateMetadata(mem_addr addr, bool is_write, mem_addr PC, int offset) {
     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
     char buf[c_tag_entry_size];
-    printf("UpdateMeta read tag array.\n");
     cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
     CacheTagEntry *entry = (CacheTagEntry *)buf;
     int way = 0x0;  // FIXME:
     entry->valid[way] = entry->valid[way];  // FIXME:
     entry->dirty[way] = entry->dirty[way];  // FIXME:
     entry->tag[way] = entry->tag[way]; // FIXME:
-    printf("UpdateMeta write tag array.\n");
     cache->tag_array->Set(idx * sizeof(CacheTagEntry), buf);
-    printf("UpdateMeta tagptr:%lx idx:%x, way:%x, tag:%x V:%x D:%x\n", idx * sizeof(CacheTagEntry), idx, way, entry->tag[way], entry->valid[way], entry->dirty[way]);
     return false;
 }
 
@@ -56,14 +53,9 @@ bool CacheController::UpdateMetadata(mem_addr addr, bool is_write, mem_addr PC, 
 void CacheController::AccessTagArray(mem_addr addr, mem_addr PC, bool &is_hit, cache_line &data, int &hit_offset) {
     int idx = (addr & c_addr_idx_mask) >> c_addr_offset_bit;
     char buf[c_tag_entry_size];
-    printf("AccessTag read tag array.\n");
     cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
     CacheTagEntry *entry = (CacheTagEntry *)buf;
     is_hit = false;
-    printf("Access tag ptr:%ux idx:%x\n", idx * sizeof(CacheTagEntry), idx);
-    for (int way = 0; way < c_asso_num; ++way) {
-        printf("\tway%x: tag:%x V:%x D:%x\n", way, entry->tag[way], entry->valid[way], entry->dirty[way]);
-    }
     // TODO: Return hit_offset and data if there is a hit
     // Hint: hit_offset = (hit_idx * c_asso_num + hit_way) * c_cache_line_size
     hit_offset = 0x0;  // FIXME:
@@ -77,11 +69,14 @@ void CacheController::ResetTagArray() {
     for (int idx = 0; idx < c_cache_set_num; ++idx) {
         cache->tag_array->Get(idx * sizeof(CacheTagEntry), buf);
         entry = (CacheTagEntry *)buf;
-        printf("reset set%d: %p\n", idx, entry);
         for (int way = 0; way < c_asso_num; ++way)
             entry->valid[way] = false;
         cache->tag_array->Set(idx * sizeof(CacheTagEntry), buf);
     }
+}
+
+void CacheController::Reset() {
+    ResetTagArray();
 }
 
 // Merge wdata (one word) into a cacheline

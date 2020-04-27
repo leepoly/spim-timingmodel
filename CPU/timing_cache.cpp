@@ -8,7 +8,7 @@ namespace MemoryHierarchy {
 void TimingCache::Access(mem_addr addr, bool is_write, reg_word &wrdata, mem_addr PC, ncycle_t &current_cycle, int store_data_size) {
     assert(ctrler);
     // update cache time to lateste event time
-    available_cycle = MAX(current_cycle, available_cycle);
+    current_cycle = available_cycle = MAX(current_cycle, available_cycle);
     // pass the request to controller
     ctrler->Access(addr, is_write, wrdata, PC, store_data_size);
     // update statistical counter
@@ -72,6 +72,11 @@ void TimingCache::DisplayStats() {
     printf("\t Cycles on handling all events: %d\n", s_total_cycles);
     printf("\t Cycles of off-critical path events: %d\n", s_background_cycles);
     ctrler->DisplayStats();
+}
+
+void TimingCache::Reset() {
+    ctrler->Reset();
+    printf("reset cache\n");
 }
 
 TimingCache::TimingCache(TimingComponent * _parent) {

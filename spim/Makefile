@@ -116,7 +116,7 @@ LEXCFLAGS += -O $(CXXFLAGS)
 
 OBJS = spim.o spim-utils.o run.o mem.o inst.o data.o sym-tbl.o parser_yacc.o lex.yy.o \
        syscall.o display-utils.o string-stream.o statistics.o \
-	   next_pc_gen.o scheduler.o timing_decoder.o timing_executor.o timing_lsu.o timing_rob.o timingmodel.o \
+	   next_pc_gen.o scheduler.o timing_decoder.o timing_executor.o timing_lsu.o timing_rob.o timingmodel.o timing_register.o \
 	   timing_cache.o timing_mem.o timing_cache_custom.o timing_array.o
 
 

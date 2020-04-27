@@ -276,4 +276,5 @@ extern FILE * redirect_outputfile;
 extern bool redirect_mode;
 extern bool display_instruction;
 extern char *emulate_filename;
+extern unsigned int iterations;
 

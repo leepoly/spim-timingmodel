@@ -325,16 +325,27 @@ copy_int_to_stack(int n)
 
 bool lab2_run_program(mem_addr initial_pc) {
     exception_occurred = 0;
+    ncycle_t dummy;
 
     /* enable timing event queue */
     bool cache_enabled = (lab3 == develop);
     TimingCore * spimt_core = new TimingCore(cache_enabled);
-    spimt_core->next_pc_gen->GenerateInitialEvent(initial_pc);
     printf("initial PC:%x\n", initial_pc);
-    // Keep running timing core until no timing events
+    if (cache_enabled) {
+        spimt_core->mem->Reset();
+        spimt_core->cache->Reset();
+    }
+    if (redirect_mode) {
+        fseek(redirect_inputfile, 0, SEEK_SET);
+        fseek(redirect_outputfile, 0, SEEK_SET);
+    }
+    spimt_core->regfile->Reset(dummy);
+    spimt_core->next_pc_gen->GenerateInitialEvent(initial_pc);
     while (!spimt_core->sched->is_empty()) {
         spimt_core->sched->deq();
     }
+    printf("core inst count: %d\n", spimt_core->s_total_inst);
+    // Keep running timing core until no timing events
     spimt_core->DisplayStats();
     if (cache_enabled) spimt_core->cache->DisplayStats();
 

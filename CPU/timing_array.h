@@ -40,8 +40,10 @@ public:
     int Get(unsigned int data_ptr, char output_data[]);
     int Set(unsigned int data_ptr, const char input_data[]);
     void SetBlockSize(int block_size_) {
-        if (block_size_ > max_block_size) block_size_ = max_block_size;
-        // printf("set block size to 0x%xB\n", block_size_);
+        if (block_size_ > max_block_size) {
+            printf("[warning] block size 0x%xB cannot be over capacity 0x%xB. set block size to 0x%xB\n", block_size_, max_block_size, max_block_size);
+            block_size_ = max_block_size;
+        }
         block_size = block_size_;
     }
 };

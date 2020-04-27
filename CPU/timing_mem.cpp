@@ -11,46 +11,50 @@ void *xmalloc(int size)
     return (x);
 }
 
+void Memory::Reset() {
+    memcpy(this->text_seg, ::text_seg, mem_text_seg_size);
+    memcpy(this->data_seg, ::data_seg, mem_data_seg_size);
+    memcpy(this->stack_seg, ::stack_seg, mem_stack_seg_size);
+    memcpy(this->k_text_seg, ::k_text_seg, mem_k_text_seg_size);
+    memcpy(this->k_data_seg, ::k_data_seg, mem_k_data_seg_size);
+    printf("reset memory\n");
+}
+
 void Memory::make_memory(int text_size, int data_size, int data_limit,
                          int stack_size, int stack_limit, int k_text_size,
                          int k_data_size, int k_data_limit)
 {
     text_seg = (instruction **)xmalloc(BYTES_TO_INST(text_size));
-    memcpy(this->text_seg, ::text_seg, BYTES_TO_INST(text_size));
-    // memclr(text_seg, BYTES_TO_INST(text_size));
     text_top = TEXT_BOT + text_size;
+    mem_text_seg_size = BYTES_TO_INST(text_size);
 
     data_size = ROUND_UP(data_size, BYTES_PER_WORD); /* Keep word aligned */
     data_seg = (mem_word *)xmalloc(data_size);
-    memcpy(this->data_seg, ::data_seg, data_size);
-    // memclr(data_seg, data_size);
     data_seg_b = (BYTE_TYPE *)data_seg;
     data_seg_h = (short *)data_seg;
     data_top = DATA_BOT + data_size;
     data_size_limit = data_limit;
+    mem_data_seg_size = data_size;
 
     stack_size = ROUND_UP(stack_size, BYTES_PER_WORD); /* Keep word aligned */
     stack_seg = (mem_word *)xmalloc(stack_size);
-    memcpy(this->stack_seg, ::stack_seg, stack_size);
-    // memclr(stack_seg, stack_size);
     stack_seg_b = (BYTE_TYPE *)stack_seg;
     stack_seg_h = (short *)stack_seg;
     stack_bot = STACK_TOP - stack_size;
     stack_size_limit = stack_limit;
+    mem_stack_seg_size = stack_size;
 
     k_text_seg = (instruction **)xmalloc(BYTES_TO_INST(k_text_size));
-    memcpy(this->k_text_seg, ::k_text_seg, BYTES_TO_INST(k_text_size));
-    // memclr(k_text_seg, BYTES_TO_INST(k_text_size));
     k_text_top = K_TEXT_BOT + k_text_size;
+    mem_k_text_seg_size = BYTES_TO_INST(k_text_size);
 
     k_data_size = ROUND_UP(k_data_size, BYTES_PER_WORD); /* Keep word aligned */
     k_data_seg = (mem_word *)xmalloc(k_data_size);
-    memcpy(this->k_data_seg, ::k_data_seg, k_data_size);
-    // memclr(k_data_seg, k_data_size);
     k_data_seg_b = (BYTE_TYPE *)k_data_seg;
     k_data_seg_h = (short *)k_data_seg;
     k_data_top = K_DATA_BOT + k_data_size;
     k_data_size_limit = k_data_limit;
+    mem_k_data_seg_size = k_data_size;
 }
 
 reg_word Memory::read_mem_word(mem_addr addr)
@@ -263,5 +267,15 @@ void Memory::bad_mem_write(mem_addr addr, mem_word value, int mask) {
 Memory::Memory()
 {
     make_memory(TEXT_SIZE, ::data_top-DATA_BOT, DATA_LIMIT, STACK_SIZE, STACK_LIMIT, K_TEXT_SIZE, ::k_data_top-K_DATA_BOT, K_DATA_LIMIT);
+}
+
+Memory::~Memory()
+{
+    free(this->text_seg);
+    free(this->data_seg);
+    free(this->stack_seg);
+    free(this->k_data_seg);
+    free(this->k_text_seg);
+
 }
 } // namespace MemoryHierarchy

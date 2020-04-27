@@ -28,9 +28,13 @@ void TimingLSU::Issue(TimingEvent * event) {
         event->reg_wb_data = memory_read_data;
 
     if (event->MemRead || event->MemWrite) {
-        available_cycle = MAX(event->current_cycle, available_cycle) + c_memory_access_latency;
-        event->current_cycle = available_cycle;
-        event->execute_cycles += c_memory_access_latency;
+        if (core->cache_enabled) {
+            available_cycle = MAX(event->current_cycle, available_cycle);  // available_cycle is updated by timing cache
+        } else {
+            available_cycle = MAX(event->current_cycle, available_cycle) + c_memory_access_latency;
+            event->current_cycle = available_cycle;
+            event->execute_cycles += c_memory_access_latency;
+        }
     } else {
         // this stage still count 1 cycle even when no memory request
         available_cycle = MAX(event->current_cycle, available_cycle) + 1;

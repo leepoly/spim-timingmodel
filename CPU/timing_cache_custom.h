@@ -1,5 +1,9 @@
+
 #ifndef CACHE_CONTROLLER_H
 #define CACHE_CONTROLLER_H
+
+// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
+// This file will be overwritten after uploaded.
 
 #include "timing_cache.h"
 #include "lab3_def.h"
@@ -8,7 +12,7 @@ namespace MemoryHierarchy {
 class TimingCache;
 
 // address translation:
-// |----tag 23b ----|---idx 5b---|-offset5b-|
+// |----tag 23b ----|---idx 4b---|-offset5b-|
 const int c_asso_num = 2;
 struct CacheTagEntry {
     bool valid[c_asso_num];
@@ -18,10 +22,10 @@ struct CacheTagEntry {
 };
 
 // define more constants
-const int c_cache_set_num = c_cache_block_num / c_asso_num;  // 32
-const int c_addr_idx_mask = 0x3e0;
+const int c_cache_set_num = c_cache_block_num / c_asso_num;  // 16
+const int c_addr_idx_mask = 0x1e0;
 const int c_tag_entry_size = sizeof(CacheTagEntry);  // 8B for each cache line
-const int c_tag_array_size = c_tag_entry_size * c_cache_set_num;  // 8B * 4 * 32 = 512B < capacity
+const int c_tag_array_size = c_tag_entry_size * c_cache_set_num;  // 8B * 2 * 16 = 256B < capacity
 
 class CacheController {
 private:
@@ -30,15 +34,17 @@ private:
     void MergeBlock(char* blk, reg_word wdata, int offset, int store_data_size);
     bool EvictCacheline(mem_addr addr, bool is_write, mem_addr PC, int &offset);
     bool UpdateMetadata(mem_addr addr, bool is_write, mem_addr PC, int offset);
-    // void Addr2IdxWay(mem_addr addr, int &index, int &way);
 public:
     void Access(mem_addr addr, bool is_write, reg_word &wrdata, mem_addr PC, int store_data_size);
-    void ResetTagArray();
+    void Reset();
     // Process off the critical operation. Now you can solve somethind not urgent, e.g., writing cacheline back to memory. This still increments available_cycle but may not influence current instruction.
     void ProcessOffCritical(mem_addr addr, bool is_write, mem_addr PC) {}
-    CacheController(MemoryHierarchy::TimingCache *cache_);
     void DisplayStats();
+    CacheController(MemoryHierarchy::TimingCache *cache_);
+    // do not change the above methods. TimingCache will call with their exact names.
+
     // define your own functions
+    void ResetTagArray();
 
 };
 

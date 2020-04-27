@@ -47,14 +47,26 @@ class TimingCore : public TimingComponent {
         sched = new Scheduler(this);
         alu = new ALU();
         if (cache_enabled_) {
+            // Separate memory when cache enabled
             this->cache_enabled = cache_enabled_;
             cache = new MemoryHierarchy::TimingCache(this);
             mem = new MemoryHierarchy::Memory();
             cache->SetMemory(mem);
         }
 
+        // we move all reset calling to spim-utils.cpp. Don't do it here.
+    }
+
+    void Reset() {
         ncycle_t dummy;
-        regfile->Reset(dummy);  // although register resetting needs 32 writes, for now we do not consider the reseting overhead.
+        regfile->Reset(dummy);
+        if (cache_enabled) {
+            if (mem) {
+                mem->Reset();
+                available_cycle = MAX(available_cycle, cache->GetAvaiableCycle());
+            }
+            if (cache) cache->Reset();
+        }
     }
 
     void DisplayStats() {

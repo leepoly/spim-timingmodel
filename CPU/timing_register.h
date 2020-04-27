@@ -14,7 +14,7 @@ class TimingRegister : public TimingComponent {
     }
 
     reg_word reg[R_LENGTH];
-    bool reg_used[R_LENGTH]; // You can use this bool array to handle raw-dependency
+    int reg_used[R_LENGTH]; // You can use this bool array to handle raw-dependency
 
     void Load(int id, reg_word& content) {
         content = reg[id];
@@ -25,12 +25,7 @@ class TimingRegister : public TimingComponent {
         printf("\treg id:%d write:0x%x\n", id, content);
     }
 
-    void Reset(ncycle_t& cycle) {
-        for (int i = 0; i < R_LENGTH; i++) {
-            reg[i] = R[i];
-            reg_used[i] = false; // add this
-        }
-    }
+    void Reset(ncycle_t & cycle);
 
     int CheckCorrectness() {
         for (int i = 0; i < R_LENGTH; i++) {
