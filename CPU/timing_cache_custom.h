@@ -2,9 +2,6 @@
 #ifndef CACHE_CONTROLLER_H
 #define CACHE_CONTROLLER_H
 
-// DO NOT MODIFY DO NOT MODIFY DO NOT MODIFY
-// This file will be overwritten after uploaded.
-
 #include "timing_cache.h"
 #include "lab3_def.h"
 
