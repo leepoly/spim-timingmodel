@@ -15,6 +15,46 @@
 
 typedef uint64_t ncycle_t;
 
+/** @Zenithal
+ Since we have discussed we should build a unified and hardware-oriented timing
+ model, I am here to the framework.
+
+ Since the model is unifed, we do not use the event and component point of
+ view, instead we treat each stage as a function and the execution order of 
+ these functions is fixed (For simple stall and full-forward), meanwhile 
+ if someone wants to implement out-of-order execution, they may change the 
+ order and alter other component themself.
+
+ Since the model is hardware-oriented, instead of event, which is rather high
+ level abstraction, we use class variables to simulate registers in hardware.
+ **/
+
+class TimingModel {
+    public:
+        void issue(){
+            // You can change this only if you are playing
+            pc();
+            wb();
+            lsu();
+            exe();
+            de();
+            fet();
+        }
+        
+        // Functions below are all implemented in cpp, 
+        // and some of them is partially implemented.
+        void pc();
+        void wb();
+        void lsu();// Cache may be implemented here or in other class
+        void exe();
+        void de();
+        void fet();
+    private:
+        struct _fet_regs{
+            reg_word inst;
+        } fet_regs;
+}
+
 class TimingComponent;
 class TimingEvent;
 class FetchingEvent;
