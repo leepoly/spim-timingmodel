@@ -79,7 +79,7 @@
 #include "scanner.h"
 #include "parser_yacc.h"
 #include "data.h"
-
+#include "mailbox.h"
 
 /* Internal functions: */
 
@@ -122,6 +122,7 @@ int spim_return_value;		/* Value returned when spim exits */
 lab_state lab1 = unrelated;
 FILE * lab1_inputfile = nullptr;
 FILE * lab1_outputfile = nullptr;
+MailBox* mailboxes[5][5];
 
 /* Local variables: */
 

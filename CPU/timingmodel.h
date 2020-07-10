@@ -6,12 +6,14 @@
 #include "reg.h"
 #include "inst.h"
 #include "mem.h"
+#include "mailbox.h"
 
 #include "log.h"
 
 #include <queue>
 #include <typeinfo>
 #include <iostream>
+#include <string>
 
 
 /** @Zenithal
@@ -31,8 +33,9 @@
 /* NOTE (Yiwei Li):
 Suggestions on the code style:
 1. Avoiding extra spaces
-2. 
-
+2. Keep the consistent style in one file (original SPIM use two spaces as indentation. We use 4 spaces.)
+3. Reasonable comments. Leave one space between '//' and your first word.
+4. Three types of class members: IN_xx: Input wires. REG_xx: Inner registers. DEBUG_xx: extra signals.
 */
 
 class StageIF;
@@ -69,6 +72,16 @@ public:
     // Only Calculate under valid Input
     bool IN_valid = false;
     uint64_t avail_cycle = 0;
+protected:
+    MailBoxNode me_node = IF_Stage;
+    bool sendSignal(MailBoxNode destination, std::string key, uint32_t value) {
+        assert(mailboxes[me_node][destination]);
+        return mailboxes[me_node][destination]->Send(key, value);
+    }
+    bool recvSignal(MailBoxNode source, std::string key, uint32_t &value) {
+        assert(mailboxes[source][me_node]);
+        return mailboxes[source][me_node]->Receive(key, value);
+    }
 };
 
 class StageIF : public Stage {
@@ -76,7 +89,7 @@ public:
     // Input IO
     mem_addr IN_next_pc;
     // Method
-    bool issue(uint64_t cur_cycle);
+    bool issue(uint64_t cur_cycle); // this boolean indicates whether we have any instruction to fetch.
     void init(mem_addr initial_pc, StageID * id_stage);
 private:
     // Inner Registers

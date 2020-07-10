@@ -3,6 +3,7 @@
 void StageIF::init(mem_addr initial_pc, StageID * id_stage) {
     this->IN_next_pc = this->REG_cur_pc = initial_pc;
     this->decoder_interface = id_stage;
+    this->me_node = IF_Stage;
 }
 
 bool StageIF::issue(uint64_t cur_cycle) {
@@ -16,7 +17,14 @@ bool StageIF::issue(uint64_t cur_cycle) {
     decoder_interface->IN_valid = true;
     printf("%d Fetch %x\n", cur_cycle, this->REG_cur_pc);
     // Update inner registers.
-    this->IN_next_pc += BYTES_PER_WORD;
+    mem_addr next_jump_pc = 0x0;
+    if (this->recvSignal(ID_Stage, "next_pc", next_jump_pc)) {
+        this->IN_next_pc = next_jump_pc;
+    } else {
+        this->IN_next_pc += BYTES_PER_WORD;
+    }
+
+    // TODO: or, we put all register assignment to timing_core.tick(). And all wire calculations to timing_core.calculate()
     this->REG_cur_pc = this->IN_next_pc;
 
     static int fetched_inst = 0;
@@ -27,6 +35,7 @@ bool StageIF::issue(uint64_t cur_cycle) {
 void StageID::init(StageEXE * exe_stage, StageIF * if_stage) {
     this->executor_interface = exe_stage;
     this->fetcher_interface = if_stage;
+    this->me_node = ID_Stage;
 }
 
 void StageID::issue(uint64_t cur_cycle) {
@@ -47,7 +56,8 @@ void StageID::issue(uint64_t cur_cycle) {
     decoded_inst++;
     if (decoded_inst == 2) {
         printf("assume a jump at pc 0x%x, to address 0x%x\n", this->IN_DEBUG_pc, 0x400080);
-        fetcher_interface->IN_next_pc = 0x400080;
+        // fetcher_interface->IN_next_pc = 0x400080;
+        this->sendSignal(IF_Stage, "next_pc", 0x400080);
     }
 }
 
@@ -91,6 +101,8 @@ void StageWB::issue(uint64_t cur_cycle) {
 }
 
 void TimingModel::calculate() {
+    // This part is for Simulation. Students do not need to completely understand it. It is also
+    // better to be put in another file for readability.
     // You can change this only if you are playing
     wb_stage->issue(cur_cycle);
     mem_stage->issue(cur_cycle);
@@ -111,4 +123,6 @@ void TimingModel::init(mem_addr initial_pc) {
     id_stage->init(exe_stage, if_stage);
     exe_stage->init(mem_stage);
     mem_stage->init(wb_stage);
+
+    mailboxes[ID_Stage][IF_Stage] = new MailBox();
 }
