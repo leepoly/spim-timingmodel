@@ -111,7 +111,7 @@ LEXCFLAGS += -O $(CXXFLAGS)
 
 
 OBJS = spim.o spim-utils.o run.o mem.o inst.o data.o sym-tbl.o parser_yacc.o lex.yy.o \
-       syscall.o display-utils.o string-stream.o statistics.o timingmodel.o
+       syscall.o display-utils.o string-stream.o statistics.o timingmodel.o logger.o
 
 
 spim:   $(OBJS)

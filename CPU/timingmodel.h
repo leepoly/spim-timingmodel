@@ -7,7 +7,10 @@
 #include "inst.h"
 #include "mem.h"
 
-#include "log.h"
+#include "logger.h"
+
+#include "lab_defs.h"
+#include "timingregister.h"
 
 #include <queue>
 #include <typeinfo>
@@ -16,16 +19,20 @@
 
 /** @Zenithal
  Since we have discussed we should build a unified and hardware-oriented timing
- model, I am here to the framework.
+ model, I am here to present the framework.
 
  Since the model is unifed, we do not use the event and component point of
  view, instead we treat each stage as a function and the execution order of 
  these functions is fixed (For simple stall and full-forward), meanwhile 
  if someone wants to implement out-of-order execution, they may change the 
- order and alter other component themself.
+ order and alter other components themself.
 
  Since the model is hardware-oriented, instead of event, which is rather high
  level abstraction, we use class variables to simulate registers in hardware.
+
+ For those interested in the previous framework, you may check the older commit,
+ namely the tag:lab2-lecstyle-v1.1 to understand the `event` and `componet`
+ talked above.
  **/
 
 /* NOTE (Yiwei Li):
@@ -60,8 +67,10 @@ public:
 
     void tick() {
         cur_cycle++;
-        printf("Now at cycle %d\n", cur_cycle);
+        deb.log("Now at cycle %d\n", cur_cycle);
     }
+
+    TimingRegister *reg;
 };
 
 class Stage {
@@ -69,6 +78,8 @@ public:
     // Only Calculate under valid Input
     bool IN_valid = false;
     uint64_t avail_cycle = 0;
+    TimingModel *model;
+    bool ready = false;
 };
 
 class StageIF : public Stage {
@@ -77,7 +88,7 @@ public:
     mem_addr IN_next_pc;
     // Method
     bool issue(uint64_t cur_cycle);
-    void init(mem_addr initial_pc, StageID * id_stage);
+    void init(mem_addr initial_pc, StageID * id_stage, TimingModel *model);
 private:
     // Inner Registers
     mem_addr REG_cur_pc;
@@ -92,7 +103,7 @@ public:
     mem_addr IN_DEBUG_pc;
     // Method
     void issue(uint64_t cur_cycle);
-    void init(StageEXE * exe_stage, StageIF * if_stage);
+    void init(StageEXE * exe_stage, StageIF * if_stage, TimingModel *model);
 private:
     // Inner Registers
     // pointer to the next stage to modify its input variables
@@ -109,7 +120,7 @@ public:
     mem_addr IN_DEBUG_pc;
 
     void issue(uint64_t cur_cycle);
-    void init(StageMEM * mem_stage);
+    void init(StageMEM * mem_stage, TimingModel *model);
 private:
     StageMEM * mem_interface;
 };
@@ -120,7 +131,7 @@ public:
     mem_addr IN_DEBUG_pc;
 
     void issue(uint64_t cur_cycle);
-    void init(StageWB * wb_stage);
+    void init(StageWB * wb_stage, TimingModel *model);
 private:
     StageWB * wb_interface;
 };
@@ -132,6 +143,7 @@ public:
     mem_addr IN_DEBUG_pc;
 
     void issue(uint64_t cur_cycle);
+    void init(TimingModel *model);
 private:
 };
 
