@@ -20,6 +20,7 @@ class logger {
             //fflush(fp);
             return ret;
         }
+        return 0;
     }
 
     bool active;

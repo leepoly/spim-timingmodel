@@ -76,10 +76,10 @@ public:
 class Stage {
 public:
     // Only Calculate under valid Input
-    bool IN_valid = false;
+    bool IN_valid = false; // IN_valid is for initial a few steps
+    bool OUT_valid = false; // OUT_valid is for big mem latency
     uint64_t avail_cycle = 0;
     TimingModel *model;
-    bool ready = false;
 };
 
 class StageIF : public Stage {
@@ -93,7 +93,7 @@ private:
     // Inner Registers
     mem_addr REG_cur_pc;
     // pointer to the next stage to modify its input variables
-    StageID * decoder_interface;
+    StageID * id_interface;
 };
 
 class StageID : public Stage {
@@ -107,9 +107,9 @@ public:
 private:
     // Inner Registers
     // pointer to the next stage to modify its input variables
-    StageEXE * executor_interface;
+    StageEXE * exe_interface;
     // TODO: normally we do not allow out-of-order stage communication. Mailbox is used for safe signal propagation.
-    StageIF * fetcher_interface;
+    StageIF * if_interface;
 };
 
 class StageEXE : public Stage {
