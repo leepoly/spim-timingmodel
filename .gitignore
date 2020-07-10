@@ -1,0 +1,8 @@
+.vscode/
+spim/*.o
+spim/spim
+spim/parser_yacc*
+spim/lex*
+bin/
+share/
+

@@ -204,10 +204,6 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 
   PC = initial_PC;
 
-  /* enable timing event queue */
-  TimingCore spimt_core;
-
-
   if (!bare_machine && mapped_io)
     next_step = IO_INTERVAL;
   else
@@ -294,10 +290,6 @@ run_spim (mem_addr initial_PC, int steps_to_run, bool display)
 	      return false;
 	    }
 
-	  	// spimt_core.sched->enq(new FetchingEvent(PC, spimt_core.fetcher));
-		// while (!spimt_core.sched->isEmpty()) {
-		// 	spimt_core.sched->deq();
-		// }
 	  if (display)
 	    print_inst (PC);
 

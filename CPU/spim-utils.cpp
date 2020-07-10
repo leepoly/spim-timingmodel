@@ -51,6 +51,8 @@
 #include "sym-tbl.h"
 
 #include "statistics.h"
+#include "timingmodel.h"
+#define LAB2
 
 /* Internal functions: */
 
@@ -358,6 +360,16 @@ run_program (mem_addr pc, int steps, bool display, bool cont_bkpt, bool* continu
       steps -= 1;
       pc = PC;
     }
+
+#ifdef LAB2
+  TimingModel timing_core;
+  timing_core.init(pc);
+  while (timing_core.has_next_cycle) {
+    timing_core.calculate();
+    timing_core.tick();
+  }
+  printf("LAB2 Finish.\n");
+#endif
 
   exception_occurred = 0;
   *continuable = run_spim (pc, steps, display);

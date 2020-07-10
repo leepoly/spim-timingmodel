@@ -3,9 +3,9 @@
 
 #include <cstdint>
 #include "spim.h"
-#include "mem.h"
-#include "inst.h"
 #include "reg.h"
+#include "inst.h"
+#include "mem.h"
 
 #include "log.h"
 
@@ -13,7 +13,6 @@
 #include <typeinfo>
 #include <iostream>
 
-typedef uint64_t ncycle_t;
 
 /** @Zenithal
  Since we have discussed we should build a unified and hardware-oriented timing
@@ -29,224 +28,111 @@ typedef uint64_t ncycle_t;
  level abstraction, we use class variables to simulate registers in hardware.
  **/
 
+/* NOTE (Yiwei Li):
+Suggestions on the code style:
+1. Avoiding extra spaces
+2. 
+
+*/
+
+class StageIF;
+class StageID;
+class StageEXE;
+class StageMEM;
+class StageWB;
+
 class TimingModel {
-    public:
-        void issue(){
-            // You can change this only if you are playing
-            pc();
-            wb();
-            lsu();
-            exe();
-            de();
-            fet();
-        }
-        
-        // Functions below are all implemented in cpp, 
-        // and some of them is partially implemented.
-        void pc();
-        void wb();
-        void lsu();// Cache may be implemented here or in other class
-        void exe();
-        void de();
-        void fet();
-    private:
-        struct _fet_regs{
-            reg_word inst;
-        } fet_regs;
-}
-
-class TimingComponent;
-class TimingEvent;
-class FetchingEvent;
-class DecodingEvent;
-class ExecutingEvent;
-class TimingFetcher;
-class TimingDecoder;
-class TimingExecutor;
-class TimingCore;
-class Scheduler;
-
-ncycle_t c_fetch_latency = 1;
-ncycle_t c_decode_latency = 3;
-ncycle_t c_executor_latency = 10;
-
-class TimingComponent {
+private:
+    uint64_t cur_cycle;
+    StageIF *if_stage;
+    StageID *id_stage;
+    StageEXE *exe_stage;
+    StageMEM *mem_stage;
+    StageWB *wb_stage;
 public:
-    ncycle_t availableCycle;
-    TimingComponent * parent = nullptr;
+    bool has_next_cycle;
 
-    TimingComponent() {
-        availableCycle = -1;
+    void init(mem_addr initial_pc);
+
+    // Functions below are all implemented in cpp,
+    // and some of them is partially implemented.
+    void calculate();
+
+    void tick() {
+        cur_cycle++;
+        printf("Now at cycle %d\n", cur_cycle);
     }
 };
 
-class TimingEvent {
+class Stage {
 public:
-    ncycle_t currentCycle;
-    ncycle_t executeCycles;
-
-    TimingComponent* comp = nullptr; //belong to which timing component
-    void (*issue) (TimingEvent, TimingEvent *&);
-
-    TimingEvent() {
-        currentCycle = 0;
-        executeCycles = 0;
-    }
-
-    bool operator < (const TimingEvent & a) const {
-        //TODO: we need to check dependencies here to choose a best issuable event
-        return a.currentCycle < currentCycle;
-    }
+    // Only Calculate under valid Input
+    bool IN_valid = false;
+    uint64_t avail_cycle = 0;
 };
 
-class TimingCore : public TimingComponent {
+class StageIF : public Stage {
 public:
-    TimingFetcher * fetcher = nullptr;
-    TimingDecoder * decoder = nullptr;
-    TimingExecutor * executor = nullptr;
-
-    Scheduler * sched = nullptr;
-    
-    TimingCore();
+    // Input IO
+    mem_addr IN_next_pc;
+    // Method
+    bool issue(uint64_t cur_cycle);
+    void init(mem_addr initial_pc, StageID * id_stage);
+private:
+    // Inner Registers
+    mem_addr REG_cur_pc;
+    // pointer to the next stage to modify its input variables
+    StageID * decoder_interface;
 };
 
-class FetchingEvent : public TimingEvent {
+class StageID : public Stage {
 public:
-    /* input */
-    mem_addr pc_addr;
-    /* output */
-    instruction * fetch_inst;
-
-    FetchingEvent(mem_addr _pc_addr, TimingComponent * _comp);
+    // Input IO
+    instruction * IN_inst;
+    mem_addr IN_DEBUG_pc;
+    // Method
+    void issue(uint64_t cur_cycle);
+    void init(StageEXE * exe_stage, StageIF * if_stage);
+private:
+    // Inner Registers
+    // pointer to the next stage to modify its input variables
+    StageEXE * executor_interface;
+    // TODO: normally we do not allow out-of-order stage communication. Mailbox is used for safe signal propagation.
+    StageIF * fetcher_interface;
 };
 
-class DecodingEvent : public TimingEvent {
+class StageEXE : public Stage {
 public:
-    instruction * inst;
+    int IN_opcode;
+    int IN_rd, IN_rs, IN_rt;
+    reg_word IN_imm;
+    mem_addr IN_DEBUG_pc;
 
-    DecodingEvent(instruction * _inst, TimingComponent * _comp);
+    void issue(uint64_t cur_cycle);
+    void init(StageMEM * mem_stage);
+private:
+    StageMEM * mem_interface;
 };
 
-class ExecutingEvent : public TimingEvent {
+class StageMEM : public Stage {
 public:
-    int opcode;
-    int rd, rs, rt;
-    reg_word imm;
+    mem_addr IN_addr;
+    mem_addr IN_DEBUG_pc;
 
-    ExecutingEvent(TimingComponent * _comp);
+    void issue(uint64_t cur_cycle);
+    void init(StageWB * wb_stage);
+private:
+    StageWB * wb_interface;
 };
 
-class TimingFetcher : public TimingComponent {
+class StageWB : public Stage {
 public:
-    TimingFetcher(TimingComponent * _parent) {
-        availableCycle = 0;
-        parent = _parent;
-    }
+    uint32_t IN_wb_reg_id;
+    reg_word IN_wb_reg_value;
+    mem_addr IN_DEBUG_pc;
+
+    void issue(uint64_t cur_cycle);
+private:
 };
-//FIXME: wierd c++ pointer to member function syntax... how to fix
-// class TimingFetcher : public TimingComponent {
-// public:
-    void Fetch(FetchingEvent in_event, DecodingEvent *& out_event) {
-        out_event = new DecodingEvent(read_mem_inst (in_event.pc_addr), (TimingComponent *)((TimingCore *)(in_event.comp->parent))->decoder);
-
-        in_event.comp->availableCycle = MAX(in_event.currentCycle, in_event.comp->availableCycle) + c_fetch_latency;
-        out_event->currentCycle = in_event.comp->availableCycle;
-        out_event->executeCycles = in_event.executeCycles + c_fetch_latency;
-    }
-// };
-
-class TimingDecoder : public TimingComponent {
-public:
-    TimingDecoder(TimingComponent * _parent) {
-        availableCycle = 0;
-        parent = _parent;
-    }
-};
-
-void Decode(DecodingEvent in_event, ExecutingEvent *& out_event) {
-        out_event = new ExecutingEvent((TimingComponent *)((TimingCore *)(in_event.comp->parent))->executor);
-        out_event->opcode = OPCODE(in_event.inst);
-        out_event->rs = RS(in_event.inst);
-        out_event->rd = RD(in_event.inst);
-        out_event->rt = RT(in_event.inst);
-        out_event->imm = IMM(in_event.inst);
-
-        in_event.comp->availableCycle = MAX(in_event.currentCycle, in_event.comp->availableCycle) + c_decode_latency;
-        out_event->currentCycle = in_event.comp->availableCycle;
-        out_event->executeCycles = in_event.executeCycles + c_fetch_latency;
-    }
-
-class TimingExecutor : public TimingComponent {
-public:
-    TimingExecutor(TimingComponent * _parent) {
-        availableCycle = 0;
-        parent = _parent;
-    }
-};
-
-    void Execute(ExecutingEvent event, TimingEvent *& dummy) {
-        //TODO: call spim to implement function
-        dummy = nullptr;
-
-        event.comp->availableCycle = MAX(event.currentCycle, event.comp->availableCycle) + c_executor_latency;
-        event.currentCycle = event.comp->availableCycle;
-        event.executeCycles = event.executeCycles + c_executor_latency;
-
-        // std::cout << "at cycle: " << event.currentCycle << " inst finished with executed for " << event.executeCycles << "cycles." << std::endl;
-    }
-
-FetchingEvent::FetchingEvent(mem_addr _pc_addr, TimingComponent * _comp) {
-    pc_addr = _pc_addr;
-    issue = (void (*) (TimingEvent, TimingEvent*& ))&(Fetch);
-    comp = _comp;
-}
-
-DecodingEvent::DecodingEvent(instruction * _inst, TimingComponent * _comp) {
-    inst = _inst;
-    issue = (void (*) (TimingEvent, TimingEvent*& ))&(Decode);
-    comp = _comp;
-}
-
-ExecutingEvent::ExecutingEvent(TimingComponent * _comp) {
-    issue = (void (*) (TimingEvent, TimingEvent*& ))&(Execute);
-    comp = _comp;
-}
-
-class Scheduler {
-public:
-    std::priority_queue<TimingEvent *> queue;
-
-    void enq(TimingEvent * event) {
-        // info("at cycle:%lu enqueue (%s)", event->currentCycle, typeid(*event).name());
-        queue.push(event);
-    }
-     
-    void deq() {
-        if (isEmpty()) return;
-        TimingEvent * event = queue.top();
-        // info("at cycle:%lu dequeue (%s)", event->currentCycle, typeid(*event).name());
-        queue.pop();
-        TimingEvent * out_event = nullptr;
-        event->issue(*event, out_event); // issue this event to corresponding component and do their task
-        // TODO: add dependencies here!
-        // info("at cycle:%lu going to enq (%s)", out_event.currentCycle, typeid(out_event).name());
-        if (out_event) {
-            enq(out_event);
-        }
-        delete event;
-    }
-
-    bool isEmpty() {
-        return queue.empty();
-    }
-};
-
-TimingCore::TimingCore() {
-    fetcher = new TimingFetcher(this);
-    decoder = new TimingDecoder(this);
-    executor = new TimingExecutor(this);
-
-    sched = new Scheduler();
-}
 
 #endif  // TIMINGMODEL_H

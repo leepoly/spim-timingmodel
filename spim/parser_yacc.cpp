@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.4.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -40,11 +41,14 @@
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
 
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
+
 /* Identify Bison output.  */
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.0.4"
+#define YYBISON_VERSION "3.4"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -61,8 +65,8 @@
 
 
 
-/* Copy the first part of user declarations.  */
-#line 439 "../CPU/parser.y" /* yacc.c:339  */
+/* First part of user prologue.  */
+#line 439 "../CPU/parser.y"
 
 #include <stdio.h>
 
@@ -134,13 +138,17 @@ static bool noat_flag = 0;	/* => program can use $1 */
 static char *input_file_name;	/* Name of file being parsed */
 
 
-#line 138 "parser_yacc.cpp" /* yacc.c:339  */
+#line 142 "parser_yacc.cpp"
 
 # ifndef YY_NULLPTR
-#  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULLPTR nullptr
+#  if defined __cplusplus
+#   if 201103L <= __cplusplus
+#    define YY_NULLPTR nullptr
+#   else
+#    define YY_NULLPTR 0
+#   endif
 #  else
-#   define YY_NULLPTR 0
+#   define YY_NULLPTR ((void*)0)
 #  endif
 # endif
 
@@ -152,8 +160,8 @@ static char *input_file_name;	/* Name of file being parsed */
 # define YYERROR_VERBOSE 0
 #endif
 
-/* In a future release of Bison, this section will be replaced
-   by #include "parser_yacc.h".  */
+/* Use api.header.include to #include this header
+   instead of duplicating it here.  */
 #ifndef YY_YY_PARSER_YACC_H_INCLUDED
 # define YY_YY_PARSER_YACC_H_INCLUDED
 /* Debug traces.  */
@@ -576,9 +584,7 @@ int yyparse (void);
 
 #endif /* !YY_YY_PARSER_YACC_H_INCLUDED  */
 
-/* Copy the second part of user declarations.  */
 
-#line 582 "parser_yacc.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -599,13 +605,13 @@ typedef signed char yytype_int8;
 #ifdef YYTYPE_UINT16
 typedef YYTYPE_UINT16 yytype_uint16;
 #else
-typedef unsigned short int yytype_uint16;
+typedef unsigned short yytype_uint16;
 #endif
 
 #ifdef YYTYPE_INT16
 typedef YYTYPE_INT16 yytype_int16;
 #else
-typedef short int yytype_int16;
+typedef short yytype_int16;
 #endif
 
 #ifndef YYSIZE_T
@@ -617,7 +623,7 @@ typedef short int yytype_int16;
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
-#  define YYSIZE_T unsigned int
+#  define YYSIZE_T unsigned
 # endif
 #endif
 
@@ -653,15 +659,6 @@ typedef short int yytype_int16;
 # define YY_ATTRIBUTE_UNUSED YY_ATTRIBUTE ((__unused__))
 #endif
 
-#if !defined _Noreturn \
-     && (!defined __STDC_VERSION__ || __STDC_VERSION__ < 201112)
-# if defined _MSC_VER && 1200 <= _MSC_VER
-#  define _Noreturn __declspec (noreturn)
-# else
-#  define _Noreturn YY_ATTRIBUTE ((__noreturn__))
-# endif
-#endif
-
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
 # define YYUSE(E) ((void) (E))
@@ -669,7 +666,7 @@ typedef short int yytype_int16;
 # define YYUSE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
+#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
 # define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
     _Pragma ("GCC diagnostic push") \
@@ -688,6 +685,8 @@ typedef short int yytype_int16;
 # define YY_INITIAL_VALUE(Value) /* Nothing. */
 #endif
 
+
+#define YY_ASSERT(E) ((void) (0 && (E)))
 
 #if ! defined yyoverflow || YYERROR_VERBOSE
 
@@ -831,16 +830,16 @@ union yyalloc
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  852
 
-/* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
-   by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   647
 
+/* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex, with out-of-bounds checking.  */
 #define YYTRANSLATE(YYX)                                                \
-  ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
+  ((unsigned) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
 /* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
-   as returned by yylex, without out-of-bounds checking.  */
+   as returned by yylex.  */
 static const yytype_uint16 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1897,22 +1896,22 @@ static const yytype_uint8 yyr2[] =
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
-#define YYBACKUP(Token, Value)                                  \
-do                                                              \
-  if (yychar == YYEMPTY)                                        \
-    {                                                           \
-      yychar = (Token);                                         \
-      yylval = (Value);                                         \
-      YYPOPSTACK (yylen);                                       \
-      yystate = *yyssp;                                         \
-      goto yybackup;                                            \
-    }                                                           \
-  else                                                          \
-    {                                                           \
-      yyerror (YY_("syntax error: cannot back up")); \
-      YYERROR;                                                  \
-    }                                                           \
-while (0)
+#define YYBACKUP(Token, Value)                                    \
+  do                                                              \
+    if (yychar == YYEMPTY)                                        \
+      {                                                           \
+        yychar = (Token);                                         \
+        yylval = (Value);                                         \
+        YYPOPSTACK (yylen);                                       \
+        yystate = *yyssp;                                         \
+        goto yybackup;                                            \
+      }                                                           \
+    else                                                          \
+      {                                                           \
+        yyerror (YY_("syntax error: cannot back up")); \
+        YYERROR;                                                  \
+      }                                                           \
+  while (0)
 
 /* Error token number */
 #define YYTERROR        1
@@ -1952,37 +1951,37 @@ do {                                                                      \
 } while (0)
 
 
-/*----------------------------------------.
-| Print this symbol's value on YYOUTPUT.  |
-`----------------------------------------*/
+/*-----------------------------------.
+| Print this symbol's value on YYO.  |
+`-----------------------------------*/
 
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_value_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep)
 {
-  FILE *yyo = yyoutput;
-  YYUSE (yyo);
+  FILE *yyoutput = yyo;
+  YYUSE (yyoutput);
   if (!yyvaluep)
     return;
 # ifdef YYPRINT
   if (yytype < YYNTOKENS)
-    YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
+    YYPRINT (yyo, yytoknum[yytype], *yyvaluep);
 # endif
   YYUSE (yytype);
 }
 
 
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
+/*---------------------------.
+| Print this symbol on YYO.  |
+`---------------------------*/
 
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep)
 {
-  YYFPRINTF (yyoutput, "%s %s (",
+  YYFPRINTF (yyo, "%s %s (",
              yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
-  YYFPRINTF (yyoutput, ")");
+  yy_symbol_value_print (yyo, yytype, yyvaluep);
+  YYFPRINTF (yyo, ")");
 }
 
 /*------------------------------------------------------------------.
@@ -2016,7 +2015,7 @@ do {                                                            \
 static void
 yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
 {
-  unsigned long int yylno = yyrline[yyrule];
+  unsigned long yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
   YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
@@ -2027,7 +2026,7 @@ yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr,
                        yystos[yyssp[yyi + 1 - yynrhs]],
-                       &(yyvsp[(yyi + 1) - (yynrhs)])
+                       &yyvsp[(yyi + 1) - (yynrhs)]
                                               );
       YYFPRINTF (stderr, "\n");
     }
@@ -2131,7 +2130,10 @@ yytnamerr (char *yyres, const char *yystr)
           case '\\':
             if (*++yyp != '\\')
               goto do_not_strip_quotes;
-            /* Fall through.  */
+            else
+              goto append;
+
+          append:
           default:
             if (yyres)
               yyres[yyn] = *yyp;
@@ -2149,7 +2151,7 @@ yytnamerr (char *yyres, const char *yystr)
   if (! yyres)
     return yystrlen (yystr);
 
-  return yystpcpy (yyres, yystr) - yyres;
+  return (YYSIZE_T) (yystpcpy (yyres, yystr) - yyres);
 }
 # endif
 
@@ -2227,10 +2229,10 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                 yyarg[yycount++] = yytname[yyx];
                 {
                   YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULLPTR, yytname[yyx]);
-                  if (! (yysize <= yysize1
-                         && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+                  if (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM)
+                    yysize = yysize1;
+                  else
                     return 2;
-                  yysize = yysize1;
                 }
               }
         }
@@ -2242,6 +2244,7 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
       case N:                               \
         yyformat = S;                       \
       break
+    default: /* Avoid compiler warnings. */
       YYCASE_(0, YY_("syntax error"));
       YYCASE_(1, YY_("syntax error, unexpected %s"));
       YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
@@ -2253,9 +2256,10 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 
   {
     YYSIZE_T yysize1 = yysize + yystrlen (yyformat);
-    if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+    if (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM)
+      yysize = yysize1;
+    else
       return 2;
-    yysize = yysize1;
   }
 
   if (*yymsg_alloc < yysize)
@@ -2381,23 +2385,33 @@ yyparse (void)
   yychar = YYEMPTY; /* Cause a token to be read.  */
   goto yysetstate;
 
+
 /*------------------------------------------------------------.
-| yynewstate -- Push a new state, which is found in yystate.  |
+| yynewstate -- push a new state, which is found in yystate.  |
 `------------------------------------------------------------*/
- yynewstate:
+yynewstate:
   /* In all cases, when you get here, the value and location stacks
      have just been pushed.  So pushing a state here evens the stacks.  */
   yyssp++;
 
- yysetstate:
-  *yyssp = yystate;
+
+/*--------------------------------------------------------------------.
+| yynewstate -- set current state (the top of the stack) to yystate.  |
+`--------------------------------------------------------------------*/
+yysetstate:
+  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+  YY_ASSERT (0 <= yystate && yystate < YYNSTATES);
+  *yyssp = (yytype_int16) yystate;
 
   if (yyss + yystacksize - 1 <= yyssp)
+#if !defined yyoverflow && !defined YYSTACK_RELOCATE
+    goto yyexhaustedlab;
+#else
     {
       /* Get the current used size of the three stacks, in elements.  */
-      YYSIZE_T yysize = yyssp - yyss + 1;
+      YYSIZE_T yysize = (YYSIZE_T) (yyssp - yyss + 1);
 
-#ifdef yyoverflow
+# if defined yyoverflow
       {
         /* Give user a chance to reallocate the stack.  Use copies of
            these so that the &'s don't force the real ones into
@@ -2413,14 +2427,10 @@ yyparse (void)
                     &yyss1, yysize * sizeof (*yyssp),
                     &yyvs1, yysize * sizeof (*yyvsp),
                     &yystacksize);
-
         yyss = yyss1;
         yyvs = yyvs1;
       }
-#else /* no yyoverflow */
-# ifndef YYSTACK_RELOCATE
-      goto yyexhaustedlab;
-# else
+# else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
         goto yyexhaustedlab;
@@ -2436,35 +2446,33 @@ yyparse (void)
           goto yyexhaustedlab;
         YYSTACK_RELOCATE (yyss_alloc, yyss);
         YYSTACK_RELOCATE (yyvs_alloc, yyvs);
-#  undef YYSTACK_RELOCATE
+# undef YYSTACK_RELOCATE
         if (yyss1 != yyssa)
           YYSTACK_FREE (yyss1);
       }
 # endif
-#endif /* no yyoverflow */
 
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-                  (unsigned long int) yystacksize));
+                  (unsigned long) yystacksize));
 
       if (yyss + yystacksize - 1 <= yyssp)
         YYABORT;
     }
-
-  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+#endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
 
   if (yystate == YYFINAL)
     YYACCEPT;
 
   goto yybackup;
 
+
 /*-----------.
 | yybackup.  |
 `-----------*/
 yybackup:
-
   /* Do appropriate processing given the current state.  Read a
      lookahead token if we need one and don't already have one.  */
 
@@ -2522,7 +2530,6 @@ yybackup:
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
   YY_IGNORE_MAYBE_UNINITIALIZED_END
-
   goto yynewstate;
 
 
@@ -2537,7 +2544,7 @@ yydefault:
 
 
 /*-----------------------------.
-| yyreduce -- Do a reduction.  |
+| yyreduce -- do a reduction.  |
 `-----------------------------*/
 yyreduce:
   /* yyn is the number of a rule to reduce with.  */
@@ -2557,2162 +2564,2163 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 515 "../CPU/parser.y" /* yacc.c:1646  */
+  case 2:
+#line 515 "../CPU/parser.y"
     {parse_error_occurred = false; scanner_start_line (); }
-#line 2564 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2571 "parser_yacc.cpp"
     break;
 
   case 6:
-#line 522 "../CPU/parser.y" /* yacc.c:1646  */
+#line 522 "../CPU/parser.y"
     {
 		  /* Call outside of cons_label, since an error sets that variable to NULL. */
-		  label* l = record_label ((char*)(yyvsp[-1]).p,
+		  label* l = record_label ((char*)yyvsp[-1].p,
 					   text_dir ? current_text_pc () : current_data_pc (),
 					   0);
 		  this_line_labels = cons_label (l, this_line_labels);
-		  free ((char*)(yyvsp[-1]).p);
+		  free ((char*)yyvsp[-1].p);
 		}
-#line 2577 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2584 "parser_yacc.cpp"
     break;
 
   case 7:
-#line 532 "../CPU/parser.y" /* yacc.c:1646  */
+#line 532 "../CPU/parser.y"
     {
-		  label *l = record_label ((char*)(yyvsp[-2]).p, (mem_addr)(yyvsp[0]).i, 1);
-		  free ((char*)(yyvsp[-2]).p);
+		  label *l = record_label ((char*)yyvsp[-2].p, (mem_addr)yyvsp[0].i, 1);
+		  free ((char*)yyvsp[-2].p);
 
 		  l->const_flag = 1;
 		  clear_labels ();
 		}
-#line 2589 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2596 "parser_yacc.cpp"
     break;
 
   case 8:
-#line 543 "../CPU/parser.y" /* yacc.c:1646  */
+#line 543 "../CPU/parser.y"
     {
 		  clear_labels ();
 		}
-#line 2597 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2604 "parser_yacc.cpp"
     break;
 
   case 10:
-#line 549 "../CPU/parser.y" /* yacc.c:1646  */
+#line 549 "../CPU/parser.y"
     {
 		  clear_labels ();
 		}
-#line 2605 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2612 "parser_yacc.cpp"
     break;
 
   case 13:
-#line 559 "../CPU/parser.y" /* yacc.c:1646  */
+#line 559 "../CPU/parser.y"
     {
 			LINE_PARSE_DONE;
 		}
-#line 2613 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2620 "parser_yacc.cpp"
     break;
 
   case 14:
-#line 564 "../CPU/parser.y" /* yacc.c:1646  */
+#line 564 "../CPU/parser.y"
     {
 		  clear_labels ();
 		  FILE_PARSE_DONE;
 		}
-#line 2622 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2629 "parser_yacc.cpp"
     break;
 
   case 15:
-#line 573 "../CPU/parser.y" /* yacc.c:1646  */
+#line 573 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i == Y_LD_POP ? Y_LW_OP : (yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  if ((yyvsp[-2]).i == Y_LD_POP)
+		  i_type_inst (yyvsp[-2].i == Y_LD_POP ? Y_LW_OP : yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  if (yyvsp[-2].i == Y_LD_POP)
 		    i_type_inst_free (Y_LW_OP,
-				      (yyvsp[-1]).i + 1,
-				      addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				      incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+				      yyvsp[-1].i + 1,
+				      addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				      incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 							4));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2641 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2648 "parser_yacc.cpp"
     break;
 
   case 16:
-#line 589 "../CPU/parser.y" /* yacc.c:1646  */
+#line 589 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  i_type_inst (yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2654 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2661 "parser_yacc.cpp"
     break;
 
   case 17:
-#line 599 "../CPU/parser.y" /* yacc.c:1646  */
+#line 599 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  i_type_inst (yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2667 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2674 "parser_yacc.cpp"
     break;
 
   case 18:
-#line 609 "../CPU/parser.y" /* yacc.c:1646  */
+#line 609 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, (yyvsp[-1]).i, 0, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, yyvsp[-1].i, 0, (imm_expr *)yyvsp[0].p);
 		}
-#line 2675 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2682 "parser_yacc.cpp"
     break;
 
   case 19:
-#line 615 "../CPU/parser.y" /* yacc.c:1646  */
+#line 615 "../CPU/parser.y"
     {
-		  if (addr_expr_reg ((addr_expr *)(yyvsp[0]).p))
-		    i_type_inst (Y_ADDI_OP, (yyvsp[-1]).i,
-				 addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				 addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+		  if (addr_expr_reg ((addr_expr *)yyvsp[0].p))
+		    i_type_inst (Y_ADDI_OP, yyvsp[-1].i,
+				 addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				 addr_expr_imm ((addr_expr *)yyvsp[0].p));
 		  else
-		    i_type_inst (Y_ORI_OP, (yyvsp[-1]).i, 0,
-				 addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		    i_type_inst (Y_ORI_OP, yyvsp[-1].i, 0,
+				 addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2691 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2698 "parser_yacc.cpp"
     break;
 
   case 20:
-#line 629 "../CPU/parser.y" /* yacc.c:1646  */
+#line 629 "../CPU/parser.y"
     {
-		  i_type_inst_free (Y_ORI_OP, (yyvsp[-1]).i, 0, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (Y_ORI_OP, yyvsp[-1].i, 0, (imm_expr *)yyvsp[0].p);
 		}
-#line 2699 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2706 "parser_yacc.cpp"
     break;
 
   case 21:
-#line 635 "../CPU/parser.y" /* yacc.c:1646  */
+#line 635 "../CPU/parser.y"
     {
-		  int *x = (int *) (yyvsp[0]).p;
+		  int *x = (int *) yyvsp[0].p;
 
 		  i_type_inst (Y_ORI_OP, 1, 0, const_imm_expr (*x));
-		  r_co_type_inst (Y_MTC1_OP, 0, (yyvsp[-1]).i, 1);
+		  r_co_type_inst (Y_MTC1_OP, 0, yyvsp[-1].i, 1);
 		  i_type_inst (Y_ORI_OP, 1, 0, const_imm_expr (*(x+1)));
-		  r_co_type_inst (Y_MTC1_OP, 0, (yyvsp[-1]).i + 1, 1);
+		  r_co_type_inst (Y_MTC1_OP, 0, yyvsp[-1].i + 1, 1);
 		}
-#line 2712 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2719 "parser_yacc.cpp"
     break;
 
   case 22:
-#line 646 "../CPU/parser.y" /* yacc.c:1646  */
+#line 646 "../CPU/parser.y"
     {
-		  float x = (float) *((double *) (yyvsp[0]).p);
+		  float x = (float) *((double *) yyvsp[0].p);
 		  int *y = (int *) &x;
 
 		  i_type_inst (Y_ORI_OP, 1, 0, const_imm_expr (*y));
-		  r_co_type_inst (Y_MTC1_OP, 0, (yyvsp[-1]).i, 1);
+		  r_co_type_inst (Y_MTC1_OP, 0, yyvsp[-1].i, 1);
 		}
-#line 2724 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2731 "parser_yacc.cpp"
     break;
 
   case 23:
-#line 656 "../CPU/parser.y" /* yacc.c:1646  */
+#line 656 "../CPU/parser.y"
     {
 #ifdef SPIM_BIGENDIAN
-		  i_type_inst (Y_LWL_OP, (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  i_type_inst_free (Y_LWR_OP, (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst (Y_LWL_OP, yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  i_type_inst_free (Y_LWR_OP, yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      3));
 #else
-		  i_type_inst_free (Y_LWL_OP, (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst_free (Y_LWL_OP, yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      3));
-		  i_type_inst (Y_LWR_OP, (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+		  i_type_inst (Y_LWR_OP, yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
 #endif
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2750 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2757 "parser_yacc.cpp"
     break;
 
   case 24:
-#line 680 "../CPU/parser.y" /* yacc.c:1646  */
+#line 680 "../CPU/parser.y"
     {
 #ifdef SPIM_BIGENDIAN
-		  i_type_inst (((yyvsp[-2]).i == Y_ULH_POP ? Y_LB_OP : Y_LBU_OP),
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+		  i_type_inst ((yyvsp[-2].i == Y_ULH_POP ? Y_LB_OP : Y_LBU_OP),
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
 		  i_type_inst_free (Y_LBU_OP, 1,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      1));
 #else
-		  i_type_inst_free (((yyvsp[-2]).i == Y_ULH_POP ? Y_LB_OP : Y_LBU_OP),
-				    (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst_free ((yyvsp[-2].i == Y_ULH_POP ? Y_LB_OP : Y_LBU_OP),
+				    yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      1));
 		  i_type_inst (Y_LBU_OP, 1,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
 #endif
-		  r_sh_type_inst (Y_SLL_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 8);
-		  r_type_inst (Y_OR_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 1);
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  r_sh_type_inst (Y_SLL_OP, yyvsp[-1].i, yyvsp[-1].i, 8);
+		  r_type_inst (Y_OR_OP, yyvsp[-1].i, yyvsp[-1].i, 1);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2780 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2787 "parser_yacc.cpp"
     break;
 
   case 25:
-#line 708 "../CPU/parser.y" /* yacc.c:1646  */
+#line 708 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 2788 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2795 "parser_yacc.cpp"
     break;
 
   case 26:
-#line 714 "../CPU/parser.y" /* yacc.c:1646  */
+#line 714 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i == Y_SD_POP ? Y_SW_OP : (yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  if ((yyvsp[-2]).i == Y_SD_POP)
-		    i_type_inst_free (Y_SW_OP, (yyvsp[-1]).i + 1,
-				      addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				      incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst (yyvsp[-2].i == Y_SD_POP ? Y_SW_OP : yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  if (yyvsp[-2].i == Y_SD_POP)
+		    i_type_inst_free (Y_SW_OP, yyvsp[-1].i + 1,
+				      addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				      incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 							4));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2806 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2813 "parser_yacc.cpp"
     break;
 
   case 27:
-#line 730 "../CPU/parser.y" /* yacc.c:1646  */
+#line 730 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  i_type_inst (yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2819 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2826 "parser_yacc.cpp"
     break;
 
   case 28:
-#line 741 "../CPU/parser.y" /* yacc.c:1646  */
+#line 741 "../CPU/parser.y"
     {
 #ifdef SPIM_BIGENDIAN
-		  i_type_inst (Y_SWL_OP, (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  i_type_inst_free (Y_SWR_OP, (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst (Y_SWL_OP, yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  i_type_inst_free (Y_SWR_OP, yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      3));
 #else
-		  i_type_inst_free (Y_SWL_OP, (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst_free (Y_SWL_OP, yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      3));
-		  i_type_inst (Y_SWR_OP, (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+		  i_type_inst (Y_SWR_OP, yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
 #endif
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2845 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2852 "parser_yacc.cpp"
     break;
 
   case 29:
-#line 765 "../CPU/parser.y" /* yacc.c:1646  */
+#line 765 "../CPU/parser.y"
     {
-		  i_type_inst (Y_SB_OP, (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
+		  i_type_inst (Y_SB_OP, yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
 
 		  /* ROL SRC, SRC, 8 */
-		  r_sh_type_inst (Y_SLL_OP, 1, (yyvsp[-1]).i, 24);
-		  r_sh_type_inst (Y_SRL_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 8);
-		  r_type_inst (Y_OR_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 1);
+		  r_sh_type_inst (Y_SLL_OP, 1, yyvsp[-1].i, 24);
+		  r_sh_type_inst (Y_SRL_OP, yyvsp[-1].i, yyvsp[-1].i, 8);
+		  r_type_inst (Y_OR_OP, yyvsp[-1].i, yyvsp[-1].i, 1);
 
-		  i_type_inst_free (Y_SB_OP, (yyvsp[-1]).i,
-				    addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-				    incr_expr_offset (addr_expr_imm ((addr_expr *)(yyvsp[0]).p),
+		  i_type_inst_free (Y_SB_OP, yyvsp[-1].i,
+				    addr_expr_reg ((addr_expr *)yyvsp[0].p),
+				    incr_expr_offset (addr_expr_imm ((addr_expr *)yyvsp[0].p),
 						      1));
 		  /* ROR SRC, SRC, 8 */
-		  r_sh_type_inst (Y_SRL_OP, 1, (yyvsp[-1]).i, 24);
-		  r_sh_type_inst (Y_SLL_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 8);
-		  r_type_inst (Y_OR_OP, (yyvsp[-1]).i, (yyvsp[-1]).i, 1);
+		  r_sh_type_inst (Y_SRL_OP, 1, yyvsp[-1].i, 24);
+		  r_sh_type_inst (Y_SLL_OP, yyvsp[-1].i, yyvsp[-1].i, 8);
+		  r_type_inst (Y_OR_OP, yyvsp[-1].i, yyvsp[-1].i, 1);
 
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2872 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2879 "parser_yacc.cpp"
     break;
 
   case 30:
-#line 790 "../CPU/parser.y" /* yacc.c:1646  */
+#line 790 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-2]).i,
-			       (yyvsp[-1]).i,
-			       addr_expr_reg ((addr_expr *)(yyvsp[0]).p),
-			       addr_expr_imm ((addr_expr *)(yyvsp[0]).p));
-		  free (((addr_expr *)(yyvsp[0]).p)->imm);
-		  free ((addr_expr *)(yyvsp[0]).p);
+		  i_type_inst (yyvsp[-2].i,
+			       yyvsp[-1].i,
+			       addr_expr_reg ((addr_expr *)yyvsp[0].p),
+			       addr_expr_imm ((addr_expr *)yyvsp[0].p));
+		  free (((addr_expr *)yyvsp[0].p)->imm);
+		  free ((addr_expr *)yyvsp[0].p);
 		}
-#line 2885 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2892 "parser_yacc.cpp"
     break;
 
   case 31:
-#line 801 "../CPU/parser.y" /* yacc.c:1646  */
+#line 801 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 2893 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2900 "parser_yacc.cpp"
     break;
 
   case 32:
-#line 807 "../CPU/parser.y" /* yacc.c:1646  */
+#line 807 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[0]).i, 0, 0, 0);
+		  r_type_inst (yyvsp[0].i, 0, 0, 0);
 		}
-#line 2901 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2908 "parser_yacc.cpp"
     break;
 
   case 33:
-#line 813 "../CPU/parser.y" /* yacc.c:1646  */
+#line 813 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 2909 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2916 "parser_yacc.cpp"
     break;
 
   case 34:
-#line 819 "../CPU/parser.y" /* yacc.c:1646  */
+#line 819 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, (yyvsp[-1]).i, 0, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, yyvsp[-1].i, 0, (imm_expr *)yyvsp[0].p);
 		}
-#line 2917 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2924 "parser_yacc.cpp"
     break;
 
   case 35:
-#line 825 "../CPU/parser.y" /* yacc.c:1646  */
+#line 825 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[0]).i, 0, 0, 0);
+		  r_type_inst (yyvsp[0].i, 0, 0, 0);
 		}
-#line 2925 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2932 "parser_yacc.cpp"
     break;
 
   case 36:
-#line 831 "../CPU/parser.y" /* yacc.c:1646  */
+#line 831 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[0]).i, 0, 0, 0);
+		  r_type_inst (yyvsp[0].i, 0, 0, 0);
 		}
-#line 2933 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2940 "parser_yacc.cpp"
     break;
 
   case 37:
-#line 836 "../CPU/parser.y" /* yacc.c:1646  */
+#line 836 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-1]).i, (yyvsp[0]).i, 0, 0);
+		  r_type_inst (yyvsp[-1].i, yyvsp[0].i, 0, 0);
 		}
-#line 2941 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2948 "parser_yacc.cpp"
     break;
 
   case 38:
-#line 842 "../CPU/parser.y" /* yacc.c:1646  */
+#line 842 "../CPU/parser.y"
     {
-		  if ((yyvsp[0]).i == 1)
+		  if (yyvsp[0].i == 1)
 		    yyerror ("Breakpoint 1 is reserved for debugger");
-		  r_type_inst ((yyvsp[-1]).i, (yyvsp[0]).i, 0, 0);
+		  r_type_inst (yyvsp[-1].i, yyvsp[0].i, 0, 0);
 		}
-#line 2951 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2958 "parser_yacc.cpp"
     break;
 
   case 39:
-#line 850 "../CPU/parser.y" /* yacc.c:1646  */
+#line 850 "../CPU/parser.y"
     {
 		  nop_inst ();
 		}
-#line 2959 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2966 "parser_yacc.cpp"
     break;
 
   case 40:
-#line 856 "../CPU/parser.y" /* yacc.c:1646  */
+#line 856 "../CPU/parser.y"
     {
 		  r_sh_type_inst (Y_SLL_OP, 0, 0, 1); /* SLL r0 r0 1 */
 		}
-#line 2967 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2974 "parser_yacc.cpp"
     break;
 
   case 41:
-#line 862 "../CPU/parser.y" /* yacc.c:1646  */
+#line 862 "../CPU/parser.y"
     {
-		  if ((yyvsp[-1]).i != (yyvsp[0]).i)
-		    r_type_inst (Y_ADDU_OP, (yyvsp[-1]).i, 0, (yyvsp[0]).i);
+		  if (yyvsp[-1].i != yyvsp[0].i)
+		    r_type_inst (Y_ADDU_OP, yyvsp[-1].i, 0, yyvsp[0].i);
 
-		  i_type_inst_free (Y_BGEZ_OP, 0, (yyvsp[0]).i, branch_offset (2));
-		  r_type_inst (Y_SUB_OP, (yyvsp[-1]).i, 0, (yyvsp[0]).i);
+		  i_type_inst_free (Y_BGEZ_OP, 0, yyvsp[0].i, branch_offset (2));
+		  r_type_inst (Y_SUB_OP, yyvsp[-1].i, 0, yyvsp[0].i);
 		}
-#line 2979 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2986 "parser_yacc.cpp"
     break;
 
   case 42:
-#line 872 "../CPU/parser.y" /* yacc.c:1646  */
+#line 872 "../CPU/parser.y"
     {
-		  r_type_inst (Y_SUB_OP, (yyvsp[-1]).i, 0, (yyvsp[0]).i);
+		  r_type_inst (Y_SUB_OP, yyvsp[-1].i, 0, yyvsp[0].i);
 		}
-#line 2987 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2994 "parser_yacc.cpp"
     break;
 
   case 43:
-#line 878 "../CPU/parser.y" /* yacc.c:1646  */
+#line 878 "../CPU/parser.y"
     {
-		  r_type_inst (Y_SUBU_OP, (yyvsp[-1]).i, 0, (yyvsp[0]).i);
+		  r_type_inst (Y_SUBU_OP, yyvsp[-1].i, 0, yyvsp[0].i);
 		}
-#line 2995 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3002 "parser_yacc.cpp"
     break;
 
   case 44:
-#line 884 "../CPU/parser.y" /* yacc.c:1646  */
+#line 884 "../CPU/parser.y"
     {
-		  r_type_inst (Y_NOR_OP, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  r_type_inst (Y_NOR_OP, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3003 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3010 "parser_yacc.cpp"
     break;
 
   case 45:
-#line 890 "../CPU/parser.y" /* yacc.c:1646  */
+#line 890 "../CPU/parser.y"
     {
-		  r_type_inst (Y_ADDU_OP, (yyvsp[-1]).i, 0, (yyvsp[0]).i);
+		  r_type_inst (Y_ADDU_OP, yyvsp[-1].i, 0, yyvsp[0].i);
 		}
-#line 3011 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3018 "parser_yacc.cpp"
     break;
 
   case 46:
-#line 896 "../CPU/parser.y" /* yacc.c:1646  */
+#line 896 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[0]).i, 0, 0, 0);
+		  r_type_inst (yyvsp[0].i, 0, 0, 0);
 		}
-#line 3019 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3026 "parser_yacc.cpp"
     break;
 
   case 47:
-#line 902 "../CPU/parser.y" /* yacc.c:1646  */
+#line 902 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3027 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3034 "parser_yacc.cpp"
     break;
 
   case 48:
-#line 908 "../CPU/parser.y" /* yacc.c:1646  */
+#line 908 "../CPU/parser.y"
     {
 		  /* RT must be equal to RD */
-		  r_type_inst ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, (yyvsp[-1]).i);
+		  r_type_inst (yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, yyvsp[-1].i);
 		}
-#line 3036 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3043 "parser_yacc.cpp"
     break;
 
   case 49:
-#line 915 "../CPU/parser.y" /* yacc.c:1646  */
+#line 915 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3044 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3051 "parser_yacc.cpp"
     break;
 
   case 50:
-#line 921 "../CPU/parser.y" /* yacc.c:1646  */
+#line 921 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3052 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3059 "parser_yacc.cpp"
     break;
 
   case 51:
-#line 926 "../CPU/parser.y" /* yacc.c:1646  */
+#line 926 "../CPU/parser.y"
     {
-		  i_type_inst_free (op_to_imm_op ((yyvsp[-3]).i), (yyvsp[-2]).i, (yyvsp[-1]).i,
-				    (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (op_to_imm_op (yyvsp[-3].i), yyvsp[-2].i, yyvsp[-1].i,
+				    (imm_expr *)yyvsp[0].p);
 		}
-#line 3061 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3068 "parser_yacc.cpp"
     break;
 
   case 52:
-#line 932 "../CPU/parser.y" /* yacc.c:1646  */
+#line 932 "../CPU/parser.y"
     {
-		  i_type_inst_free (op_to_imm_op ((yyvsp[-2]).i), (yyvsp[-1]).i, (yyvsp[-1]).i,
-				    (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (op_to_imm_op (yyvsp[-2].i), yyvsp[-1].i, yyvsp[-1].i,
+				    (imm_expr *)yyvsp[0].p);
 		}
-#line 3070 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3077 "parser_yacc.cpp"
     break;
 
   case 53:
-#line 939 "../CPU/parser.y" /* yacc.c:1646  */
+#line 939 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[0]).i, (yyvsp[-1]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[0].i, yyvsp[-1].i);
 		}
-#line 3078 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3085 "parser_yacc.cpp"
     break;
 
   case 54:
-#line 944 "../CPU/parser.y" /* yacc.c:1646  */
+#line 944 "../CPU/parser.y"
     {
-		  r_sh_type_inst (op_to_imm_op ((yyvsp[-3]).i), (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_sh_type_inst (op_to_imm_op (yyvsp[-3].i), yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3086 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3093 "parser_yacc.cpp"
     break;
 
   case 55:
-#line 949 "../CPU/parser.y" /* yacc.c:1646  */
+#line 949 "../CPU/parser.y"
     {
-		  r_sh_type_inst (op_to_imm_op ((yyvsp[-2]).i), (yyvsp[-1]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_sh_type_inst (op_to_imm_op (yyvsp[-2].i), yyvsp[-1].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3094 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3101 "parser_yacc.cpp"
     break;
 
   case 56:
-#line 955 "../CPU/parser.y" /* yacc.c:1646  */
+#line 955 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3102 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3109 "parser_yacc.cpp"
     break;
 
   case 57:
-#line 960 "../CPU/parser.y" /* yacc.c:1646  */
+#line 960 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, yyvsp[-1].i, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3110 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3117 "parser_yacc.cpp"
     break;
 
   case 58:
-#line 966 "../CPU/parser.y" /* yacc.c:1646  */
+#line 966 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3118 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3125 "parser_yacc.cpp"
     break;
 
   case 59:
-#line 971 "../CPU/parser.y" /* yacc.c:1646  */
+#line 971 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, yyvsp[-1].i, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3126 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3133 "parser_yacc.cpp"
     break;
 
   case 60:
-#line 977 "../CPU/parser.y" /* yacc.c:1646  */
+#line 977 "../CPU/parser.y"
     {
-		  if (((yyvsp[0]).i < 0) || (31 < (yyvsp[0]).i))
+		  if ((yyvsp[0].i < 0) || (31 < yyvsp[0].i))
 		    yywarn ("Shift distance can only be in the range 0..31");
-		  r_sh_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_sh_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3136 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3143 "parser_yacc.cpp"
     break;
 
   case 61:
-#line 984 "../CPU/parser.y" /* yacc.c:1646  */
+#line 984 "../CPU/parser.y"
     {
-		  r_type_inst (imm_op_to_op ((yyvsp[-3]).i), (yyvsp[-2]).i, (yyvsp[0]).i, (yyvsp[-1]).i);
+		  r_type_inst (imm_op_to_op (yyvsp[-3].i), yyvsp[-2].i, yyvsp[0].i, yyvsp[-1].i);
 		}
-#line 3144 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3151 "parser_yacc.cpp"
     break;
 
   case 62:
-#line 990 "../CPU/parser.y" /* yacc.c:1646  */
+#line 990 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3152 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3159 "parser_yacc.cpp"
     break;
 
   case 63:
-#line 995 "../CPU/parser.y" /* yacc.c:1646  */
+#line 995 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3160 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3167 "parser_yacc.cpp"
     break;
 
   case 64:
-#line 1001 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1001 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3168 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3175 "parser_yacc.cpp"
     break;
 
   case 65:
-#line 1006 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1006 "../CPU/parser.y"
     {
 		  if (bare_machine && !accept_pseudo_insts)
 		    yyerror ("Immediate form not allowed in bare machine");
 		  else
 		    {
-		      if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		      if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 			/* Use $at */
-			i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		      r_type_inst ((yyvsp[-3]).i,
-				   (yyvsp[-2]).i,
-				   (yyvsp[-1]).i,
-				   (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
+			i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		      r_type_inst (yyvsp[-3].i,
+				   yyvsp[-2].i,
+				   yyvsp[-1].i,
+				   (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
 		    }
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3188 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3195 "parser_yacc.cpp"
     break;
 
   case 66:
-#line 1023 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1023 "../CPU/parser.y"
     {
-		  check_uimm_range ((imm_expr *)(yyvsp[0]).p, UIMM_MIN, UIMM_MAX);
+		  check_uimm_range ((imm_expr *)yyvsp[0].p, UIMM_MIN, UIMM_MAX);
 		  if (bare_machine && !accept_pseudo_insts)
 		    yyerror ("Immediate form not allowed in bare machine");
 		  else
 		    {
-		      if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		      if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 			/* Use $at */
-			i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		      r_type_inst ((yyvsp[-2]).i,
-				   (yyvsp[-1]).i,
-				   (yyvsp[-1]).i,
-				   (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
+			i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		      r_type_inst (yyvsp[-2].i,
+				   yyvsp[-1].i,
+				   yyvsp[-1].i,
+				   (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
 		    }
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3209 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3216 "parser_yacc.cpp"
     break;
 
   case 67:
-#line 1042 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1042 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3217 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3224 "parser_yacc.cpp"
     break;
 
   case 68:
-#line 1048 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1048 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3225 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3232 "parser_yacc.cpp"
     break;
 
   case 69:
-#line 1053 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1053 "../CPU/parser.y"
     {
-		  int val = eval_imm_expr ((imm_expr *)(yyvsp[0]).p);
+		  int val = eval_imm_expr ((imm_expr *)yyvsp[0].p);
 
 		  if (bare_machine && !accept_pseudo_insts)
 		    yyerror ("Immediate form not allowed in bare machine");
 		  else
-		    i_type_inst ((yyvsp[-3]).i == Y_SUB_OP ? Y_ADDI_OP
-				 : (yyvsp[-3]).i == Y_SUBU_OP ? Y_ADDIU_OP
+		    i_type_inst (yyvsp[-3].i == Y_SUB_OP ? Y_ADDI_OP
+				 : yyvsp[-3].i == Y_SUBU_OP ? Y_ADDIU_OP
 				 : (fatal_error ("Bad SUB_OP\n"), 0),
-				 (yyvsp[-2]).i,
-				 (yyvsp[-1]).i,
+				 yyvsp[-2].i,
+				 yyvsp[-1].i,
 				 make_imm_expr (-val, NULL, false));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3244 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3251 "parser_yacc.cpp"
     break;
 
   case 70:
-#line 1069 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1069 "../CPU/parser.y"
     {
-		  int val = eval_imm_expr ((imm_expr *)(yyvsp[0]).p);
+		  int val = eval_imm_expr ((imm_expr *)yyvsp[0].p);
 
 		  if (bare_machine && !accept_pseudo_insts)
 		    yyerror ("Immediate form not allowed in bare machine");
 		  else
-		    i_type_inst ((yyvsp[-2]).i == Y_SUB_OP ? Y_ADDI_OP
-				 : (yyvsp[-2]).i == Y_SUBU_OP ? Y_ADDIU_OP
+		    i_type_inst (yyvsp[-2].i == Y_SUB_OP ? Y_ADDI_OP
+				 : yyvsp[-2].i == Y_SUBU_OP ? Y_ADDIU_OP
 				 : (fatal_error ("Bad SUB_OP\n"), 0),
-				 (yyvsp[-1]).i,
-				 (yyvsp[-1]).i,
+				 yyvsp[-1].i,
+				 yyvsp[-1].i,
 				 make_imm_expr (-val, NULL, false));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3263 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3270 "parser_yacc.cpp"
     break;
 
   case 71:
-#line 1086 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1086 "../CPU/parser.y"
     {
 		  /* The hardware divide operation (ignore 1st arg) */
-		  if ((yyvsp[-2]).i != Y_DIV_OP && (yyvsp[-2]).i != Y_DIVU_OP)
+		  if (yyvsp[-2].i != Y_DIV_OP && yyvsp[-2].i != Y_DIVU_OP)
 		    yyerror ("REM requires 3 arguments");
 		  else
-		    r_type_inst ((yyvsp[-2]).i, 0, (yyvsp[-1]).i, (yyvsp[0]).i);
+		    r_type_inst (yyvsp[-2].i, 0, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3275 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3282 "parser_yacc.cpp"
     break;
 
   case 72:
-#line 1095 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1095 "../CPU/parser.y"
     {
 		  /* Pseudo divide operations */
-		  div_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  div_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3284 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3291 "parser_yacc.cpp"
     break;
 
   case 73:
-#line 1101 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1101 "../CPU/parser.y"
     {
-		  if (is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    yyerror ("Divide by zero");
 		  else
 		    {
 		      /* Use $at */
-		      i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		      div_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, 1, 1);
+		      i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		      div_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, 1, 1);
 		    }
 		}
-#line 3299 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3306 "parser_yacc.cpp"
     break;
 
   case 74:
-#line 1114 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1114 "../CPU/parser.y"
     {
-		  mult_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  mult_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3307 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3314 "parser_yacc.cpp"
     break;
 
   case 75:
-#line 1119 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1119 "../CPU/parser.y"
     {
-		  if (is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    /* Optimize: n * 0 == 0 */
-		    i_type_inst_free (Y_ORI_OP, (yyvsp[-2]).i, 0, (imm_expr *)(yyvsp[0]).p);
+		    i_type_inst_free (Y_ORI_OP, yyvsp[-2].i, 0, (imm_expr *)yyvsp[0].p);
 		  else
 		    {
 		      /* Use $at */
-		      i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		      mult_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, 1);
+		      i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		      mult_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, 1);
 		    }
 		}
-#line 3323 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3330 "parser_yacc.cpp"
     break;
 
   case 76:
-#line 1133 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1133 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-2]).i, 0, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-2].i, 0, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3331 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3338 "parser_yacc.cpp"
     break;
 
   case 77:
-#line 1139 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1139 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3339 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3346 "parser_yacc.cpp"
     break;
 
   case 78:
-#line 1144 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1144 "../CPU/parser.y"
     {
 		  /* Special case, for backward compatibility with pseudo-op
 		     MULT instruction */
-		  i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p); /* Use $at */
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, 1);
+		  i_type_inst_free (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p); /* Use $at */
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, 1);
 		}
-#line 3350 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3357 "parser_yacc.cpp"
     break;
 
   case 79:
-#line 1153 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1153 "../CPU/parser.y"
     {
-		  r_type_inst (Y_SUBU_OP, 1, 0, (yyvsp[0]).i);
-		  r_type_inst (Y_SLLV_OP, 1, 1, (yyvsp[-1]).i);
-		  r_type_inst (Y_SRLV_OP, (yyvsp[-2]).i, (yyvsp[0]).i, (yyvsp[-1]).i);
-		  r_type_inst (Y_OR_OP, (yyvsp[-2]).i, (yyvsp[-2]).i, 1);
+		  r_type_inst (Y_SUBU_OP, 1, 0, yyvsp[0].i);
+		  r_type_inst (Y_SLLV_OP, 1, 1, yyvsp[-1].i);
+		  r_type_inst (Y_SRLV_OP, yyvsp[-2].i, yyvsp[0].i, yyvsp[-1].i);
+		  r_type_inst (Y_OR_OP, yyvsp[-2].i, yyvsp[-2].i, 1);
 		}
-#line 3361 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3368 "parser_yacc.cpp"
     break;
 
   case 80:
-#line 1162 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1162 "../CPU/parser.y"
     {
-		  r_type_inst (Y_SUBU_OP, 1, 0, (yyvsp[0]).i);
-		  r_type_inst (Y_SRLV_OP, 1, 1, (yyvsp[-1]).i);
-		  r_type_inst (Y_SLLV_OP, (yyvsp[-2]).i, (yyvsp[0]).i, (yyvsp[-1]).i);
-		  r_type_inst (Y_OR_OP, (yyvsp[-2]).i, (yyvsp[-2]).i, 1);
+		  r_type_inst (Y_SUBU_OP, 1, 0, yyvsp[0].i);
+		  r_type_inst (Y_SRLV_OP, 1, 1, yyvsp[-1].i);
+		  r_type_inst (Y_SLLV_OP, yyvsp[-2].i, yyvsp[0].i, yyvsp[-1].i);
+		  r_type_inst (Y_OR_OP, yyvsp[-2].i, yyvsp[-2].i, 1);
 		}
-#line 3372 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3379 "parser_yacc.cpp"
     break;
 
   case 81:
-#line 1171 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1171 "../CPU/parser.y"
     {
-		  long dist = eval_imm_expr ((imm_expr *)(yyvsp[0]).p);
+		  long dist = eval_imm_expr ((imm_expr *)yyvsp[0].p);
 
-		  check_imm_range ((imm_expr *)(yyvsp[0]).p, 0, 31);
-		  r_sh_type_inst (Y_SLL_OP, 1, (yyvsp[-1]).i, -dist);
-		  r_sh_type_inst (Y_SRL_OP, (yyvsp[-2]).i, (yyvsp[-1]).i, dist);
-		  r_type_inst (Y_OR_OP, (yyvsp[-2]).i, (yyvsp[-2]).i, 1);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  check_imm_range ((imm_expr *)yyvsp[0].p, 0, 31);
+		  r_sh_type_inst (Y_SLL_OP, 1, yyvsp[-1].i, -dist);
+		  r_sh_type_inst (Y_SRL_OP, yyvsp[-2].i, yyvsp[-1].i, dist);
+		  r_type_inst (Y_OR_OP, yyvsp[-2].i, yyvsp[-2].i, 1);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3386 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3393 "parser_yacc.cpp"
     break;
 
   case 82:
-#line 1183 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1183 "../CPU/parser.y"
     {
-		  long dist = eval_imm_expr ((imm_expr *)(yyvsp[0]).p);
+		  long dist = eval_imm_expr ((imm_expr *)yyvsp[0].p);
 
-		  check_imm_range ((imm_expr *)(yyvsp[0]).p, 0, 31);
-		  r_sh_type_inst (Y_SRL_OP, 1, (yyvsp[-1]).i, -dist);
-		  r_sh_type_inst (Y_SLL_OP, (yyvsp[-2]).i, (yyvsp[-1]).i, dist);
-		  r_type_inst (Y_OR_OP, (yyvsp[-2]).i, (yyvsp[-2]).i, 1);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  check_imm_range ((imm_expr *)yyvsp[0].p, 0, 31);
+		  r_sh_type_inst (Y_SRL_OP, 1, yyvsp[-1].i, -dist);
+		  r_sh_type_inst (Y_SLL_OP, yyvsp[-2].i, yyvsp[-1].i, dist);
+		  r_type_inst (Y_OR_OP, yyvsp[-2].i, yyvsp[-2].i, 1);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3400 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3407 "parser_yacc.cpp"
     break;
 
   case 83:
-#line 1195 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1195 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3408 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3415 "parser_yacc.cpp"
     break;
 
   case 84:
-#line 1201 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1201 "../CPU/parser.y"
     {
-		  set_le_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  set_le_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3416 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3423 "parser_yacc.cpp"
     break;
 
   case 85:
-#line 1206 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1206 "../CPU/parser.y"
     {
-		  if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    /* Use $at */
-		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		  set_le_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i,
-			       (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		  set_le_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i,
+			       (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3429 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3436 "parser_yacc.cpp"
     break;
 
   case 86:
-#line 1217 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1217 "../CPU/parser.y"
     {
-		  set_gt_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  set_gt_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3437 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3444 "parser_yacc.cpp"
     break;
 
   case 87:
-#line 1222 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1222 "../CPU/parser.y"
     {
-		  if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    /* Use $at */
-		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		  set_gt_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i,
-			       (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		  set_gt_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i,
+			       (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3450 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3457 "parser_yacc.cpp"
     break;
 
   case 88:
-#line 1234 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1234 "../CPU/parser.y"
     {
-		  set_ge_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  set_ge_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3458 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3465 "parser_yacc.cpp"
     break;
 
   case 89:
-#line 1239 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1239 "../CPU/parser.y"
     {
-		  if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    /* Use $at */
-		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		  set_ge_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i,
-			       (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		  set_ge_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i,
+			       (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3471 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3478 "parser_yacc.cpp"
     break;
 
   case 90:
-#line 1250 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1250 "../CPU/parser.y"
     {
-		  set_eq_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  set_eq_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3479 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3486 "parser_yacc.cpp"
     break;
 
   case 91:
-#line 1255 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1255 "../CPU/parser.y"
     {
-		  if (!is_zero_imm ((imm_expr *)(yyvsp[0]).p))
+		  if (!is_zero_imm ((imm_expr *)yyvsp[0].p))
 		    /* Use $at */
-		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[0]).p);
-		  set_eq_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i,
-			       (is_zero_imm ((imm_expr *)(yyvsp[0]).p) ? 0 : 1));
-		  free ((imm_expr *)(yyvsp[0]).p);
+		    i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[0].p);
+		  set_eq_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i,
+			       (is_zero_imm ((imm_expr *)yyvsp[0].p) ? 0 : 1));
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3492 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3499 "parser_yacc.cpp"
     break;
 
   case 92:
-#line 1266 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1266 "../CPU/parser.y"
     {
 		  /* RS and RT fields contain information on test */
-                  int nd = opcode_is_nullified_branch ((yyvsp[-1]).i) ? 1 : 0;
-                  int tf = opcode_is_true_branch ((yyvsp[-1]).i) ? 1 : 0;
-		  i_type_inst_free ((yyvsp[-1]).i,
+                  int nd = opcode_is_nullified_branch (yyvsp[-1].i) ? 1 : 0;
+                  int tf = opcode_is_true_branch (yyvsp[-1].i) ? 1 : 0;
+		  i_type_inst_free (yyvsp[-1].i,
 				    cc_to_rt (0, nd, tf),
-				    BIN_RS ((yyvsp[-1]).i),
-				    (imm_expr *)(yyvsp[0]).p);
+				    BIN_RS (yyvsp[-1].i),
+				    (imm_expr *)yyvsp[0].p);
 		}
-#line 3506 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3513 "parser_yacc.cpp"
     break;
 
   case 93:
-#line 1277 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1277 "../CPU/parser.y"
     {
 		  /* RS and RT fields contain information on test */
-                  int nd = opcode_is_nullified_branch ((yyvsp[-2]).i) ? 1 : 0;
-                  int tf = opcode_is_true_branch ((yyvsp[-2]).i) ? 1 : 0;
-		  i_type_inst_free ((yyvsp[-2]).i,
-				    cc_to_rt ((yyvsp[-1]).i, nd, tf),
-				    BIN_RS ((yyvsp[-2]).i),
-				    (imm_expr *)(yyvsp[0]).p);
+                  int nd = opcode_is_nullified_branch (yyvsp[-2].i) ? 1 : 0;
+                  int tf = opcode_is_true_branch (yyvsp[-2].i) ? 1 : 0;
+		  i_type_inst_free (yyvsp[-2].i,
+				    cc_to_rt (yyvsp[-1].i, nd, tf),
+				    BIN_RS (yyvsp[-2].i),
+				    (imm_expr *)yyvsp[0].p);
 		}
-#line 3520 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3527 "parser_yacc.cpp"
     break;
 
   case 94:
-#line 1289 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1289 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, 0, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, 0, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3528 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3535 "parser_yacc.cpp"
     break;
 
   case 95:
-#line 1295 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1295 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i == Y_BEQZ_POP ? Y_BEQ_OP : Y_BNE_OP,
-			       0, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i == Y_BEQZ_POP ? Y_BEQ_OP : Y_BNE_OP,
+			       0, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3537 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3544 "parser_yacc.cpp"
     break;
 
   case 96:
-#line 1302 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1302 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-3]).i, (yyvsp[-1]).i, (yyvsp[-2]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-3].i, yyvsp[-1].i, yyvsp[-2].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3545 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3552 "parser_yacc.cpp"
     break;
 
   case 97:
-#line 1307 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1307 "../CPU/parser.y"
     {
 		  if (bare_machine && !accept_pseudo_insts)
 		    yyerror ("Immediate form not allowed in bare machine");
 		  else
 		    {
-		      if (is_zero_imm ((imm_expr *)(yyvsp[-1]).p))
-			i_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i,
-				     (is_zero_imm ((imm_expr *)(yyvsp[-1]).p) ? 0 : 1),
-				     (imm_expr *)(yyvsp[0]).p);
+		      if (is_zero_imm ((imm_expr *)yyvsp[-1].p))
+			i_type_inst (yyvsp[-3].i, yyvsp[-2].i,
+				     (is_zero_imm ((imm_expr *)yyvsp[-1].p) ? 0 : 1),
+				     (imm_expr *)yyvsp[0].p);
 		      else
 			{
 			  /* Use $at */
-			  i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[-1]).p);
-			  i_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i,
-				       (is_zero_imm ((imm_expr *)(yyvsp[-1]).p) ? 0 : 1),
-				       (imm_expr *)(yyvsp[0]).p);
+			  i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[-1].p);
+			  i_type_inst (yyvsp[-3].i, yyvsp[-2].i,
+				       (is_zero_imm ((imm_expr *)yyvsp[-1].p) ? 0 : 1),
+				       (imm_expr *)yyvsp[0].p);
 			}
 		    }
-		  free ((imm_expr *)(yyvsp[-1]).p);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[-1].p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3571 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3578 "parser_yacc.cpp"
     break;
 
   case 98:
-#line 1331 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1331 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i == Y_BGT_POP ? Y_SLT_OP : Y_SLTU_OP,
-			       1, (yyvsp[-1]).i, (yyvsp[-2]).i); /* Use $at */
-		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		  r_type_inst (yyvsp[-3].i == Y_BGT_POP ? Y_SLT_OP : Y_SLTU_OP,
+			       1, yyvsp[-1].i, yyvsp[-2].i); /* Use $at */
+		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		}
-#line 3581 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3588 "parser_yacc.cpp"
     break;
 
   case 99:
-#line 1338 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1338 "../CPU/parser.y"
     {
-		  if ((yyvsp[-3]).i == Y_BGT_POP)
+		  if (yyvsp[-3].i == Y_BGT_POP)
 		    {
 		      /* Use $at */
-		      i_type_inst_free (Y_SLTI_OP, 1, (yyvsp[-2]).i,
-					incr_expr_offset ((imm_expr *)(yyvsp[-1]).p, 1));
-		      i_type_inst (Y_BEQ_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		      i_type_inst_free (Y_SLTI_OP, 1, yyvsp[-2].i,
+					incr_expr_offset ((imm_expr *)yyvsp[-1].p, 1));
+		      i_type_inst (Y_BEQ_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		    }
 		  else
 		    {
 		      /* Use $at */
 		      /* Can't add 1 to immediate since 0xffffffff+1 = 0 < 1 */
-		      i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[-1]).p);
-		      i_type_inst_free (Y_BEQ_OP, (yyvsp[-2]).i, 1, branch_offset (3));
-		      r_type_inst (Y_SLTU_OP, 1, (yyvsp[-2]).i, 1);
-		      i_type_inst (Y_BEQ_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		      i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[-1].p);
+		      i_type_inst_free (Y_BEQ_OP, yyvsp[-2].i, 1, branch_offset (3));
+		      r_type_inst (Y_SLTU_OP, 1, yyvsp[-2].i, 1);
+		      i_type_inst (Y_BEQ_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		    }
-		  free ((imm_expr *)(yyvsp[-1]).p);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[-1].p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3606 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3613 "parser_yacc.cpp"
     break;
 
   case 100:
-#line 1361 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1361 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i == Y_BGE_POP ? Y_SLT_OP : Y_SLTU_OP,
-			       1, (yyvsp[-2]).i, (yyvsp[-1]).i); /* Use $at */
-		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		  r_type_inst (yyvsp[-3].i == Y_BGE_POP ? Y_SLT_OP : Y_SLTU_OP,
+			       1, yyvsp[-2].i, yyvsp[-1].i); /* Use $at */
+		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		}
-#line 3616 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3623 "parser_yacc.cpp"
     break;
 
   case 101:
-#line 1368 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1368 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-3]).i == Y_BGE_POP ? Y_SLTI_OP : Y_SLTIU_OP,
-			       1, (yyvsp[-2]).i, (imm_expr *)(yyvsp[-1]).p); /* Use $at */
-		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
-		  free ((imm_expr *)(yyvsp[-1]).p);
+		  i_type_inst (yyvsp[-3].i == Y_BGE_POP ? Y_SLTI_OP : Y_SLTIU_OP,
+			       1, yyvsp[-2].i, (imm_expr *)yyvsp[-1].p); /* Use $at */
+		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)yyvsp[0].p);
+		  free ((imm_expr *)yyvsp[-1].p);
 		}
-#line 3627 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3634 "parser_yacc.cpp"
     break;
 
   case 102:
-#line 1377 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1377 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i == Y_BLT_POP ? Y_SLT_OP : Y_SLTU_OP,
-			       1, (yyvsp[-2]).i, (yyvsp[-1]).i); /* Use $at */
-		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		  r_type_inst (yyvsp[-3].i == Y_BLT_POP ? Y_SLT_OP : Y_SLTU_OP,
+			       1, yyvsp[-2].i, yyvsp[-1].i); /* Use $at */
+		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		}
-#line 3637 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3644 "parser_yacc.cpp"
     break;
 
   case 103:
-#line 1384 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1384 "../CPU/parser.y"
     {
-		  i_type_inst ((yyvsp[-3]).i == Y_BLT_POP ? Y_SLTI_OP : Y_SLTIU_OP,
-			       1, (yyvsp[-2]).i, (imm_expr *)(yyvsp[-1]).p); /* Use $at */
-		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
-		  free ((imm_expr *)(yyvsp[-1]).p);
+		  i_type_inst (yyvsp[-3].i == Y_BLT_POP ? Y_SLTI_OP : Y_SLTIU_OP,
+			       1, yyvsp[-2].i, (imm_expr *)yyvsp[-1].p); /* Use $at */
+		  i_type_inst_free (Y_BNE_OP, 0, 1, (imm_expr *)yyvsp[0].p);
+		  free ((imm_expr *)yyvsp[-1].p);
 		}
-#line 3648 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3655 "parser_yacc.cpp"
     break;
 
   case 104:
-#line 1393 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1393 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i == Y_BLE_POP ? Y_SLT_OP : Y_SLTU_OP,
-			       1, (yyvsp[-1]).i, (yyvsp[-2]).i); /* Use $at */
-		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		  r_type_inst (yyvsp[-3].i == Y_BLE_POP ? Y_SLT_OP : Y_SLTU_OP,
+			       1, yyvsp[-1].i, yyvsp[-2].i); /* Use $at */
+		  i_type_inst_free (Y_BEQ_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		}
-#line 3658 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3665 "parser_yacc.cpp"
     break;
 
   case 105:
-#line 1400 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1400 "../CPU/parser.y"
     {
-		  if ((yyvsp[-3]).i == Y_BLE_POP)
+		  if (yyvsp[-3].i == Y_BLE_POP)
 		    {
 		      /* Use $at */
-		      i_type_inst_free (Y_SLTI_OP, 1, (yyvsp[-2]).i,
-					incr_expr_offset ((imm_expr *)(yyvsp[-1]).p, 1));
-		      i_type_inst (Y_BNE_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		      i_type_inst_free (Y_SLTI_OP, 1, yyvsp[-2].i,
+					incr_expr_offset ((imm_expr *)yyvsp[-1].p, 1));
+		      i_type_inst (Y_BNE_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		    }
 		  else
 		    {
 		      /* Use $at */
 		      /* Can't add 1 to immediate since 0xffffffff+1 = 0 < 1 */
-		      i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)(yyvsp[-1]).p);
-		      i_type_inst (Y_BEQ_OP, (yyvsp[-2]).i, 1, (imm_expr *)(yyvsp[0]).p);
-		      r_type_inst (Y_SLTU_OP, 1, (yyvsp[-2]).i, 1);
-		      i_type_inst (Y_BNE_OP, 0, 1, (imm_expr *)(yyvsp[0]).p);
+		      i_type_inst (Y_ORI_OP, 1, 0, (imm_expr *)yyvsp[-1].p);
+		      i_type_inst (Y_BEQ_OP, yyvsp[-2].i, 1, (imm_expr *)yyvsp[0].p);
+		      r_type_inst (Y_SLTU_OP, 1, yyvsp[-2].i, 1);
+		      i_type_inst (Y_BNE_OP, 0, 1, (imm_expr *)yyvsp[0].p);
 		    }
-		  free ((imm_expr *)(yyvsp[-1]).p);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  free ((imm_expr *)yyvsp[-1].p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3683 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3690 "parser_yacc.cpp"
     break;
 
   case 106:
-#line 1423 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1423 "../CPU/parser.y"
     {
-		  if (((yyvsp[-1]).i == Y_J_OP) || ((yyvsp[-1]).i == Y_JR_OP))
-		    j_type_inst (Y_J_OP, (imm_expr *)(yyvsp[0]).p);
-		  else if (((yyvsp[-1]).i == Y_JAL_OP) || ((yyvsp[-1]).i == Y_JALR_OP))
-		    j_type_inst (Y_JAL_OP, (imm_expr *)(yyvsp[0]).p);
-		  free ((imm_expr *)(yyvsp[0]).p);
+		  if ((yyvsp[-1].i == Y_J_OP) || (yyvsp[-1].i == Y_JR_OP))
+		    j_type_inst (Y_J_OP, (imm_expr *)yyvsp[0].p);
+		  else if ((yyvsp[-1].i == Y_JAL_OP) || (yyvsp[-1].i == Y_JALR_OP))
+		    j_type_inst (Y_JAL_OP, (imm_expr *)yyvsp[0].p);
+		  free ((imm_expr *)yyvsp[0].p);
 		}
-#line 3695 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3702 "parser_yacc.cpp"
     break;
 
   case 107:
-#line 1432 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1432 "../CPU/parser.y"
     {
-		  if (((yyvsp[-1]).i == Y_J_OP) || ((yyvsp[-1]).i == Y_JR_OP))
-		    r_type_inst (Y_JR_OP, 0, (yyvsp[0]).i, 0);
-		  else if (((yyvsp[-1]).i == Y_JAL_OP) || ((yyvsp[-1]).i == Y_JALR_OP))
-		    r_type_inst (Y_JALR_OP, 31, (yyvsp[0]).i, 0);
+		  if ((yyvsp[-1].i == Y_J_OP) || (yyvsp[-1].i == Y_JR_OP))
+		    r_type_inst (Y_JR_OP, 0, yyvsp[0].i, 0);
+		  else if ((yyvsp[-1].i == Y_JAL_OP) || (yyvsp[-1].i == Y_JALR_OP))
+		    r_type_inst (Y_JALR_OP, 31, yyvsp[0].i, 0);
 		}
-#line 3706 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3713 "parser_yacc.cpp"
     break;
 
   case 108:
-#line 1440 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1440 "../CPU/parser.y"
     {
-		  if (((yyvsp[-2]).i == Y_J_OP) || ((yyvsp[-2]).i == Y_JR_OP))
-		    r_type_inst (Y_JR_OP, 0, (yyvsp[0]).i, 0);
-		  else if (((yyvsp[-2]).i == Y_JAL_OP) || ((yyvsp[-2]).i == Y_JALR_OP))
-		    r_type_inst (Y_JALR_OP, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  if ((yyvsp[-2].i == Y_J_OP) || (yyvsp[-2].i == Y_JR_OP))
+		    r_type_inst (Y_JR_OP, 0, yyvsp[0].i, 0);
+		  else if ((yyvsp[-2].i == Y_JAL_OP) || (yyvsp[-2].i == Y_JALR_OP))
+		    r_type_inst (Y_JALR_OP, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3717 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3724 "parser_yacc.cpp"
     break;
 
   case 109:
-#line 1449 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1449 "../CPU/parser.y"
     {
-		  i_type_inst_free (((yyvsp[-1]).i == Y_BAL_POP ? Y_BGEZAL_OP : Y_BGEZ_OP),
-				    0, 0, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free ((yyvsp[-1].i == Y_BAL_POP ? Y_BGEZAL_OP : Y_BGEZ_OP),
+				    0, 0, (imm_expr *)yyvsp[0].p);
 		}
-#line 3726 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3733 "parser_yacc.cpp"
     break;
 
   case 110:
-#line 1456 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1456 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-2]).i, 0, (yyvsp[-1]).i, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-2].i, 0, yyvsp[-1].i, (imm_expr *)yyvsp[0].p);
 		}
-#line 3734 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3741 "parser_yacc.cpp"
     break;
 
   case 111:
-#line 1462 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1462 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-2]).i, 0, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-2].i, 0, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3742 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3749 "parser_yacc.cpp"
     break;
 
   case 112:
-#line 1468 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1468 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  r_co_type_inst (yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3750 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3757 "parser_yacc.cpp"
     break;
 
   case 113:
-#line 1474 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1474 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3758 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3765 "parser_yacc.cpp"
     break;
 
   case 114:
-#line 1480 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1480 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3766 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3773 "parser_yacc.cpp"
     break;
 
   case 115:
-#line 1486 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1486 "../CPU/parser.y"
     {
-                    r_type_inst ((yyvsp[-3]).i,
-                                 (yyvsp[-2]).i,
-                                 (yyvsp[-1]).i,
-                                 (((yyvsp[0]).i & 0x7) << 2));
+                    r_type_inst (yyvsp[-3].i,
+                                 yyvsp[-2].i,
+                                 yyvsp[-1].i,
+                                 ((yyvsp[0].i & 0x7) << 2));
 		}
-#line 3777 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3784 "parser_yacc.cpp"
     break;
 
   case 116:
-#line 1495 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1495 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_co_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3785 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3792 "parser_yacc.cpp"
     break;
 
   case 117:
-#line 1501 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1501 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3793 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3800 "parser_yacc.cpp"
     break;
 
   case 118:
-#line 1507 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1507 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, cc_to_rt (0, 0, 0));
+		  r_co_type_inst (yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, cc_to_rt (0, 0, 0));
 		}
-#line 3801 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3808 "parser_yacc.cpp"
     break;
 
   case 119:
-#line 1513 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1513 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, cc_to_rt ((yyvsp[0]).i, 0, 0));
+		  r_co_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, cc_to_rt (yyvsp[0].i, 0, 0));
 		}
-#line 3809 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3816 "parser_yacc.cpp"
     break;
 
   case 120:
-#line 1519 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1519 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3817 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3824 "parser_yacc.cpp"
     break;
 
   case 121:
-#line 1525 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1525 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-1]).i, (yyvsp[0]).i, 0, 0);
+		  r_type_inst (yyvsp[-1].i, yyvsp[0].i, 0, 0);
 		}
-#line 3825 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3832 "parser_yacc.cpp"
     break;
 
   case 122:
-#line 1531 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1531 "../CPU/parser.y"
     {
-		  r_type_inst ((yyvsp[-1]).i, 0, (yyvsp[0]).i, 0);
+		  r_type_inst (yyvsp[-1].i, 0, yyvsp[0].i, 0);
 		}
-#line 3833 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3840 "parser_yacc.cpp"
     break;
 
   case 123:
-#line 1538 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1538 "../CPU/parser.y"
     {
-		  if ((yyvsp[-2]).i == Y_MFC1_D_POP)
+		  if (yyvsp[-2].i == Y_MFC1_D_POP)
 		    {
-		      r_co_type_inst (Y_MFC1_OP, 0, (yyvsp[0]).i, (yyvsp[-1]).i);
-		      r_co_type_inst (Y_MFC1_OP, 0, (yyvsp[0]).i + 1, (yyvsp[-1]).i + 1);
+		      r_co_type_inst (Y_MFC1_OP, 0, yyvsp[0].i, yyvsp[-1].i);
+		      r_co_type_inst (Y_MFC1_OP, 0, yyvsp[0].i + 1, yyvsp[-1].i + 1);
 		    }
-		  else if ((yyvsp[-2]).i == Y_MTC1_D_POP)
+		  else if (yyvsp[-2].i == Y_MTC1_D_POP)
 		    {
-		      r_co_type_inst (Y_MTC1_OP, 0, (yyvsp[0]).i, (yyvsp[-1]).i);
-		      r_co_type_inst (Y_MTC1_OP, 0, (yyvsp[0]).i + 1, (yyvsp[-1]).i + 1);
+		      r_co_type_inst (Y_MTC1_OP, 0, yyvsp[0].i, yyvsp[-1].i);
+		      r_co_type_inst (Y_MTC1_OP, 0, yyvsp[0].i + 1, yyvsp[-1].i + 1);
 		    }
 		  else
-		    r_co_type_inst ((yyvsp[-2]).i, 0, (yyvsp[0]).i, (yyvsp[-1]).i);
+		    r_co_type_inst (yyvsp[-2].i, 0, yyvsp[0].i, yyvsp[-1].i);
 		}
-#line 3852 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3859 "parser_yacc.cpp"
     break;
 
   case 124:
-#line 1555 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1555 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3860 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3867 "parser_yacc.cpp"
     break;
 
   case 125:
-#line 1561 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1561 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-2]).i, 0, (yyvsp[0]).i, (yyvsp[-1]).i);
+		  r_co_type_inst (yyvsp[-2].i, 0, yyvsp[0].i, yyvsp[-1].i);
 		}
-#line 3868 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3875 "parser_yacc.cpp"
     break;
 
   case 126:
-#line 1567 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1567 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  r_co_type_inst (yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3876 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3883 "parser_yacc.cpp"
     break;
 
   case 127:
-#line 1573 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1573 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3884 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3891 "parser_yacc.cpp"
     break;
 
   case 128:
-#line 1579 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1579 "../CPU/parser.y"
     {
-		  r_co_type_inst ((yyvsp[-3]).i, (yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i);
+		  r_co_type_inst (yyvsp[-3].i, yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i);
 		}
-#line 3892 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3899 "parser_yacc.cpp"
     break;
 
   case 129:
-#line 1585 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1585 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3900 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3907 "parser_yacc.cpp"
     break;
 
   case 130:
-#line 1591 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1591 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3908 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3915 "parser_yacc.cpp"
     break;
 
   case 131:
-#line 1597 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1597 "../CPU/parser.y"
     {
-		  r_cond_type_inst ((yyvsp[-2]).i, (yyvsp[-1]).i, (yyvsp[0]).i, 0);
+		  r_cond_type_inst (yyvsp[-2].i, yyvsp[-1].i, yyvsp[0].i, 0);
 		}
-#line 3916 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3923 "parser_yacc.cpp"
     break;
 
   case 132:
-#line 1603 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1603 "../CPU/parser.y"
     {
-		  r_cond_type_inst ((yyvsp[-3]).i, (yyvsp[-1]).i, (yyvsp[0]).i, (yyvsp[-2]).i);
+		  r_cond_type_inst (yyvsp[-3].i, yyvsp[-1].i, yyvsp[0].i, yyvsp[-2].i);
 		}
-#line 3924 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3931 "parser_yacc.cpp"
     break;
 
   case 133:
-#line 1609 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1609 "../CPU/parser.y"
     {
 		  mips32_r2_inst ();
 		}
-#line 3932 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3939 "parser_yacc.cpp"
     break;
 
   case 134:
-#line 1615 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1615 "../CPU/parser.y"
     {
-		  i_type_inst_free ((yyvsp[-1]).i, 0, 0, (imm_expr *)(yyvsp[0]).p);
+		  i_type_inst_free (yyvsp[-1].i, 0, 0, (imm_expr *)yyvsp[0].p);
 		}
-#line 3940 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3947 "parser_yacc.cpp"
     break;
 
   case 152:
-#line 1647 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = Y_LDC1_OP; }
-#line 3946 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 1647 "../CPU/parser.y"
+    { yyval.i = Y_LDC1_OP; }
+#line 3953 "parser_yacc.cpp"
     break;
 
   case 153:
-#line 1648 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = Y_LWC1_OP; }
-#line 3952 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 1648 "../CPU/parser.y"
+    { yyval.i = Y_LWC1_OP; }
+#line 3959 "parser_yacc.cpp"
     break;
 
   case 166:
-#line 1667 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = Y_SDC1_OP; }
-#line 3958 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 1667 "../CPU/parser.y"
+    { yyval.i = Y_SDC1_OP; }
+#line 3965 "parser_yacc.cpp"
     break;
 
   case 167:
-#line 1668 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = Y_SWC1_OP; }
-#line 3964 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 1668 "../CPU/parser.y"
+    { yyval.i = Y_SWC1_OP; }
+#line 3971 "parser_yacc.cpp"
     break;
 
   case 173:
-#line 1681 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1681 "../CPU/parser.y"
     {
 #ifdef MIPS1
 			yywarn ("RFE should only be used when SPIM is compiled as a MIPS-I processor");
 #endif
 		}
-#line 3974 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3981 "parser_yacc.cpp"
     break;
 
   case 183:
-#line 1704 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1704 "../CPU/parser.y"
     {
 #ifdef MIPS1
 			yywarn ("ERET should only be used when SPIM is compiled as a MIPS32 processor");
 #endif
 		}
-#line 3984 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3991 "parser_yacc.cpp"
     break;
 
   case 281:
-#line 1870 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1870 "../CPU/parser.y"
     { yywarn ("Warning:IPS32 Rev 2 '.HB' extension is not implemented and is ignored"); }
-#line 3990 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 3997 "parser_yacc.cpp"
     break;
 
   case 284:
-#line 1873 "../CPU/parser.y" /* yacc.c:1646  */
+#line 1873 "../CPU/parser.y"
     { yywarn ("Warning:IPS32 Rev 2 '.HB' extension is not implemented and is ignored"); }
-#line 3996 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4003 "parser_yacc.cpp"
     break;
 
   case 457:
-#line 2105 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2105 "../CPU/parser.y"
     {
-		  align_data ((yyvsp[0]).i);
+		  align_data (yyvsp[0].i);
 		}
-#line 4004 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4011 "parser_yacc.cpp"
     break;
 
   case 458:
-#line 2109 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2109 "../CPU/parser.y"
     {null_term = false;}
-#line 4010 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4017 "parser_yacc.cpp"
     break;
 
   case 459:
-#line 2110 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2110 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4019 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4026 "parser_yacc.cpp"
     break;
 
   case 460:
-#line 2115 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2115 "../CPU/parser.y"
     {null_term = true;}
-#line 4025 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4032 "parser_yacc.cpp"
     break;
 
   case 461:
-#line 2116 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2116 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4034 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4041 "parser_yacc.cpp"
     break;
 
   case 464:
-#line 2128 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2128 "../CPU/parser.y"
     {store_op = (void(*)(void*))store_byte;}
-#line 4040 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4047 "parser_yacc.cpp"
     break;
 
   case 465:
-#line 2130 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2130 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4049 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4056 "parser_yacc.cpp"
     break;
 
   case 466:
-#line 2137 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2137 "../CPU/parser.y"
     {
 		  align_data (2);
-		  if (lookup_label ((char*)(yyvsp[-1]).p)->addr == 0)
+		  if (lookup_label ((char*)yyvsp[-1].p)->addr == 0)
 		  {
-		    (void)record_label ((char*)(yyvsp[-1]).p, current_data_pc (), 1);
-		    free ((char*)(yyvsp[-1]).p);
+		    (void)record_label ((char*)yyvsp[-1].p, current_data_pc (), 1);
+		    free ((char*)yyvsp[-1].p);
 		  }
-		  increment_data_pc ((yyvsp[0]).i);
+		  increment_data_pc (yyvsp[0].i);
 		}
-#line 4063 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4070 "parser_yacc.cpp"
     break;
 
   case 467:
-#line 2149 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2149 "../CPU/parser.y"
     {user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
 		}
-#line 4072 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4079 "parser_yacc.cpp"
     break;
 
   case 468:
-#line 2155 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2155 "../CPU/parser.y"
     {
 		  user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
-		  set_data_pc ((yyvsp[0]).i);
+		  set_data_pc (yyvsp[0].i);
 		}
-#line 4083 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4090 "parser_yacc.cpp"
     break;
 
   case 469:
-#line 2164 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2164 "../CPU/parser.y"
     {
                     user_kernel_data_segment (true);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
 		}
-#line 4093 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4100 "parser_yacc.cpp"
     break;
 
   case 470:
-#line 2171 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2171 "../CPU/parser.y"
     {
                     user_kernel_data_segment (true);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
-		  set_data_pc ((yyvsp[0]).i);
+		  set_data_pc (yyvsp[0].i);
 		}
-#line 4104 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4111 "parser_yacc.cpp"
     break;
 
   case 471:
-#line 2180 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2180 "../CPU/parser.y"
     {
 		  store_op = (void(*)(void*))store_double;
 		  if (data_dir) set_data_alignment (3);
 		}
-#line 4113 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4120 "parser_yacc.cpp"
     break;
 
   case 472:
-#line 2185 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2185 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4122 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4129 "parser_yacc.cpp"
     break;
 
   case 478:
-#line 2203 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2203 "../CPU/parser.y"
     {
-		  extern_directive ((char*)(yyvsp[-1]).p, (yyvsp[0]).i);
+		  extern_directive ((char*)yyvsp[-1].p, yyvsp[0].i);
 		}
-#line 4130 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4137 "parser_yacc.cpp"
     break;
 
   case 479:
-#line 2209 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2209 "../CPU/parser.y"
     {
 		  fatal_error ("File contains an .err directive\n");
 		}
-#line 4138 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4145 "parser_yacc.cpp"
     break;
 
   case 481:
-#line 2218 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2218 "../CPU/parser.y"
     {
 		  store_op = (void(*)(void*))store_float;
 		  if (data_dir) set_data_alignment (2);
 		}
-#line 4147 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4154 "parser_yacc.cpp"
     break;
 
   case 482:
-#line 2223 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2223 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4156 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4163 "parser_yacc.cpp"
     break;
 
   case 485:
-#line 2235 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2235 "../CPU/parser.y"
     {
-		  (void)make_label_global ((char*)(yyvsp[0]).p);
-		  free ((char*)(yyvsp[0]).p);
+		  (void)make_label_global ((char*)yyvsp[0].p);
+		  free ((char*)yyvsp[0].p);
 		}
-#line 4165 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4172 "parser_yacc.cpp"
     break;
 
   case 486:
-#line 2242 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2242 "../CPU/parser.y"
     {
 		  store_op = (void(*)(void*))store_half;
 		  if (data_dir) set_data_alignment (1);
 		}
-#line 4174 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4181 "parser_yacc.cpp"
     break;
 
   case 487:
-#line 2247 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2247 "../CPU/parser.y"
     {
 		  if (text_dir)
 		    yyerror ("Can't put data in text segment");
 		}
-#line 4183 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4190 "parser_yacc.cpp"
     break;
 
   case 488:
-#line 2254 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2254 "../CPU/parser.y"
     {
-		  (void)record_label ((char*)(yyvsp[0]).p,
+		  (void)record_label ((char*)yyvsp[0].p,
 				      text_dir ? current_text_pc () : current_data_pc (),
 				      1);
-		  free ((char*)(yyvsp[0]).p);
+		  free ((char*)yyvsp[0].p);
 		}
-#line 4194 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4201 "parser_yacc.cpp"
     break;
 
   case 489:
-#line 2263 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2263 "../CPU/parser.y"
     {
-		  lcomm_directive ((char*)(yyvsp[-1]).p, (yyvsp[0]).i);
+		  lcomm_directive ((char*)yyvsp[-1].p, yyvsp[0].i);
 		}
-#line 4202 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4209 "parser_yacc.cpp"
     break;
 
   case 495:
-#line 2281 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2281 "../CPU/parser.y"
     {
 		  yyerror ("Warning: repeat directive ignored");
 		}
-#line 4210 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4217 "parser_yacc.cpp"
     break;
 
   case 496:
-#line 2287 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2287 "../CPU/parser.y"
     {
 		  user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
 		}
-#line 4220 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4227 "parser_yacc.cpp"
     break;
 
   case 497:
-#line 2294 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2294 "../CPU/parser.y"
     {
 		  user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
-		  set_data_pc ((yyvsp[0]).i);
+		  set_data_pc (yyvsp[0].i);
 		}
-#line 4231 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4238 "parser_yacc.cpp"
     break;
 
   case 498:
-#line 2303 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2303 "../CPU/parser.y"
     {
 		  user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
 		}
-#line 4241 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4248 "parser_yacc.cpp"
     break;
 
   case 499:
-#line 2310 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2310 "../CPU/parser.y"
     {
 		  user_kernel_data_segment (false);
 		  data_dir = true; text_dir = false;
 		  enable_data_alignment ();
-		  set_data_pc ((yyvsp[0]).i);
+		  set_data_pc (yyvsp[0].i);
 		}
-#line 4252 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4259 "parser_yacc.cpp"
     break;
 
   case 500:
-#line 2319 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2319 "../CPU/parser.y"
     {
-		  if (streq ((char*)(yyvsp[0]).p, "noat"))
+		  if (streq ((char*)yyvsp[0].p, "noat"))
 		    noat_flag = true;
-		  else if (streq ((char*)(yyvsp[0]).p, "at"))
+		  else if (streq ((char*)yyvsp[0].p, "at"))
 		    noat_flag = false;
 		}
-#line 4263 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4270 "parser_yacc.cpp"
     break;
 
   case 501:
-#line 2328 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2328 "../CPU/parser.y"
     {
 		  if (data_dir)
-		    increment_data_pc ((yyvsp[0]).i);
+		    increment_data_pc (yyvsp[0].i);
 		  else if (text_dir)
-		    increment_text_pc ((yyvsp[0]).i);
+		    increment_text_pc (yyvsp[0].i);
 		}
-#line 4274 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4281 "parser_yacc.cpp"
     break;
 
   case 502:
-#line 2337 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2337 "../CPU/parser.y"
     {
 		  yyerror ("Warning: struct directive ignored");
 		}
-#line 4282 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4289 "parser_yacc.cpp"
     break;
 
   case 503:
-#line 2343 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2343 "../CPU/parser.y"
     {
 		  user_kernel_text_segment (false);
 		  data_dir = false; text_dir = true;
 		  enable_data_alignment ();
 		}
-#line 4292 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4299 "parser_yacc.cpp"
     break;
 
   case 504:
-#line 2350 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2350 "../CPU/parser.y"
     {
 		  user_kernel_text_segment (false);
 		  data_dir = false; text_dir = true;
 		  enable_data_alignment ();
-		  set_text_pc ((yyvsp[0]).i);
+		  set_text_pc (yyvsp[0].i);
 		}
-#line 4303 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4310 "parser_yacc.cpp"
     break;
 
   case 505:
-#line 2359 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2359 "../CPU/parser.y"
     {
 		  user_kernel_text_segment (true);
 		  data_dir = false; text_dir = true;
 		  enable_data_alignment ();
 		}
-#line 4313 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4320 "parser_yacc.cpp"
     break;
 
   case 506:
-#line 2366 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2366 "../CPU/parser.y"
     {
 		  user_kernel_text_segment (true);
 		  data_dir = false; text_dir = true;
 		  enable_data_alignment ();
-		  set_text_pc ((yyvsp[0]).i);
+		  set_text_pc (yyvsp[0].i);
 		}
-#line 4324 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4331 "parser_yacc.cpp"
     break;
 
   case 509:
-#line 2380 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2380 "../CPU/parser.y"
     {
 		  store_op = (void(*)(void*))store_word_data;
 		  if (data_dir) set_data_alignment (2);
 		}
-#line 4333 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4340 "parser_yacc.cpp"
     break;
 
   case 511:
-#line 2390 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2390 "../CPU/parser.y"
     {only_id = 1;}
-#line 4339 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4346 "parser_yacc.cpp"
     break;
 
   case 512:
-#line 2390 "../CPU/parser.y" /* yacc.c:1646  */
-    {only_id = 0; (yyval) = (yyvsp[0]);}
-#line 4345 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2390 "../CPU/parser.y"
+    {only_id = 0; yyval = yyvsp[0];}
+#line 4352 "parser_yacc.cpp"
     break;
 
   case 513:
-#line 2393 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2393 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr (0, NULL, (yyvsp[-1]).i);
+		  yyval.p = make_addr_expr (0, NULL, yyvsp[-1].i);
 		}
-#line 4353 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4360 "parser_yacc.cpp"
     break;
 
   case 514:
-#line 2398 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2398 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr ((yyvsp[0]).i, NULL, 0);
+		  yyval.p = make_addr_expr (yyvsp[0].i, NULL, 0);
 		}
-#line 4361 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4368 "parser_yacc.cpp"
     break;
 
   case 515:
-#line 2403 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2403 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr ((yyvsp[-3]).i, NULL, (yyvsp[-1]).i);
+		  yyval.p = make_addr_expr (yyvsp[-3].i, NULL, yyvsp[-1].i);
 		}
-#line 4369 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4376 "parser_yacc.cpp"
     break;
 
   case 516:
-#line 2408 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2408 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr (0, (char*)(yyvsp[0]).p, 0);
-		  free ((char*)(yyvsp[0]).p);
+		  yyval.p = make_addr_expr (0, (char*)yyvsp[0].p, 0);
+		  free ((char*)yyvsp[0].p);
 		}
-#line 4378 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4385 "parser_yacc.cpp"
     break;
 
   case 517:
-#line 2414 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2414 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr (0, (char*)(yyvsp[-3]).p, (yyvsp[-1]).i);
-		  free ((char*)(yyvsp[-3]).p);
+		  yyval.p = make_addr_expr (0, (char*)yyvsp[-3].p, yyvsp[-1].i);
+		  free ((char*)yyvsp[-3].p);
 		}
-#line 4387 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4394 "parser_yacc.cpp"
     break;
 
   case 518:
-#line 2420 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2420 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr ((yyvsp[0]).i, (char*)(yyvsp[-2]).p, 0);
-		  free ((char*)(yyvsp[-2]).p);
+		  yyval.p = make_addr_expr (yyvsp[0].i, (char*)yyvsp[-2].p, 0);
+		  free ((char*)yyvsp[-2].p);
 		}
-#line 4396 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4403 "parser_yacc.cpp"
     break;
 
   case 519:
-#line 2426 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2426 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr ((yyvsp[-2]).i, (char*)(yyvsp[0]).p, 0);
+		  yyval.p = make_addr_expr (yyvsp[-2].i, (char*)yyvsp[0].p, 0);
 		}
-#line 4404 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4411 "parser_yacc.cpp"
     break;
 
   case 520:
-#line 2431 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2431 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr (- (yyvsp[0]).i, (char*)(yyvsp[-2]).p, 0);
-		  free ((char*)(yyvsp[-2]).p);
+		  yyval.p = make_addr_expr (- yyvsp[0].i, (char*)yyvsp[-2].p, 0);
+		  free ((char*)yyvsp[-2].p);
 		}
-#line 4413 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4420 "parser_yacc.cpp"
     break;
 
   case 521:
-#line 2437 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2437 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr ((yyvsp[-3]).i, (char*)(yyvsp[-5]).p, (yyvsp[-1]).i);
-		  free ((char*)(yyvsp[-5]).p);
+		  yyval.p = make_addr_expr (yyvsp[-3].i, (char*)yyvsp[-5].p, yyvsp[-1].i);
+		  free ((char*)yyvsp[-5].p);
 		}
-#line 4422 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4429 "parser_yacc.cpp"
     break;
 
   case 522:
-#line 2443 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2443 "../CPU/parser.y"
     {
-		  (yyval).p = make_addr_expr (- (yyvsp[-3]).i, (char*)(yyvsp[-5]).p, (yyvsp[-1]).i);
-		  free ((char*)(yyvsp[-5]).p);
+		  yyval.p = make_addr_expr (- yyvsp[-3].i, (char*)yyvsp[-5].p, yyvsp[-1].i);
+		  free ((char*)yyvsp[-5].p);
 		}
-#line 4431 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4438 "parser_yacc.cpp"
     break;
 
   case 523:
-#line 2450 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2450 "../CPU/parser.y"
     {only_id = 1;}
-#line 4437 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4444 "parser_yacc.cpp"
     break;
 
   case 524:
-#line 2450 "../CPU/parser.y" /* yacc.c:1646  */
-    {only_id = 0; (yyval) = (yyvsp[0]);}
-#line 4443 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2450 "../CPU/parser.y"
+    {only_id = 0; yyval = yyvsp[0];}
+#line 4450 "parser_yacc.cpp"
     break;
 
   case 525:
-#line 2453 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2453 "../CPU/parser.y"
     {
-                  check_imm_range ((imm_expr*)(yyvsp[0]).p, IMM_MIN, IMM_MAX);
-		  (yyval) = (yyvsp[0]);
+                  check_imm_range ((imm_expr*)yyvsp[0].p, IMM_MIN, IMM_MAX);
+		  yyval = yyvsp[0];
 		}
-#line 4452 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4459 "parser_yacc.cpp"
     break;
 
   case 526:
-#line 2459 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2459 "../CPU/parser.y"
     {
-                  check_uimm_range ((imm_expr*)(yyvsp[0]).p, UIMM_MIN, UIMM_MAX);
-		  (yyval) = (yyvsp[0]);
+                  check_uimm_range ((imm_expr*)yyvsp[0].p, UIMM_MIN, UIMM_MAX);
+		  yyval = yyvsp[0];
 		}
-#line 4461 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4468 "parser_yacc.cpp"
     break;
 
   case 527:
-#line 2466 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2466 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr ((yyvsp[0]).i, NULL, false);
+		  yyval.p = make_imm_expr (yyvsp[0].i, NULL, false);
 		}
-#line 4469 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4476 "parser_yacc.cpp"
     break;
 
   case 528:
-#line 2471 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2471 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr ((yyvsp[-4]).i >> (yyvsp[0]).i, NULL, false);
+		  yyval.p = make_imm_expr (yyvsp[-4].i >> yyvsp[0].i, NULL, false);
 		}
-#line 4477 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4484 "parser_yacc.cpp"
     break;
 
   case 529:
-#line 2476 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2476 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr (0, (char*)(yyvsp[0]).p, false);
+		  yyval.p = make_imm_expr (0, (char*)yyvsp[0].p, false);
 		}
-#line 4485 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4492 "parser_yacc.cpp"
     break;
 
   case 530:
-#line 2481 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2481 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr ((yyvsp[0]).i, (char*)(yyvsp[-2]).p, false);
-		  free ((char*)(yyvsp[-2]).p);
+		  yyval.p = make_imm_expr (yyvsp[0].i, (char*)yyvsp[-2].p, false);
+		  free ((char*)yyvsp[-2].p);
 		}
-#line 4494 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4501 "parser_yacc.cpp"
     break;
 
   case 531:
-#line 2487 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2487 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr (- (yyvsp[0]).i, (char*)(yyvsp[-2]).p, false);
-		  free ((char*)(yyvsp[-2]).p);
+		  yyval.p = make_imm_expr (- yyvsp[0].i, (char*)yyvsp[-2].p, false);
+		  free ((char*)yyvsp[-2].p);
 		}
-#line 4503 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4510 "parser_yacc.cpp"
     break;
 
   case 533:
-#line 2497 "../CPU/parser.y" /* yacc.c:1646  */
-    {(yyval).i = (yyvsp[-2]).i + (yyvsp[0]).i;}
-#line 4509 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2497 "../CPU/parser.y"
+    {yyval.i = yyvsp[-2].i + yyvsp[0].i;}
+#line 4516 "parser_yacc.cpp"
     break;
 
   case 534:
-#line 2500 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2500 "../CPU/parser.y"
     {
 		  /* This is actually: Y_INT '-' Y_INT, since the binary
 		     subtract operator gets scanned as a unary negation
 		     operator. */
-		  if ((yyvsp[0]).i >= 0) yyerror ("Syntax error");
-		  (yyval).i = (yyvsp[-1]).i - -(yyvsp[0]).i;
+		  if (yyvsp[0].i >= 0) yyerror ("Syntax error");
+		  yyval.i = yyvsp[-1].i - -yyvsp[0].i;
 		}
-#line 4521 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4528 "parser_yacc.cpp"
     break;
 
   case 539:
-#line 2518 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2518 "../CPU/parser.y"
     {
-		  if ((yyvsp[0]).i < 0 || (yyvsp[0]).i > 31)
+		  if (yyvsp[0].i < 0 || yyvsp[0].i > 31)
 		    yyerror ("Register number out of range");
-		  if ((yyvsp[0]).i == 1 && !bare_machine && !noat_flag)
+		  if (yyvsp[0].i == 1 && !bare_machine && !noat_flag)
 		    yyerror ("Register 1 is reserved for assembler");
-		  (yyval) = (yyvsp[0]);
+		  yyval = yyvsp[0];
 		}
-#line 4533 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4540 "parser_yacc.cpp"
     break;
 
   case 543:
-#line 2533 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2533 "../CPU/parser.y"
     {
-		  if ((yyvsp[0]).i < 0 || (yyvsp[0]).i > 31)
+		  if (yyvsp[0].i < 0 || yyvsp[0].i > 31)
 		    yyerror ("FP register number out of range");
-		  (yyval) = (yyvsp[0]);
+		  yyval = yyvsp[0];
 		}
-#line 4543 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4550 "parser_yacc.cpp"
     break;
 
   case 544:
-#line 2541 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2541 "../CPU/parser.y"
     {
-		  if ((yyvsp[0]).i < 0 || (yyvsp[0]).i > 7)
+		  if (yyvsp[0].i < 0 || yyvsp[0].i > 7)
 		    yyerror ("CC register number out of range");
-		  (yyval) = (yyvsp[0]);
+		  yyval = yyvsp[0];
 		}
-#line 4553 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4560 "parser_yacc.cpp"
     break;
 
   case 547:
-#line 2556 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2556 "../CPU/parser.y"
     {
-		  (yyval).p = make_imm_expr (-(int)current_text_pc (), (char*)(yyvsp[0]).p, true);
+		  yyval.p = make_imm_expr (-(int)current_text_pc (), (char*)yyvsp[0].p, true);
 		}
-#line 4561 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4568 "parser_yacc.cpp"
     break;
 
   case 550:
-#line 2567 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2567 "../CPU/parser.y"
     {
-		  store_string ((char*)(yyvsp[0]).p, strlen((char*)(yyvsp[0]).p), null_term);
-		  free ((char*)(yyvsp[0]).p);
+		  store_string ((char*)yyvsp[0].p, strlen((char*)yyvsp[0].p), null_term);
+		  free ((char*)yyvsp[0].p);
 		}
-#line 4570 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4577 "parser_yacc.cpp"
     break;
 
   case 551:
-#line 2572 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2572 "../CPU/parser.y"
     {
 		  int i;
 
-		  for (i = 0; i < (yyvsp[0]).i; i ++)
-		    store_string ((char*)(yyvsp[-2]).p, strlen((char*)(yyvsp[-2]).p), null_term);
-		  free ((char*)(yyvsp[-2]).p);
+		  for (i = 0; i < yyvsp[0].i; i ++)
+		    store_string ((char*)yyvsp[-2].p, strlen((char*)yyvsp[-2].p), null_term);
+		  free ((char*)yyvsp[-2].p);
 		}
-#line 4582 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4589 "parser_yacc.cpp"
     break;
 
   case 552:
-#line 2582 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2582 "../CPU/parser.y"
     {only_id = 1;}
-#line 4588 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4595 "parser_yacc.cpp"
     break;
 
   case 553:
-#line 2582 "../CPU/parser.y" /* yacc.c:1646  */
-    {only_id = 0; (yyval) = (yyvsp[0]);}
-#line 4594 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2582 "../CPU/parser.y"
+    {only_id = 0; yyval = yyvsp[0];}
+#line 4601 "parser_yacc.cpp"
     break;
 
   case 555:
-#line 2588 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i =  (yyvsp[-2]).i + (yyvsp[0]).i; }
-#line 4600 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2588 "../CPU/parser.y"
+    { yyval.i =  yyvsp[-2].i + yyvsp[0].i; }
+#line 4607 "parser_yacc.cpp"
     break;
 
   case 556:
-#line 2591 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i =  (yyvsp[-2]).i - (yyvsp[0]).i; }
-#line 4606 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2591 "../CPU/parser.y"
+    { yyval.i =  yyvsp[-2].i - yyvsp[0].i; }
+#line 4613 "parser_yacc.cpp"
     break;
 
   case 558:
-#line 2598 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = (yyvsp[-2]).i * (yyvsp[0]).i; }
-#line 4612 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2598 "../CPU/parser.y"
+    { yyval.i = yyvsp[-2].i * yyvsp[0].i; }
+#line 4619 "parser_yacc.cpp"
     break;
 
   case 559:
-#line 2601 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = (yyvsp[-2]).i / (yyvsp[0]).i; }
-#line 4618 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2601 "../CPU/parser.y"
+    { yyval.i = yyvsp[-2].i / yyvsp[0].i; }
+#line 4625 "parser_yacc.cpp"
     break;
 
   case 561:
-#line 2607 "../CPU/parser.y" /* yacc.c:1646  */
-    { (yyval).i = (yyvsp[-1]).i; }
-#line 4624 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2607 "../CPU/parser.y"
+    { yyval.i = yyvsp[-1].i; }
+#line 4631 "parser_yacc.cpp"
     break;
 
   case 562:
-#line 2610 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2610 "../CPU/parser.y"
     {
-		  label *l = lookup_label ((char*)(yyvsp[0]).p);
+		  label *l = lookup_label ((char*)yyvsp[0].p);
   		  if (l->addr == 0)
                     {
                       record_data_uses_symbol (current_data_pc (), l);
-                      (yyval).p = NULL;
+                      yyval.p = NULL;
                     }
                   else
-                    (yyval).i = l->addr;
+                    yyval.i = l->addr;
 		}
-#line 4639 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4646 "parser_yacc.cpp"
     break;
 
   case 563:
-#line 2623 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2623 "../CPU/parser.y"
     {
-		  store_op ((yyvsp[0]).p);
+		  store_op (yyvsp[0].p);
 		}
-#line 4647 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4654 "parser_yacc.cpp"
     break;
 
   case 564:
-#line 2627 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2627 "../CPU/parser.y"
     {
-		  store_op ((yyvsp[0]).p);
+		  store_op (yyvsp[0].p);
 		}
-#line 4655 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4662 "parser_yacc.cpp"
     break;
 
   case 565:
-#line 2631 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2631 "../CPU/parser.y"
     {
 		  int i;
 
-		  for (i = 0; i < (yyvsp[0]).i; i ++)
-		    store_op ((yyvsp[-2]).p);
+		  for (i = 0; i < yyvsp[0].i; i ++)
+		    store_op (yyvsp[-2].p);
 		}
-#line 4666 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4673 "parser_yacc.cpp"
     break;
 
   case 566:
-#line 2641 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2641 "../CPU/parser.y"
     {
-		  store_op ((yyvsp[0]).p);
+		  store_op (yyvsp[0].p);
 		}
-#line 4674 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4681 "parser_yacc.cpp"
     break;
 
   case 567:
-#line 2645 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2645 "../CPU/parser.y"
     {
-		  store_op ((yyvsp[0]).p);
+		  store_op (yyvsp[0].p);
 		}
-#line 4682 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4689 "parser_yacc.cpp"
     break;
 
   case 568:
-#line 2651 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2651 "../CPU/parser.y"
     {only_id = 1;}
-#line 4688 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4695 "parser_yacc.cpp"
     break;
 
   case 569:
-#line 2651 "../CPU/parser.y" /* yacc.c:1646  */
-    {only_id = 0; (yyval) = (yyvsp[0]);}
-#line 4694 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2651 "../CPU/parser.y"
+    {only_id = 0; yyval = yyvsp[0];}
+#line 4701 "parser_yacc.cpp"
     break;
 
   case 571:
-#line 2654 "../CPU/parser.y" /* yacc.c:1646  */
-    {(yyval).p = (void*)NULL;}
-#line 4700 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2654 "../CPU/parser.y"
+    {yyval.p = (void*)NULL;}
+#line 4707 "parser_yacc.cpp"
     break;
 
   case 572:
-#line 2658 "../CPU/parser.y" /* yacc.c:1646  */
+#line 2658 "../CPU/parser.y"
     {only_id = 1;}
-#line 4706 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4713 "parser_yacc.cpp"
     break;
 
   case 573:
-#line 2658 "../CPU/parser.y" /* yacc.c:1646  */
-    {only_id = 0; (yyval) = (yyvsp[0]);}
-#line 4712 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 2658 "../CPU/parser.y"
+    {only_id = 0; yyval = yyvsp[0];}
+#line 4719 "parser_yacc.cpp"
     break;
 
 
-#line 4716 "parser_yacc.cpp" /* yacc.c:1646  */
+#line 4723 "parser_yacc.cpp"
+
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -4737,14 +4745,13 @@ yyreduce:
   /* Now 'shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
      number reduced by.  */
-
-  yyn = yyr1[yyn];
-
-  yystate = yypgoto[yyn - YYNTOKENS] + *yyssp;
-  if (0 <= yystate && yystate <= YYLAST && yycheck[yystate] == *yyssp)
-    yystate = yytable[yystate];
-  else
-    yystate = yydefgoto[yyn - YYNTOKENS];
+  {
+    const int yylhs = yyr1[yyn] - YYNTOKENS;
+    const int yyi = yypgoto[yylhs] + *yyssp;
+    yystate = (0 <= yyi && yyi <= YYLAST && yycheck[yyi] == *yyssp
+               ? yytable[yyi]
+               : yydefgoto[yylhs]);
+  }
 
   goto yynewstate;
 
@@ -4827,12 +4834,10 @@ yyerrlab:
 | yyerrorlab -- error raised explicitly by YYERROR.  |
 `---------------------------------------------------*/
 yyerrorlab:
-
-  /* Pacify compilers like GCC when the user code never invokes
-     YYERROR and the label yyerrorlab therefore never appears in user
-     code.  */
-  if (/*CONSTCOND*/ 0)
-     goto yyerrorlab;
+  /* Pacify compilers when the user code never invokes YYERROR and the
+     label yyerrorlab therefore never appears in user code.  */
+  if (0)
+    YYERROR;
 
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
@@ -4894,12 +4899,14 @@ yyacceptlab:
   yyresult = 0;
   goto yyreturn;
 
+
 /*-----------------------------------.
 | yyabortlab -- YYABORT comes here.  |
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
   goto yyreturn;
+
 
 #if !defined yyoverflow || YYERROR_VERBOSE
 /*-------------------------------------------------.
@@ -4911,6 +4918,10 @@ yyexhaustedlab:
   /* Fall through.  */
 #endif
 
+
+/*-----------------------------------------------------.
+| yyreturn -- parsing is finished, return the result.  |
+`-----------------------------------------------------*/
 yyreturn:
   if (yychar != YYEMPTY)
     {
@@ -4940,7 +4951,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 2661 "../CPU/parser.y" /* yacc.c:1906  */
+#line 2661 "../CPU/parser.y"
 
 
 /* Maintain and update the address of labels for the current line. */

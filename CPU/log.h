@@ -1,17 +1,15 @@
-#ifndef DEF_H
-#define DEF_H
+#ifndef LOG_H
+#define LOG_H
 
 #include <assert.h>
 #include <stdarg.h>
 
-FILE * logFdOut = stdout;
-
 #define info(...) \
 { \
     fprintf(stderr, "[info] "); \
-    fprintf(logFdOut, __VA_ARGS__); \
-    fprintf(logFdOut, "\n"); \
-    fflush(logFdOut); \
+    fprintf(stdout, __VA_ARGS__); \
+    fprintf(stdout, "\n"); \
+    fflush(stdout); \
 }
 
 #define assert_msg(...) \
@@ -23,4 +21,4 @@ FILE * logFdOut = stdout;
     assert(false); \
 }
 
-#endif  // DEF_H
+#endif  // LOG_H
