@@ -14,7 +14,7 @@ enum MailBoxNode {
     WB_Stage,
 };
 
-class MailBox {;
+class MailBox {
 private:
     std::unordered_map<std::string, uint32_t> mailmap;
     const int MAX_MAIL_SIZE = 5;
